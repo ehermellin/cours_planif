@@ -1,0 +1,43 @@
+% Name : beamercolorthemecs.sty
+
+%--------------------------------------------------------------
+% Mandatory part
+%--------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemecs}[cs color theme]
+
+% define colors
+\definecolor{light-gray}{RGB}{245,245,245}
+
+\definecolor{CS-1}{RGB}{156,0,60}
+\definecolor{CS-1light}{RGB}{220,153,153}
+\definecolor{CS-2}{RGB}{132,120,148}
+\definecolor{CS-3}{RGB}{31,30,33}
+
+% Settings
+\setbeamercolor{titlepage}{fg=CS-3,bg=light-gray}
+\setbeamercolor{background canvas}{bg=light-gray!5}
+\setbeamercolor{background}{bg=light-gray!5}
+\setbeamercolor{normal text}{fg=black!75,bg=light-gray!5}
+\setbeamercolor*{item}{fg=CS-2}
+\setbeamercolor{frametitle}{bg=CS-1,fg=light-gray!5}
+\setbeamercolor{alerted text}{fg=CS-1}
+\setbeamercolor{section in head/foot}{fg=white, bg=CS-1}
+\setbeamercolor{footlinecolor}{fg=white, bg=CS-1}
+\setbeamercolor{section in toc}{fg=CS-1}
+\setbeamercolor{subsection in toc}{fg=CS-2}
+
+% Block
+\setbeamercolor{block title}{fg=CS-1}
+\setbeamercolor{block body}{fg=CS-1!50!black,bg=light-gray!5!white}
+% Example block
+\setbeamercolor{block title example}{fg=green!60!black}
+\setbeamercolor{block body example}{fg=green!60!black}
+% Alert block
+\setbeamercolor{block title alerted}{bg=red!80!black,fg=gray!12!white}
+\setbeamercolor{block body alerted}{fg=red!80!black, bg=gray!12!white }
+
+%palettes
+\setbeamercolor{palette primary}{fg=light-gray!5,bg=CS-1}
+\setbeamercolor{palette secondary}{bg=light-gray!5,fg=CS-2}
+\setbeamercolor{palette tertiary}{bg=CS-1,fg=CS-2}

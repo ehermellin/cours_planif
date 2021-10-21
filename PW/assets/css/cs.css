@@ -1,0 +1,303 @@
+:link {
+    color: rgb(132,120,148);
+}
+:visited {
+    color: rgb(132,120,148);
+}
+
+hr {
+    color: rgb(45,0,45);
+    height: 3px;
+}
+
+body {
+	width: 80%;
+    margin-left: 10%;
+    font-family: arial, sans-serif;
+    background: white;
+}
+
+th {
+    font-family: arial, sans-serif;
+}
+
+td {
+    font-family: arial, sans-serif;
+}
+
+div.banner {
+    text-align: center;
+    margin-left: -4%;
+    font-size: 150%;
+}
+
+div.cs {
+    margin-top: 0em;
+    margin-bottom: 0em;
+    padding-right: 1em;
+    font-size: 75%;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background: rgb(255,255,255);
+}
+
+div.version {
+    margin-left: -4%;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    padding-right: 1em;
+    font-size: 75%;
+    font-weight: bold;
+    text-align: right;
+    color: rgb(0, 0, 0);
+    background: rgb(255,255,255);
+}
+
+h1 {
+    margin-bottom: 0em;
+    font-size: 150%;
+    color: rgb(0, 0, 0);
+    background: rgb(255,255,255);
+    padding: 0.3em;
+}
+
+h2 {
+    margin-left: -2%;
+    font-size: 125%;
+    color: rgb(255, 255, 255);
+    background: rgb(156,0,60);
+    padding: 0.3em;
+}
+
+h3 {
+    font-size: 125%;
+	color: rgb(255, 255, 255);
+    background: rgb(220,153,153);
+    padding: 0.2em;
+}
+
+h4 {
+    font-size: 110% ;
+	color: rgb(255, 255, 255);
+    background: rgb(132,120,148);
+    padding: 0.125em;
+}
+
+h3 > a {
+    display: block;
+    clear: both;
+}
+
+a.section-anchor {
+    text-decoration: none;
+    padding: 0;
+    color: inherit;
+}
+
+.since:before {
+    content: "Since ";
+}
+
+.since {
+    padding: 0px 6px;
+    background-color: rgb(210,210,210);
+    border: 1px solid rgb(150,150,150);
+    font-weight: normal;
+    font-style: italic;
+    float: right;
+}
+
+span.prim_example {
+    display: block;
+}
+
+.block {
+    display: block;
+}
+
+.smallfont {
+    font-size: small;
+}
+
+.xsmallfont {
+    font-size: x-small;
+}
+
+.xlargefont {
+    font-size: x-large;
+}
+
+.largefont {
+    font-size: large;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.centertext {
+    text-align: center;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+th {
+    padding: 5px;
+}
+
+td {
+    padding: 5px;
+}
+
+td.headerSpanningTable {
+    border-top:none;
+    border-left:double windowtext 4.5pt;
+    border-bottom:solid windowtext .5pt;
+    border-right:none;
+}
+
+td.descriptionRight {
+    border-top: none;
+    border-left: none;
+    border-bottom:solid windowtext .5pt;
+    border-right:double windowtext 4.5pt;
+}
+
+td.emptyLeft {
+    border-top:none;
+    border-left:double windowtext 4.5pt;
+    border-bottom:solid windowtext .5pt;
+    border-right:solid windowtext .5pt;
+}
+
+td.interior {
+    border-bottom:solid windowtext .5pt;
+    border-right:solid windowtext .5pt;
+    border-top:none;
+    border-left: none;
+}
+
+td.nameCenter {
+    border-top: none;
+    border-left: none;
+    border-bottom:solid windowtext .5pt;
+    border-right:solid windowtext .5pt;
+}
+
+table.interfacetable > tr > td {
+    vertical-align: top;
+    padding:0in 5.4pt 0in 5.4pt;
+}
+
+.tocborder {
+    border-width: 4px;
+    border-style: double;
+    border-color: #444;
+    padding: 0.4em;
+}
+
+.quotation {
+    width: 90%;
+    padding: 1em;
+    margin-left: 1em;
+	color: rgb(50, 50, 50);
+    border-left: 2px solid rgb(220,153,153);
+}
+
+.warning {
+    width: 90%;
+    padding: 1em;
+    margin-left: 1em;
+	color: rgb(156,0,60);
+    border-left: 2px double rgb(156,0,60);
+    font-weight: bold;
+}
+
+.answer {
+    width: 90%;
+    padding: 1em;
+    margin-left: 1em;
+	color: rgb(9,106,9);
+    border-left: 2px double rgb(9,106,9);
+    font-weight: bold;
+}
+
+blockquote {
+    width: 90%;
+    padding: 1em;
+    margin-left: 1em;
+    border-left: 2px double rgb(220,153,153);
+    background: rgb(240, 240, 240);
+}
+
+blockquote > p:first-child:not(.question) {
+    display: inline;
+}
+
+span.code {
+	font-family: monospace;
+	font-size: 125%;
+	background: rgb(225,225,225);
+}
+
+pre {
+	width: 90%;
+    margin-left: 2em;
+    background: rgb(225,225,225);
+    font-family: monospace;
+    padding: 1em;
+}
+
+pre.nohighlight{
+	background: rgb(255,255,255);
+}
+
+li {
+	width: 90%;
+}
+
+p {
+	width: 90%;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+p.question {
+    margin-left: 2em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+img.screenshot {
+    display: inherit;
+    margin: 1em auto;
+}
+
+td.rightalign {vertical-align: top; text-align: right;}
+td.centeralign {vertical-align: top; text-align: center;}
+
+h5.minor-section-header {
+    font-size: 105% ;
+    font-weight: bold;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+ul.no-bullets {
+    list-style-type: none;
+}
+
+table.line-border {
+    border-collapse: collapse;
+}
+
+table.line-border > tbody > tr {
+    border-top: solid black 1px;
+}
+
+.anon-procedure-table > thead > tr > th, .anon-procedure-table > tbody > tr > td {
+    padding-left: 10px;
+    padding-right: 10px;
+}

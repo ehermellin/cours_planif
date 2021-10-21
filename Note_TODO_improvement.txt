@@ -1,0 +1,16 @@
+----- Général
+* Formation sur 3 jours avec derniers jours SMA + Planif avec TP (voir section TP)
+
+----- TP
+* comparaison entre plusieurs algorithme de résolutions
+* ne pas fournir les solutions tout de suite, sinon les gens ne cherchent pas
+
+----- en vrac
+idée de TP
+=> tp: agents autonomes communicants, en interaction avec un environnement
+Pour faire le lien avec les deux sessions SMA  avec interactions, communications et planifications!
+Ajouter communications dans TP avec labyrinthe 
+
+PDDL4J pas vraiment adapté pour les besoins des équipes 
+
+https://www.codingame.com/ide/puzzle/a-star-exercise

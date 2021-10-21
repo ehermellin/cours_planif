@@ -1,0 +1,5132 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 778 173
+%%Creator: yExport 1.5
+%%Producer: org.freehep.graphicsio.ps.EPSGraphics2D Revision: 12753 
+%%For: 
+%%Title: 
+%%CreationDate: Tuesday, May 26, 2020 at 10:14:21 AM Central European Summer Time
+%%LanguageLevel: 3
+%%EndComments
+%%BeginProlog
+100 dict dup begin
+
+%
+% File: org/freehep/graphicsio.ps/PSProlog.txt
+% Author: Charles Loomis
+%
+
+% Redefinitions which save some space in the output file.  These are also
+% the same as the PDF operators.
+/q {gsave} def
+/Q {grestore} def
+
+/n {newpath} def
+/m {moveto} def
+/l {lineto} def
+/c {curveto} def
+/h {closepath} def
+
+/re {4 -2 roll moveto
+     dup 0 exch rlineto exch 0 rlineto
+     neg 0 exch rlineto closepath} def
+
+/f {fill} def
+/f* {eofill} def
+/F {gsave vg&FC fill grestore} def
+/F* {gsave vg&FC eofill grestore} def
+
+/s {closepath stroke} def
+/S {stroke} def
+
+/b {closepath gsave vg&FC fill grestore
+    gsave stroke grestore newpath} def
+/B {gsave vg&FC fill grestore gsave stroke grestore newpath} def
+/b* {closepath gsave vg&FC eofill grestore
+    gsave stroke grestore newpath} def
+/B* {gsave vg&FC eofill grestore gsave stroke grestore newpath} def
+
+/g {1 array astore /vg&fcolor exch def} def
+/G {setgray} def
+/k {4 array astore /vg&fcolor exch def} def
+/K {setcmykcolor} def
+/rg {3 array astore /vg&fcolor exch def} def
+/RG {setrgbcolor} def
+
+% Initialize the fill color.
+0 0 0 rg
+
+/vg&FC {mark vg&fcolor aload pop
+        counttomark 1 eq {G} if
+        counttomark 3 eq {RG} if
+        counttomark 4 eq {K} if
+        cleartomark } def
+
+/vg&DFC {/vg&fcolor exch def} def
+
+/vg&C {mark exch aload pop
+       counttomark 1 eq {G} if
+       counttomark 3 eq {RG} if
+       counttomark 4 eq {K} if
+       cleartomark } def
+
+/w {setlinewidth} def
+/j {setlinejoin} def
+/J {setlinecap} def
+/M {setmiterlimit} def
+/d {setdash} def
+/i {setflat} def
+
+/W {clip} def
+/W* {eoclip} def
+
+% Setup the default graphics state.
+% (black; 1 pt. linewidth; miter join; butt-ends; solid)
+/defaultGraphicsState {0 g 1 w 0 j 0 J [] 0 d} def
+
+% Emulation of the rectangle operators for PostScript implementations
+% which do not implement all Level 2 features.  This is an INCOMPLETE
+% emulation; only the "x y width height rect..." form is emulated.
+/*rf {gsave newpath re fill grestore} def
+/*rs {gsave newpath re stroke grestore} def
+/*rc {newpath re clip} def
+/rf  /rectfill where {pop /rectfill}{/*rf} ifelse load def
+/rs  /rectstroke where {pop /rectstroke}{/*rs} ifelse load def
+/rc  /rectclip where {pop /rectclip}{/*rc} ifelse load def
+
+% Emulation of the selectfont operator.  This includes a 20% increase in
+% the fontsize which is necessary to get sizes similar to the Java fonts.
+/*sf {exch findfont exch
+      dup type /arraytype eq {makefont}{scalefont} ifelse setfont} bind def
+/sf /selectfont where {pop {1.2 mul selectfont}}{{1.2 mul *sf}} ifelse def
+
+% Special version of stroke which allows the dash pattern to continue
+% across path segments.  (This may be needed for PostScript although
+% modern printers seem to do this correctly.)
+/vg&stroke {
+  currentdash pop length 0 eq
+  {stroke}
+  {
+    currentdash /vg&doffset exch def pop
+    flattenpath
+    {m vg&resetdash}
+    {2 copy
+     currentpoint
+     3 -1 roll sub dup mul
+     3 1 roll sub dup mul
+     add sqrt
+     3 1 roll l
+     currentdash 3 -1 roll add setdash}
+     {}
+     {h vg&resetdash}
+     pathforall
+     stroke
+     vg&resetdash
+  } ifelse
+} def
+/vg&resetdash {currentdash pop vg&doffset setdash} def
+
+% Initialize variables for safety.
+/delta 0 def
+/xv 0 def  /yv 0 def  /width 0 def  /height 0 def
+
+% Initialize to portrait INTERNATIONAL (Letter-height, A4-width) page.
+/pw 595 def  /ph 791  def  /po true def /ftp false def
+
+% Initialize margins to 20 points.
+/ml 20 def  /mr 20 def  /mt 20 def  /mb 20 def
+
+% Temporary matrices.
+/smatrix 0 def  /nmatrix 0 def
+
+% set page size (usage: <page width><page height> setpagesize)
+/setpagesize {/ph exch def /pw exch def} def
+
+% set page orientation (usage: portrait or landscape)
+/portrait {/po true def} def
+/landscape {/po false def} def
+
+% force natural size for image (usage: naturalsize)
+/naturalsize {/ftp false def} def
+
+% resize image to fill page (usage: fittopage)
+/fittopage {/ftp true def} def
+
+% set margins of the page (usage: <left><bottom><top><right> setmargins)
+/setmargins {/mr exch def /mt exch def /mb exch def /ml exch def} def
+
+% set the graphic's size (usage: <width><height> setsize)
+/setsize {/gh exch def /gw exch def} def
+
+% set the graphic's origin (usage: <x0><y0> setorigin)
+/setorigin {/gy exch def /gx exch def} def
+
+% calculate image center
+/imagecenter {pw ml sub mr sub 2 div ml add
+              ph mt sub mb sub 2 div mb add} def
+
+% calculate the necessary scaling
+/imagescale {po {gw}{gh} ifelse pw ml sub mr sub div
+             po {gh}{gw} ifelse ph mt sub mb sub div
+             2 copy lt {exch} if pop
+             ftp not {1 2 copy lt {exch} if pop} if
+             1 exch div /sfactor exch def
+             /gw gw sfactor mul def /gh gh sfactor mul def} def
+
+% calculate image origin
+/imageorigin {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div po {add}{sub} ifelse} def
+
+% calculate the clipping origin
+/cliporigin  {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub floor
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div sub floor} def
+
+% Set the clipping region to the bounding box.
+/cliptobounds {cliporigin po {gw}{gh} ifelse 1 add
+                          po {gh}{gw} ifelse 1 add rc} def
+
+% set the base transformation matrix (usage: setbasematrix)
+/setbasematrix {imageorigin translate
+                po {0}{90} ifelse rotate
+                sfactor sfactor neg scale
+                /defaultmatrix matrix currentmatrix def} def
+
+% The lower-right bias in drawing 1 pt. wide lines.
+/bias  {q 0.5 0.5 translate} def
+/unbias {Q} def
+
+% Define the composite fonts used to print Unicode strings.
+% Undefine particular values in an encoding array.
+/vg&undef { {exch dup 3 -1 roll /.notdef put} forall } def
+/vg&redef { {3 -1 roll dup 4 2 roll put} forall } def
+
+% usage: key encoding basefontname vg&newbasefont font
+/vg&newbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: key encoding basefontname vg&newskewedbasefont font
+/vg&newskewedbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    exch FontMatrix exch matrix concatmatrix /FontMatrix exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: basekey suffix vg&nconcat name
+/vg&nconcat {
+  2 {dup length string cvs exch} repeat
+  dup length 3 -1 roll dup length 3 -1 roll add string
+  dup 0 4 -1 roll dup length 5 1 roll putinterval
+  dup 4 -2 roll exch putinterval cvn
+} def
+
+%usage: fontname vg&skewmatrix matrix
+/vg&skewmatrix {
+findfont dup /FontInfo known
+  {
+    /FontInfo get dup /ItalicAngle known
+    {
+      [ 1 0 4 -1 roll /ItalicAngle get neg dup sin exch cos div 1 0 0 ]
+    }
+    {pop matrix} ifelse
+  }
+  {pop matrix} ifelse
+} def
+
+% usage: newfontname basefontname vg&newcompositefont --
+/vg&newcompositefont {
+/vg&fstyle exch def
+/vg&bfont exch def
+/vg&fname exch def
+<<
+/FontStyleBits vg&fstyle
+/FontType 0
+/FontMatrix matrix
+/FontName vg&fname
+/FMapType 2
+/Encoding [ 0 1 255 {pop 6} for ]
+          dup 16#00 0 put % Latin
+          dup 16#03 1 put % Greek
+          dup 16#20 2 put % Punctuation
+          dup 16#21 3 put % Arrows
+          dup 16#22 4 put % MathOps
+          dup 16#27 5 put % Dingbats
+
+/FDepVector [
+vg&bfont /-UC-Latin vg&nconcat UCLatinEncoding
+vg&bfont vg&newbasefont
+
+vg&bfont vg&skewmatrix
+vg&bfont /-UC-Greek vg&nconcat UCGreekEncoding
+/Symbol vg&newskewedbasefont
+
+vg&bfont /-UC-Punctuation vg&nconcat UCPunctuationEncoding
+vg&bfont vg&newbasefont
+
+/Arrows-UC findfont
+/MathOps-UC findfont
+/Dingbats-UC findfont
+/Undefined-UC findfont ]
+>>
+vg&fname exch definefont pop
+} def
+
+% Null encoding vector (all elements set to .notdef)
+/NullEncoding [ 256 {/.notdef} repeat ] def
+
+% Unicode Latin encoding (unicode codes \u0000-\u00ff)
+/UCLatinEncoding
+  ISOLatin1Encoding dup length array copy
+  dup 16#60 /grave put
+  [ 16#90 16#91 16#92 16#93 16#94 16#95 16#96
+    16#97 16#98 16#9a 16#9b 16#9d 16#9e 16#9f
+  ] vg&undef
+  def
+
+% Unicode Greek encoding (unicode codes \u0370-\u03ff)
+/UCGreekEncoding
+  NullEncoding dup length array copy
+  << 16#91 /Alpha    16#92 /Beta      16#93 /Gamma    16#94 /Delta
+     16#95 /Epsilon  16#96 /Zeta      16#97 /Eta      16#98 /Theta
+     16#99 /Iota     16#9a /Kappa     16#9b /Lambda   16#9c /Mu
+     16#9d /Nu       16#9e /Xi        16#9f /Omicron  16#a0 /Pi
+     16#a1 /Rho      16#a3 /Sigma     16#a4 /Tau      16#a5 /Upsilon
+     16#a6 /Phi      16#a7 /Chi       16#a8 /Psi      16#a9 /Omega
+     16#b1 /alpha    16#b2 /beta      16#b3 /gamma    16#b4 /delta
+     16#b5 /epsilon  16#b6 /zeta      16#b7 /eta      16#b8 /theta
+     16#b9 /iota     16#ba /kappa     16#bb /lambda   16#bc /mu
+     16#bd /nu       16#be /xi        16#bf /omicron  16#c0 /pi
+     16#c1 /rho      16#c2 /sigma1    16#c3 /sigma    16#c4 /tau
+     16#c5 /upsilon  16#c6 /phi1      16#c7 /chi      16#c8 /psi
+     16#c9 /omega    16#7e /semicolon 16#87 /dotmath  16#d1 /theta1
+     16#d2 /Upsilon1 16#d5 /phi       16#d6 /omega1
+  >> vg&redef
+  def
+
+% Unicode punctuation encoding (unicode codes \u2000-\u206f)
+/UCPunctuationEncoding
+  NullEncoding dup length array copy
+  << 16#10 /hyphen          16#11 /hyphen              16#12 /endash
+     16#13 /emdash          16#18 /quoteleft           16#19 /quoteright
+     16#1a /quotesinglbase  16#1b /quotesingle         16#1c /quotedblleft
+     16#1d /quotedblright   16#1e /quotedblbase        16#1f /quotedbl
+     16#20 /dagger          16#21 /daggerdbl           16#22 /bullet
+     16#24 /period          16#26 /ellipsis            16#27 /periodcentered
+     16#30 /perthousand     16#44 /fraction
+     16#70 /zerosuperior    16#74 /foursuperior        16#75 /fivesuperior
+     16#76 /sixsuperior     16#77 /sevensuperior       16#78 /eightsuperior
+     16#79 /ninesuperior    16#7b /hyphensuperior      16#7d /parenleftsuperior
+     16#7e /parenrightsuperior
+     16#80 /zeroinferior    16#84 /fourinferior        16#85 /fiveinferior
+     16#81 /oneinferior     16#82 /twoinferior         16#83 /threeinferior
+     16#86 /sixinferior     16#87 /seveninferior       16#88 /eightinferior
+     16#89 /nineinferior    16#8b /hypheninferior      16#8d /parenleftinferior
+     16#8e /parenrightinferior
+  >> vg&redef
+  def
+
+% Unicode mathematical operators encoding (unicode codes \u2200-\u22ff)
+/UCMathOpsEncoding
+  NullEncoding dup length array copy
+  << 16#00 /universal       16#02 /partialdiff         16#03 /existential
+     16#05 /emptyset        16#06 /Delta               16#07 /gradient
+     16#08 /element         16#09 /notelement          16#0b /suchthat
+     16#0f /product         16#11 /summation           16#12 /minus
+     16#15 /fraction        16#17 /asteriskmath        16#19 /bullet
+     16#1a /radical         16#1d /proportional        16#1e /infinity
+     16#20 /angle           16#23 /bar                 16#27 /logicaland
+     16#28 /logicalor       16#29 /intersection        16#2a /union
+     16#2b /integral        16#34 /therefore           16#36 /colon
+     16#3c /similar         16#45 /congruent           16#48 /approxequal
+     16#60 /notequal        16#61 /equivalence         16#64 /lessequal
+     16#65 /greaterequal    16#82 /propersubset        16#83 /propersuperset
+     16#86 /reflexsubset    16#87 /reflexsuperset      16#95 /circleplus
+     16#97 /circlemultiply  16#a5 /perpendicular       16#03 /existential
+     16#c0 /logicaland      16#c1 /logicalor           16#c2 /intersection
+     16#c3 /union           16#c4 /diamond             16#c5 /dotmath
+  >> vg&redef
+  def
+
+% Unicode arrows encoding (unicode codes \u2190-\u21ff)
+% Also includes those "Letterlike" unicode characters
+% which are available in the symbol font. (unicode codes \u2100-\u214f)
+/UCArrowsEncoding
+  NullEncoding dup length array copy
+  << 16#11 /Ifraktur        16#1c /Rfraktur            16#22 /trademarkserif
+     16#35 /aleph
+     16#90 /arrowleft       16#91 /arrowup             16#92 /arrowright
+     16#93 /arrowdown       16#94 /arrowboth           16#d0 /arrowdblleft
+     16#d1 /arrowdblup      16#d2 /arrowdblright       16#d3 /arrowdbldown
+     16#d4 /arrowdblboth
+  >> vg&redef
+  def
+
+/ZapfDingbats findfont /Encoding get
+dup length array copy /UCDingbatsEncoding exch def
+16#20 1 16#7f {
+  dup 16#20 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+16#a0 1 16#ff {
+  dup 16#40 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+UCDingbatsEncoding [ 16#c0 1 16#ff {} for ] vg&undef
+[ 16#00  16#05 16#0a 16#0b  16#28 16#4c 16#4e  16#53 16#54 16#55  16#57 16#5f
+  16#60  16#68 16#69 16#6a  16#6b 16#6c 16#6d  16#6e 16#6f 16#70  16#71 16#72
+  16#73  16#74 16#75 16#95  16#96 16#97 16#b0  16#bf
+] vg&undef pop
+
+% Define the base fonts which don't change.
+/Undefined-UC NullEncoding       /Helvetica    vg&newbasefont pop
+/MathOps-UC   UCMathOpsEncoding  /Symbol       vg&newbasefont pop
+/Arrows-UC    UCArrowsEncoding   /Symbol       vg&newbasefont pop
+/Dingbats-UC  UCDingbatsEncoding /ZapfDingbats vg&newbasefont pop
+
+% Make the SansSerif composite fonts.
+/SansSerif /Helvetica 16#00 vg&newcompositefont
+/SansSerif-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/SansSerif-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/SansSerif-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Serif composite fonts.
+/Serif /Times-Roman 16#00 vg&newcompositefont
+/Serif-Bold /Times-Bold 16#01 vg&newcompositefont
+/Serif-Italic /Times-Italic 16#02 vg&newcompositefont
+/Serif-BoldItalic /Times-BoldItalic 16#03 vg&newcompositefont
+
+% Make the Monospaced composite fonts.
+/Monospaced /Courier 16#00 vg&newcompositefont
+/Monospaced-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Monospaced-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Monospaced-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Dialog composite fonts.
+/Dialog /Helvetica 16#00 vg&newcompositefont
+/Dialog-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/Dialog-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/Dialog-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the DialogInput composite fonts.
+/DialogInput /Courier 16#00 vg&newcompositefont
+/DialogInput-Bold /Courier-Bold 16#01 vg&newcompositefont
+/DialogInput-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/DialogInput-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Typewriter composite fonts (JDK 1.1 only).
+/Typewriter /Courier 16#00 vg&newcompositefont
+/Typewriter-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Typewriter-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Typewriter-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+
+/cfontH {
+ dup /fontsize exch def /SansSerif exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHB {
+  dup /fontsize exch def /SansSerif-Bold exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHI {
+ dup /fontsize exch def /SansSerif-Italic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHBI {
+ dup /fontsize exch def /SansSerif-BoldItalic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+
+/cfontT {
+ dup /fontsize exch def /Serif exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTB {
+ dup /fontsize exch def /Serif-Bold exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTI {
+ dup /fontsize exch def /Serif-Italic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTBI {
+ dup /fontsize exch def /Serif-BoldItalic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+
+/cfontC {
+ dup /fontsize exch def /Typewriter exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCB {
+ dup /fontsize exch def /Typewriter-Bold exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCI {
+ dup /fontsize exch def /Typewriter-Italic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCBI {
+ dup /fontsize exch def /Typewriter-BoldItalic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+
+% Darken or lighten the current color.
+/darken {0.7 exch exp 3 copy
+         q 4 -1 roll vg&C
+         currentrgbcolor 3 {4 -2 roll mul} repeat
+         3 array astore Q} def
+
+/displayColorMap
+<< /Cr   [1.00 0.00 0.00]       /Cg     [0.00 1.00 0.00]
+   /Cb   [0.00 0.00 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.00 0.00]       /CGg    [0.00 1.00 0.00]
+   /CGb  [0.00 0.00 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.00 0.00]       /CIg    [0.00 1.00 0.00]
+   /CIb  [0.00 0.00 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/printColorMap
+<< /Cr   [1.00 0.33 0.33]       /Cg     [0.33 1.00 0.33]
+   /Cb   [0.33 0.33 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.33 0.33]       /CGg    [0.33 1.00 0.33]
+   /CGb  [0.33 0.33 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.33 0.33]       /CIg    [0.33 1.00 0.33]
+   /CIb  [0.33 0.33 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/grayColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [0.75]                 /CGg    [1   ]
+   /CGb  [0.50]                 /CGc    [0.75]
+   /CGm  [0.50]                 /CGy    [1   ]
+   /CGo  [0.75]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [0.25]
+   /CGgr [0.50]                 /CGgrd  [0.75]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+/bwColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [1   ]                 /CGg    [1   ]
+   /CGb  [1   ]                 /CGc    [1   ]
+   /CGm  [1   ]                 /CGy    [1   ]
+   /CGo  [1   ]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [1   ]
+   /CGgr [1   ]                 /CGgrd  [1   ]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+%
+% The following routines handle the alignment of and printing of
+% tagged strings.
+%
+
+% Predefine the bounding box values.
+/bbllx 0 def /bblly 0 def /bburx 0 def /bbury 0 def
+
+% This routine pops the first unicode character off of a string and returns
+% the remainder of the string, the character code of first character,
+% and a "true" if the string was non-zero length.
+% <string>      popfirst <remaining string> <true>
+% <null string> popfirst <false>
+/popfirst {
+  dup length 1 gt
+    {dup 0 get /vg&fbyte exch def
+     dup 1 get /vg&cbyte exch def
+     dup length 2 sub 2 exch getinterval true}
+    {pop false} ifelse
+} def
+
+% This routine shows a single unicode character given the font and
+% character codes.
+% <font code> <char code> unicharshow --
+/unicharshow {
+  2 string
+  dup 0 5 -1 roll put
+  dup 1 4 -1 roll put
+  internalshow
+} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and showing the string for recshow.
+% <string> internalshow --
+/internalshow {show} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and stroking various ornaments.
+% <string> internalstroke --
+/internalstroke {S} def
+
+% Sets up internalshow to use the null device to determine string size.
+% -- nullinternalshow --
+/nullinternalshow {/internalshow {false charpath flattenpath
+                                  pathbbox updatebbox} def} def
+
+% Sets up internalstroke to use the null device to determine string size.
+% -- nullinternalstroke --
+/nullinternalstroke {
+ /internalstroke {flattenpath pathbbox updatebbox} def} def
+
+% This routine tests to see if the character code matches the first
+% character of a string.
+% <char code> <string> testchar <char code> <true or false>
+/testchar {exch dup 3 -1 roll 0 get eq} def
+
+% Raise the text baseline for superscripts.
+% -- raise --
+/raise {
+  0 fontsize 2 div rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-raise the text baseline for superscripts.
+% -- unraise --
+/unraise {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 2 div neg rmoveto
+} def
+
+% Lower the text baseline for subscripts.
+% -- lower --
+/lower {
+  0 fontsize 3 div neg rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-lower the text baseline for subscripts.
+% -- unlower --
+/unlower {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 3 div rmoveto
+} def
+
+% Compare the top two elements on the stack and leave only the
+% larger one.
+/maxval {2 copy gt {pop} {exch pop} ifelse} def
+
+% Tokenize a string.  Do not use the usual PostScript token because
+% parentheses will not be interpreted correctly because of rescanning
+% of the string.
+/vg&token {/vg&string exch def /vg&index -1 def /vg&level 0 def
+0 2 vg&string length 2 sub {
+  dup dup 1 add exch vg&string exch get 8 bitshift vg&string 3 -1 roll get or
+  dup 16#f0fe eq {pop 1}{16#f0ff eq {-1}{0} ifelse} ifelse
+  /vg&level exch vg&level add def
+  vg&level 0 eq {/vg&index exch def exit} if pop
+} for
+vg&index 0 ge {
+  vg&string vg&index 2 add dup vg&string length exch sub getinterval
+  vg&index 2 gt {vg&string 2 vg&index 2 sub getinterval}{()} ifelse
+  true}
+{false} ifelse
+} bind def
+
+% Recursively show an unicode string.
+% <string> recshow --
+/recshow {
+  popfirst
+  {
+    % Test to see if this is a string attribute.
+    vg&fbyte 16#f0 and 16#e0 eq
+    {
+      q
+
+      % Font style.
+      currentfont dup /FontStyleBits known {/FontStyleBits get}{pop 0} ifelse
+      vg&cbyte or vg&fontstyles exch get fontsize exch exec
+
+      vg&token pop recshow currentpoint Q m recshow
+    }
+    {
+      vg&fbyte 16#F8 and 16#F0 eq {
+
+        % Superscript and/or subscript.
+        vg&cbyte 16#00 eq {
+          vg&token pop exch vg&token pop 3 -1 roll
+          q raise recshow unraise currentpoint pop Q exch
+          q lower recshow unlower currentpoint pop Q
+          maxval currentpoint exch pop m recshow } if
+
+        % Strikeout.
+        vg&cbyte 16#01 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll fontsize 3 div add moveto
+          fontsize 3 div add lineto internalstroke Q
+          recshow} if
+
+        % Underline.
+        vg&cbyte 16#02 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dashed underline.
+        vg&cbyte 16#03 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J [ vg&uthick 5 mul vg&uthick 2 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dotted underline.
+        vg&cbyte 16#04 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 1 J [ 0 vg&uthick 3 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Thick underline.
+        vg&cbyte 16#05 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Gray thick underline.
+        vg&cbyte 16#06 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w 0.5 setgray
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Overbar.
+        vg&cbyte 16#07 eq {
+          vg&token pop dup stringsize relative 4 1 roll pop pop exch
+          3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          vg&uoffset neg add dup currentpoint pop exch m l internalstroke Q
+          recshow} if
+      }
+      {
+        vg&fbyte vg&cbyte unicharshow recshow
+      } ifelse
+    } ifelse
+  } if
+} def
+
+% Get the underline position and thickness from the current font.
+/vg&underline {
+
+currentfont dup /FontType get 0 eq {/FDepVector get 0 get} if
+dup dup /FontInfo known {
+  /FontInfo get dup
+  dup /UnderlinePosition known {
+    /UnderlinePosition get /vg&uoffset exch def
+  }
+  {
+    pop /vg&uoffset 0 def
+  } ifelse
+  dup /UnderlineThickness known {
+    /UnderlineThickness get /vg&uthick exch def
+  }
+  {
+    pop /vg&uthick 0 def
+  } ifelse
+}
+{
+  pop /vg&uoffset 0 def /vg&uthick 0 def
+} ifelse
+/FontMatrix get
+currentfont dup /FontType get 0 eq
+{/FontMatrix get matrix concatmatrix}{pop} ifelse
+dup 0 vg&uoffset 3 -1 roll transform /vg&uoffset exch def pop
+0 vg&uthick 3 -1 roll transform /vg&uthick exch def pop
+} def
+
+% Make a frame with the coordinates on the stack.
+% <llx> <lly> <urx> <ury> frame --
+/frame {4 copy m 3 1 roll exch l 4 -2 roll l l h} def
+
+% Resets the accumulated bounding box to a degenerate box at the
+% current point.
+% -- resetbbox --
+/resetbbox {
+  currentpoint 2 copy
+  /bbury exch def
+  /bburx exch def
+  /bblly exch def
+  /bbllx exch def
+} def
+
+% Update the accumulated bounding box.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/updatebbox {
+  dup bbury gt {/bbury exch def} {pop} ifelse
+  dup bburx gt {/bburx exch def} {pop} ifelse
+  dup bblly lt {/bblly exch def} {pop} ifelse
+  dup bbllx lt {/bbllx exch def} {pop} ifelse
+} def
+
+% Set the bounding box to the values on the stack.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/restorebbox {
+  /bbury exch def /bburx exch def /bblly exch def /bbllx exch def
+} def
+
+% Push the accumulated bounding box onto the stack.
+% -- pushbbox <llx> <lly> <urx> <ury>
+/pushbbox {bbllx bblly bburx bbury} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> inflate <llx> <lly> <urx> <ury>
+/inflate {
+  2 {fontsize 0.2 mul add 4 1 roll} repeat
+  2 {fontsize 0.2 mul sub 4 1 roll} repeat
+} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> relative <llx> <lly> <urx> <ury>
+/relative {
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+} def
+
+% Returns the size of a string appropriate for recshow.
+% <string> stringsize <llx> <lly> <urx> <ury>
+/stringsize {
+  pushbbox /internalshow load /internalstroke load 7 -1 roll
+  q
+  nulldevice 0 0 m
+  nullinternalshow nullinternalstroke
+  resetbbox
+  recshow
+  /internalstroke exch def /internalshow exch def
+  pushbbox 8 -4 roll restorebbox
+  Q
+} def
+
+% Calculate values for string positioning.
+/calcval {4 copy
+  3 -1 roll sub /widy exch def sub neg /widx exch def
+  pop pop /dy exch def /dx exch def} def
+
+% Utilities to position a string.
+% First letter (U=upper, C=center, B=baseline, L=lower)
+% Second letter (L=left, C=center, R=right)
+/align [
+{calcval dx neg widy dy add neg rmoveto} % UL
+{calcval dx neg widy 2 div dy add neg rmoveto} % CL
+{calcval dx neg 0 rmoveto} % BL
+{calcval dx neg dy neg rmoveto} % LL
+{calcval widx dx add neg widy dy add neg rmoveto} % UR
+{calcval widx dx add neg widy 2 div dy add neg rmoveto} % CR
+{calcval widx dx add neg 0 rmoveto} % BR
+{calcval widx dx add neg dy neg rmoveto} % LR
+{calcval widx 2 div dx add neg widy dy add neg rmoveto} % UC
+{calcval widx 2 div dx add neg widy 2 div dy add neg rmoveto} % CC
+{calcval widx 2 div dx add neg 0 rmoveto} % BC
+{calcval widx 2 div dx add neg dy neg rmoveto} % LC
+] def
+
+/vg&str {m q 1 -1 scale dup stringsize 4 copy align 11 -1 roll get exec
+         q inflate relative frame exch exec Q recshow Q} def
+
+end /procDict exch def
+%%EndProlog
+
+%%BeginSetup
+save
+procDict begin
+printColorMap begin
+778 173 setpagesize
+0 0 0 0 setmargins
+0 0 setorigin
+778 173 setsize
+naturalsize
+portrait
+imagescale
+cliptobounds
+setbasematrix
+/Helvetica 10 sf
+defaultGraphicsState
+%%EndSetup
+
+0.00000 0.00000 0.00000 RG
+[ 1.00000 0.00000 0.00000 1.00000 0.00000 0.00000 ] defaultmatrix matrix concatmatrix setmatrix
+cliprestore
+1.00000 1.00000 1.00000 RG
+newpath
+0.00000 0.00000 m
+778.000 0.00000 l
+778.000 173.000 l
+0.00000 173.000 l
+0.00000 0.00000 l
+h
+f
+0.00000 0.00000 0.00000 RG
+0.00000 0.00000 0.00000 RG
+[ 1.00000 0.00000 0.00000 1.00000 0.00000 0.00000 ] defaultmatrix matrix concatmatrix setmatrix
+cliprestore
+1.00000 1.00000 1.00000 RG
+newpath
+0.00000 0.00000 m
+778.000 0.00000 l
+778.000 173.000 l
+0.00000 173.000 l
+0.00000 0.00000 l
+h
+f
+0.00000 0.00000 0.00000 RG
+0 0 778 173 rc
+q
+[ 1.00000 0.00000 0.00000 1.00000 0.00000 0.00000 ] concat
+[ 1.00000 0.00000 0.00000 1.00000 -357.000 -292.000 ] concat
+1.00000 1.00000 1.00000 RG
+newpath
+357.000 292.000 m
+1135.00 292.000 l
+1135.00 465.000 l
+357.000 465.000 l
+357.000 292.000 l
+h
+f
+0.00000 0.00000 0.00000 RG
+[ 1.00000 0.00000 0.00000 1.00000 -357.000 -292.000 ] defaultmatrix matrix concatmatrix setmatrix
+[ 1.00000 0.00000 0.00000 1.00000 -357.000 -292.000 ] defaultmatrix matrix concatmatrix setmatrix
+[ 1.00000 0.00000 0.00000 1.00000 0.00000 0.00000 ] defaultmatrix matrix concatmatrix setmatrix
+[ 1.00000 0.00000 0.00000 1.00000 -357.000 -292.000 ] defaultmatrix matrix concatmatrix setmatrix
+.611765 0.00000 .235294 RG
+newpath
+920.000 390.000 m
+920.000 431.421 830.457 465.000 720.000 465.000  c
+609.543 465.000 520.000 431.421 520.000 390.000  c
+520.000 348.579 609.543 315.000 720.000 315.000  c
+830.457 315.000 920.000 348.579 920.000 390.000  c
+h
+f
+0.00000 0.00000 0.00000 RG
+0 J
+1.45000 M
+newpath
+656.267 300.832 m
+655.954 299.223 l
+655.954 297.770 l
+657.751 297.770 l
+657.751 299.223 l
+657.485 300.832 l
+656.267 300.832 l
+h
+658.907 300.832 m
+658.595 299.223 l
+658.595 297.770 l
+660.392 297.770 l
+660.392 299.223 l
+660.126 300.832 l
+658.907 300.832 l
+h
+661.862 306.363 m
+661.862 297.770 l
+665.519 297.770 l
+666.435 297.770 667.102 297.848 667.519 298.004  c
+667.935 298.160 668.269 298.436 668.519 298.832  c
+668.769 299.228 668.894 299.676 668.894 300.176  c
+668.894 300.822 668.701 301.358 668.315 301.785  c
+667.940 302.202 667.378 302.462 666.628 302.566  c
+667.003 302.785 667.310 303.030 667.550 303.301  c
+667.800 303.561 668.128 304.025 668.534 304.691  c
+669.597 306.363 l
+667.519 306.363 l
+666.269 304.488 l
+665.821 303.822 665.513 303.405 665.347 303.238  c
+665.180 303.061 665.003 302.941 664.815 302.879  c
+664.638 302.806 664.352 302.770 663.956 302.770  c
+663.597 302.770 l
+663.597 306.363 l
+661.862 306.363 l
+h
+663.597 301.410 m
+664.878 301.410 l
+665.711 301.410 666.232 301.374 666.440 301.301  c
+666.649 301.228 666.810 301.108 666.925 300.941  c
+667.050 300.764 667.112 300.546 667.112 300.285  c
+667.112 300.004 667.034 299.775 666.878 299.598  c
+666.722 299.421 666.503 299.306 666.222 299.254  c
+666.076 299.233 665.654 299.223 664.956 299.223  c
+663.597 299.223 l
+663.597 301.410 l
+h
+674.122 304.379 m
+675.763 304.660 l
+675.554 305.264 675.221 305.723 674.763 306.035  c
+674.304 306.348 673.737 306.504 673.060 306.504  c
+671.976 306.504 671.174 306.150 670.653 305.441  c
+670.237 304.879 670.028 304.165 670.028 303.301  c
+670.028 302.270 670.299 301.462 670.841 300.879  c
+671.382 300.296 672.065 300.004 672.888 300.004  c
+673.815 300.004 674.544 300.311 675.075 300.926  c
+675.617 301.530 675.872 302.462 675.841 303.723  c
+671.716 303.723 l
+671.737 304.212 671.872 304.592 672.122 304.863  c
+672.372 305.134 672.690 305.270 673.075 305.270  c
+673.325 305.270 673.539 305.202 673.716 305.066  c
+673.893 304.921 674.028 304.691 674.122 304.379  c
+h
+674.216 302.723 m
+674.205 302.243 674.080 301.879 673.841 301.629  c
+673.612 301.379 673.325 301.254 672.981 301.254  c
+672.627 301.254 672.330 301.384 672.091 301.645  c
+671.862 301.915 671.747 302.275 671.747 302.723  c
+674.216 302.723 l
+h
+678.421 302.035 m
+676.921 301.770 l
+677.088 301.165 677.374 300.723 677.780 300.441  c
+678.197 300.150 678.812 300.004 679.624 300.004  c
+680.353 300.004 680.895 300.092 681.249 300.270  c
+681.614 300.436 681.869 300.655 682.015 300.926  c
+682.160 301.186 682.233 301.676 682.233 302.395  c
+682.218 304.316 l
+682.218 304.868 682.244 305.275 682.296 305.535  c
+682.348 305.785 682.447 306.061 682.593 306.363  c
+680.968 306.363 l
+680.926 306.249 680.874 306.087 680.812 305.879  c
+680.780 305.775 680.759 305.707 680.749 305.676  c
+680.468 305.957 680.166 306.165 679.843 306.301  c
+679.530 306.436 679.192 306.504 678.827 306.504  c
+678.181 306.504 677.671 306.332 677.296 305.988  c
+676.931 305.634 676.749 305.191 676.749 304.660  c
+676.749 304.306 676.832 303.993 676.999 303.723  c
+677.176 303.452 677.416 303.243 677.718 303.098  c
+678.020 302.941 678.457 302.811 679.030 302.707  c
+679.791 302.561 680.322 302.426 680.624 302.301  c
+680.624 302.145 l
+680.624 301.822 680.546 301.592 680.390 301.457  c
+680.233 301.322 679.937 301.254 679.499 301.254  c
+679.207 301.254 678.978 301.311 678.812 301.426  c
+678.655 301.540 678.525 301.743 678.421 302.035  c
+h
+680.624 303.379 m
+680.416 303.441 680.082 303.525 679.624 303.629  c
+679.166 303.723 678.864 303.816 678.718 303.910  c
+678.509 304.066 678.405 304.259 678.405 304.488  c
+678.405 304.717 678.489 304.921 678.655 305.098  c
+678.832 305.264 679.051 305.348 679.312 305.348  c
+679.614 305.348 679.900 305.249 680.171 305.051  c
+680.369 304.905 680.499 304.723 680.562 304.504  c
+680.603 304.368 680.624 304.103 680.624 303.707  c
+680.624 303.379 l
+h
+683.860 306.363 m
+683.860 297.770 l
+685.517 297.770 l
+685.517 306.363 l
+683.860 306.363 l
+h
+691.685 306.363 m
+689.716 300.145 l
+691.325 300.145 l
+692.481 304.223 l
+693.560 300.145 l
+695.153 300.145 l
+696.185 304.223 l
+697.372 300.145 l
+698.997 300.145 l
+696.997 306.363 l
+695.419 306.363 l
+694.341 302.363 l
+693.294 306.363 l
+691.685 306.363 l
+h
+699.487 303.160 m
+699.487 302.618 699.623 302.092 699.894 301.582  c
+700.164 301.061 700.545 300.671 701.034 300.410  c
+701.524 300.139 702.076 300.004 702.690 300.004  c
+703.628 300.004 704.399 300.311 705.003 300.926  c
+705.607 301.530 705.909 302.301 705.909 303.238  c
+705.909 304.176 705.602 304.957 704.987 305.582  c
+704.383 306.197 703.623 306.504 702.706 306.504  c
+702.133 306.504 701.586 306.374 701.065 306.113  c
+700.555 305.853 700.164 305.478 699.894 304.988  c
+699.623 304.488 699.487 303.879 699.487 303.160  c
+h
+701.175 303.254 m
+701.175 303.868 701.321 304.342 701.612 304.676  c
+701.904 304.999 702.263 305.160 702.690 305.160  c
+703.128 305.160 703.487 304.999 703.769 304.676  c
+704.060 304.342 704.206 303.863 704.206 303.238  c
+704.206 302.634 704.060 302.171 703.769 301.848  c
+703.487 301.514 703.128 301.348 702.690 301.348  c
+702.263 301.348 701.904 301.514 701.612 301.848  c
+701.321 302.171 701.175 302.639 701.175 303.254  c
+h
+708.771 306.363 m
+707.130 306.363 l
+707.130 300.145 l
+708.661 300.145 l
+708.661 301.020 l
+708.922 300.603 709.156 300.332 709.364 300.207  c
+709.573 300.072 709.807 300.004 710.067 300.004  c
+710.442 300.004 710.807 300.108 711.161 300.316  c
+710.646 301.738 l
+710.364 301.561 710.109 301.473 709.880 301.473  c
+709.640 301.473 709.442 301.540 709.286 301.676  c
+709.130 301.801 709.005 302.030 708.911 302.363  c
+708.817 302.686 708.771 303.379 708.771 304.441  c
+708.771 306.363 l
+h
+711.862 306.363 m
+711.862 297.770 l
+713.519 297.770 l
+713.519 306.363 l
+711.862 306.363 l
+h
+720.899 306.363 m
+719.384 306.363 l
+719.384 305.441 l
+719.123 305.806 718.821 306.077 718.478 306.254  c
+718.134 306.421 717.785 306.504 717.431 306.504  c
+716.712 306.504 716.097 306.217 715.587 305.645  c
+715.087 305.061 714.837 304.254 714.837 303.223  c
+714.837 302.171 715.082 301.374 715.571 300.832  c
+716.071 300.280 716.701 300.004 717.462 300.004  c
+718.149 300.004 718.748 300.290 719.259 300.863  c
+719.259 297.770 l
+720.899 297.770 l
+720.899 306.363 l
+h
+716.509 303.113 m
+716.509 303.780 716.603 304.259 716.790 304.551  c
+717.050 304.988 717.420 305.207 717.899 305.207  c
+718.274 305.207 718.592 305.046 718.853 304.723  c
+719.123 304.400 719.259 303.915 719.259 303.270  c
+719.259 302.561 719.129 302.051 718.868 301.738  c
+718.618 301.415 718.290 301.254 717.884 301.254  c
+717.498 301.254 717.170 301.410 716.899 301.723  c
+716.639 302.035 716.509 302.499 716.509 303.113  c
+h
+722.636 300.832 m
+722.323 299.223 l
+722.323 297.770 l
+724.120 297.770 l
+724.120 299.223 l
+723.854 300.832 l
+722.636 300.832 l
+h
+725.276 300.832 m
+724.964 299.223 l
+724.964 297.770 l
+726.761 297.770 l
+726.761 299.223 l
+726.495 300.832 l
+725.276 300.832 l
+h
+731.503 300.145 m
+733.034 300.145 l
+733.034 301.051 l
+733.243 300.738 733.513 300.488 733.847 300.301  c
+734.190 300.103 734.571 300.004 734.987 300.004  c
+735.706 300.004 736.315 300.285 736.815 300.848  c
+737.326 301.410 737.581 302.202 737.581 303.223  c
+737.581 304.254 737.326 305.061 736.815 305.645  c
+736.305 306.217 735.690 306.504 734.972 306.504  c
+734.628 306.504 734.315 306.436 734.034 306.301  c
+733.753 306.165 733.461 305.931 733.159 305.598  c
+733.159 308.738 l
+731.503 308.738 l
+731.503 300.145 l
+h
+733.128 303.145 m
+733.128 303.842 733.269 304.358 733.550 304.691  c
+733.831 305.025 734.170 305.191 734.565 305.191  c
+734.951 305.191 735.269 305.040 735.519 304.738  c
+735.769 304.426 735.894 303.921 735.894 303.223  c
+735.894 302.577 735.763 302.098 735.503 301.785  c
+735.243 301.462 734.920 301.301 734.534 301.301  c
+734.128 301.301 733.789 301.457 733.519 301.770  c
+733.258 302.082 733.128 302.540 733.128 303.145  c
+h
+740.458 306.363 m
+738.817 306.363 l
+738.817 300.145 l
+740.349 300.145 l
+740.349 301.020 l
+740.609 300.603 740.843 300.332 741.052 300.207  c
+741.260 300.072 741.494 300.004 741.755 300.004  c
+742.130 300.004 742.494 300.108 742.849 300.316  c
+742.333 301.738 l
+742.052 301.561 741.797 301.473 741.567 301.473  c
+741.328 301.473 741.130 301.540 740.974 301.676  c
+740.817 301.801 740.692 302.030 740.599 302.363  c
+740.505 302.686 740.458 303.379 740.458 304.441  c
+740.458 306.363 l
+h
+743.175 303.160 m
+743.175 302.618 743.310 302.092 743.581 301.582  c
+743.852 301.061 744.232 300.671 744.722 300.410  c
+745.211 300.139 745.763 300.004 746.378 300.004  c
+747.315 300.004 748.086 300.311 748.690 300.926  c
+749.295 301.530 749.597 302.301 749.597 303.238  c
+749.597 304.176 749.289 304.957 748.675 305.582  c
+748.071 306.197 747.310 306.504 746.394 306.504  c
+745.821 306.504 745.274 306.374 744.753 306.113  c
+744.243 305.853 743.852 305.478 743.581 304.988  c
+743.310 304.488 743.175 303.879 743.175 303.160  c
+h
+744.862 303.254 m
+744.862 303.868 745.008 304.342 745.300 304.676  c
+745.591 304.999 745.951 305.160 746.378 305.160  c
+746.815 305.160 747.175 304.999 747.456 304.676  c
+747.748 304.342 747.894 303.863 747.894 303.238  c
+747.894 302.634 747.748 302.171 747.456 301.848  c
+747.175 301.514 746.815 301.348 746.378 301.348  c
+745.951 301.348 745.591 301.514 745.300 301.848  c
+745.008 302.171 744.862 302.639 744.862 303.254  c
+h
+750.817 306.363 m
+750.817 297.770 l
+752.458 297.770 l
+752.458 300.863 l
+752.968 300.290 753.573 300.004 754.271 300.004  c
+755.021 300.004 755.646 300.280 756.146 300.832  c
+756.646 301.374 756.896 302.160 756.896 303.191  c
+756.896 304.254 756.640 305.072 756.130 305.645  c
+755.619 306.217 755.005 306.504 754.286 306.504  c
+753.932 306.504 753.583 306.415 753.239 306.238  c
+752.896 306.061 752.599 305.796 752.349 305.441  c
+752.349 306.363 l
+750.817 306.363 l
+h
+752.442 303.113 m
+752.442 303.759 752.547 304.238 752.755 304.551  c
+753.036 304.988 753.416 305.207 753.896 305.207  c
+754.250 305.207 754.557 305.051 754.817 304.738  c
+755.078 304.426 755.208 303.936 755.208 303.270  c
+755.208 302.561 755.078 302.051 754.817 301.738  c
+754.557 301.415 754.224 301.254 753.817 301.254  c
+753.432 301.254 753.104 301.410 752.833 301.723  c
+752.573 302.025 752.442 302.488 752.442 303.113  c
+h
+758.210 306.363 m
+758.210 297.770 l
+759.866 297.770 l
+759.866 306.363 l
+758.210 306.363 l
+h
+765.153 304.379 m
+766.794 304.660 l
+766.586 305.264 766.252 305.723 765.794 306.035  c
+765.336 306.348 764.768 306.504 764.091 306.504  c
+763.007 306.504 762.205 306.150 761.685 305.441  c
+761.268 304.879 761.060 304.165 761.060 303.301  c
+761.060 302.270 761.330 301.462 761.872 300.879  c
+762.414 300.296 763.096 300.004 763.919 300.004  c
+764.846 300.004 765.575 300.311 766.106 300.926  c
+766.648 301.530 766.903 302.462 766.872 303.723  c
+762.747 303.723 l
+762.768 304.212 762.903 304.592 763.153 304.863  c
+763.403 305.134 763.721 305.270 764.106 305.270  c
+764.356 305.270 764.570 305.202 764.747 305.066  c
+764.924 304.921 765.060 304.691 765.153 304.379  c
+h
+765.247 302.723 m
+765.237 302.243 765.112 301.879 764.872 301.629  c
+764.643 301.379 764.356 301.254 764.013 301.254  c
+763.659 301.254 763.362 301.384 763.122 301.645  c
+762.893 301.915 762.778 302.275 762.778 302.723  c
+765.247 302.723 l
+h
+768.093 300.145 m
+769.608 300.145 l
+769.608 300.988 l
+770.160 300.332 770.812 300.004 771.562 300.004  c
+771.957 300.004 772.301 300.087 772.593 300.254  c
+772.884 300.410 773.124 300.655 773.312 300.988  c
+773.582 300.655 773.874 300.410 774.187 300.254  c
+774.509 300.087 774.853 300.004 775.218 300.004  c
+775.666 300.004 776.046 300.098 776.358 300.285  c
+776.681 300.462 776.921 300.733 777.077 301.098  c
+777.192 301.358 777.249 301.785 777.249 302.379  c
+777.249 306.363 l
+775.608 306.363 l
+775.608 302.801 l
+775.608 302.186 775.551 301.790 775.437 301.613  c
+775.280 301.374 775.046 301.254 774.733 301.254  c
+774.504 301.254 774.285 301.327 774.077 301.473  c
+773.879 301.608 773.733 301.811 773.640 302.082  c
+773.546 302.353 773.499 302.785 773.499 303.379  c
+773.499 306.363 l
+771.858 306.363 l
+771.858 302.957 l
+771.858 302.353 771.827 301.962 771.765 301.785  c
+771.713 301.608 771.624 301.478 771.499 301.395  c
+771.374 301.301 771.207 301.254 770.999 301.254  c
+770.749 301.254 770.520 301.327 770.312 301.473  c
+770.114 301.608 769.968 301.806 769.874 302.066  c
+769.791 302.316 769.749 302.738 769.749 303.332  c
+769.749 306.363 l
+768.093 306.363 l
+768.093 300.145 l
+h
+778.310 304.582 m
+779.966 304.332 l
+780.039 304.655 780.179 304.900 780.388 305.066  c
+780.606 305.233 780.909 305.316 781.294 305.316  c
+781.721 305.316 782.039 305.238 782.247 305.082  c
+782.393 304.967 782.466 304.822 782.466 304.645  c
+782.466 304.520 782.429 304.415 782.356 304.332  c
+782.273 304.249 782.091 304.176 781.810 304.113  c
+780.476 303.822 779.632 303.556 779.278 303.316  c
+778.789 302.973 778.544 302.504 778.544 301.910  c
+778.544 301.368 778.752 300.915 779.169 300.551  c
+779.596 300.186 780.257 300.004 781.153 300.004  c
+782.007 300.004 782.643 300.145 783.060 300.426  c
+783.476 300.697 783.763 301.103 783.919 301.645  c
+782.356 301.926 l
+782.294 301.686 782.169 301.504 781.981 301.379  c
+781.794 301.243 781.528 301.176 781.185 301.176  c
+780.757 301.176 780.450 301.238 780.263 301.363  c
+780.138 301.447 780.075 301.556 780.075 301.691  c
+780.075 301.816 780.127 301.921 780.231 302.004  c
+780.377 302.108 780.888 302.259 781.763 302.457  c
+782.648 302.655 783.263 302.900 783.606 303.191  c
+783.950 303.483 784.122 303.889 784.122 304.410  c
+784.122 304.983 783.882 305.478 783.403 305.895  c
+782.935 306.301 782.231 306.504 781.294 306.504  c
+780.450 306.504 779.778 306.332 779.278 305.988  c
+778.789 305.645 778.466 305.176 778.310 304.582  c
+h
+f
+2 J
+10.0000 M
+.611765 0.00000 .235294 RG
+0.00000 0.00000 0.00000 RG
+.517647 .470588 .580392 RG
+newpath
+910.000 390.000 m
+910.000 410.711 865.228 427.500 810.000 427.500  c
+754.772 427.500 710.000 410.711 710.000 390.000  c
+710.000 369.289 754.772 352.500 810.000 352.500  c
+865.228 352.500 910.000 369.289 910.000 390.000  c
+h
+f
+1.00000 1.00000 1.00000 RG
+0 J
+1.45000 M
+newpath
+744.189 386.120 m
+747.346 386.120 l
+748.064 386.120 748.611 386.177 748.986 386.292  c
+749.486 386.438 749.913 386.703 750.268 387.089  c
+750.632 387.464 750.908 387.927 751.096 388.479  c
+751.283 389.021 751.377 389.693 751.377 390.495  c
+751.377 391.203 751.294 391.813 751.127 392.323  c
+750.908 392.948 750.601 393.453 750.205 393.839  c
+749.903 394.141 749.497 394.370 748.986 394.526  c
+748.601 394.651 748.085 394.714 747.439 394.714  c
+744.189 394.714 l
+744.189 386.120 l
+h
+745.924 387.573 m
+745.924 393.261 l
+747.205 393.261 l
+747.695 393.261 748.049 393.235 748.268 393.183  c
+748.549 393.110 748.778 392.990 748.955 392.823  c
+749.143 392.657 749.294 392.381 749.408 391.995  c
+749.533 391.610 749.596 391.084 749.596 390.417  c
+749.596 389.761 749.533 389.256 749.408 388.901  c
+749.294 388.537 749.132 388.256 748.924 388.058  c
+748.715 387.860 748.450 387.724 748.127 387.651  c
+747.877 387.599 747.398 387.573 746.689 387.573  c
+745.924 387.573 l
+h
+756.449 392.729 m
+758.090 393.011 l
+757.882 393.615 757.548 394.073 757.090 394.386  c
+756.632 394.698 756.064 394.854 755.387 394.854  c
+754.303 394.854 753.501 394.500 752.980 393.792  c
+752.564 393.229 752.355 392.516 752.355 391.651  c
+752.355 390.620 752.626 389.813 753.168 389.229  c
+753.710 388.646 754.392 388.354 755.215 388.354  c
+756.142 388.354 756.871 388.662 757.402 389.276  c
+757.944 389.881 758.199 390.813 758.168 392.073  c
+754.043 392.073 l
+754.064 392.563 754.199 392.943 754.449 393.214  c
+754.699 393.485 755.017 393.620 755.402 393.620  c
+755.652 393.620 755.866 393.552 756.043 393.417  c
+756.220 393.271 756.355 393.042 756.449 392.729  c
+h
+756.543 391.073 m
+756.533 390.594 756.408 390.229 756.168 389.979  c
+755.939 389.729 755.652 389.604 755.309 389.604  c
+754.954 389.604 754.658 389.735 754.418 389.995  c
+754.189 390.266 754.074 390.625 754.074 391.073  c
+756.543 391.073 l
+h
+762.373 388.495 m
+762.373 389.808 l
+761.248 389.808 l
+761.248 392.308 l
+761.248 392.818 761.258 393.115 761.279 393.198  c
+761.300 393.282 761.347 393.354 761.420 393.417  c
+761.503 393.469 761.597 393.495 761.701 393.495  c
+761.857 393.495 762.076 393.438 762.357 393.323  c
+762.498 394.604 l
+762.123 394.771 761.691 394.854 761.201 394.854  c
+760.910 394.854 760.644 394.808 760.404 394.714  c
+760.165 394.610 759.988 394.479 759.873 394.323  c
+759.769 394.157 759.691 393.943 759.639 393.683  c
+759.607 393.485 759.592 393.094 759.592 392.511  c
+759.592 389.808 l
+758.842 389.808 l
+758.842 388.495 l
+759.592 388.495 l
+759.592 387.261 l
+761.248 386.292 l
+761.248 388.495 l
+762.373 388.495 l
+h
+767.119 392.729 m
+768.760 393.011 l
+768.551 393.615 768.218 394.073 767.760 394.386  c
+767.301 394.698 766.734 394.854 766.057 394.854  c
+764.973 394.854 764.171 394.500 763.650 393.792  c
+763.234 393.229 763.025 392.516 763.025 391.651  c
+763.025 390.620 763.296 389.813 763.838 389.229  c
+764.380 388.646 765.062 388.354 765.885 388.354  c
+766.812 388.354 767.541 388.662 768.072 389.276  c
+768.614 389.881 768.869 390.813 768.838 392.073  c
+764.713 392.073 l
+764.734 392.563 764.869 392.943 765.119 393.214  c
+765.369 393.485 765.687 393.620 766.072 393.620  c
+766.322 393.620 766.536 393.552 766.713 393.417  c
+766.890 393.271 767.025 393.042 767.119 392.729  c
+h
+767.213 391.073 m
+767.202 390.594 767.077 390.229 766.838 389.979  c
+766.609 389.729 766.322 389.604 765.979 389.604  c
+765.624 389.604 765.327 389.735 765.088 389.995  c
+764.859 390.266 764.744 390.625 764.744 391.073  c
+767.213 391.073 l
+h
+771.762 394.714 m
+770.121 394.714 l
+770.121 388.495 l
+771.652 388.495 l
+771.652 389.370 l
+771.913 388.953 772.147 388.683 772.355 388.558  c
+772.564 388.422 772.798 388.354 773.059 388.354  c
+773.434 388.354 773.798 388.459 774.152 388.667  c
+773.637 390.089 l
+773.355 389.912 773.100 389.823 772.871 389.823  c
+772.632 389.823 772.434 389.891 772.277 390.026  c
+772.121 390.151 771.996 390.381 771.902 390.714  c
+771.809 391.037 771.762 391.729 771.762 392.792  c
+771.762 394.714 l
+h
+774.729 388.495 m
+776.244 388.495 l
+776.244 389.339 l
+776.796 388.683 777.447 388.354 778.197 388.354  c
+778.593 388.354 778.937 388.438 779.229 388.604  c
+779.520 388.761 779.760 389.006 779.947 389.339  c
+780.218 389.006 780.510 388.761 780.822 388.604  c
+781.145 388.438 781.489 388.354 781.854 388.354  c
+782.301 388.354 782.682 388.448 782.994 388.636  c
+783.317 388.813 783.557 389.084 783.713 389.448  c
+783.827 389.709 783.885 390.136 783.885 390.729  c
+783.885 394.714 l
+782.244 394.714 l
+782.244 391.151 l
+782.244 390.537 782.187 390.141 782.072 389.964  c
+781.916 389.724 781.682 389.604 781.369 389.604  c
+781.140 389.604 780.921 389.677 780.713 389.823  c
+780.515 389.959 780.369 390.162 780.275 390.433  c
+780.182 390.703 780.135 391.136 780.135 391.729  c
+780.135 394.714 l
+778.494 394.714 l
+778.494 391.308 l
+778.494 390.703 778.463 390.313 778.400 390.136  c
+778.348 389.959 778.260 389.828 778.135 389.745  c
+778.010 389.651 777.843 389.604 777.635 389.604  c
+777.385 389.604 777.156 389.677 776.947 389.823  c
+776.749 389.959 776.604 390.157 776.510 390.417  c
+776.426 390.667 776.385 391.089 776.385 391.683  c
+776.385 394.714 l
+774.729 394.714 l
+774.729 388.495 l
+h
+785.523 387.651 m
+785.523 386.120 l
+787.180 386.120 l
+787.180 387.651 l
+785.523 387.651 l
+h
+785.523 394.714 m
+785.523 388.495 l
+787.180 388.495 l
+787.180 394.714 l
+785.523 394.714 l
+h
+794.514 394.714 m
+792.873 394.714 l
+792.873 391.542 l
+792.873 390.865 792.837 390.427 792.764 390.229  c
+792.701 390.032 792.587 389.881 792.420 389.776  c
+792.264 389.662 792.076 389.604 791.857 389.604  c
+791.566 389.604 791.305 389.683 791.076 389.839  c
+790.857 389.995 790.706 390.203 790.623 390.464  c
+790.540 390.724 790.498 391.203 790.498 391.901  c
+790.498 394.714 l
+788.842 394.714 l
+788.842 388.495 l
+790.373 388.495 l
+790.373 389.401 l
+790.915 388.703 791.602 388.354 792.436 388.354  c
+792.790 388.354 793.118 388.422 793.420 388.558  c
+793.722 388.683 793.951 388.849 794.107 389.058  c
+794.264 389.256 794.368 389.485 794.420 389.745  c
+794.482 389.995 794.514 390.360 794.514 390.839  c
+794.514 394.714 l
+h
+796.188 387.651 m
+796.188 386.120 l
+797.844 386.120 l
+797.844 387.651 l
+796.188 387.651 l
+h
+796.188 394.714 m
+796.188 388.495 l
+797.844 388.495 l
+797.844 394.714 l
+796.188 394.714 l
+h
+798.943 392.933 m
+800.600 392.683 l
+800.673 393.006 800.813 393.250 801.021 393.417  c
+801.240 393.584 801.542 393.667 801.928 393.667  c
+802.355 393.667 802.673 393.589 802.881 393.433  c
+803.027 393.318 803.100 393.172 803.100 392.995  c
+803.100 392.870 803.063 392.766 802.990 392.683  c
+802.907 392.599 802.725 392.526 802.443 392.464  c
+801.110 392.172 800.266 391.907 799.912 391.667  c
+799.423 391.323 799.178 390.854 799.178 390.261  c
+799.178 389.719 799.386 389.266 799.803 388.901  c
+800.230 388.537 800.891 388.354 801.787 388.354  c
+802.641 388.354 803.277 388.495 803.693 388.776  c
+804.110 389.047 804.396 389.453 804.553 389.995  c
+802.990 390.276 l
+802.928 390.037 802.803 389.854 802.615 389.729  c
+802.428 389.594 802.162 389.526 801.818 389.526  c
+801.391 389.526 801.084 389.589 800.896 389.714  c
+800.771 389.797 800.709 389.907 800.709 390.042  c
+800.709 390.167 800.761 390.271 800.865 390.354  c
+801.011 390.459 801.521 390.610 802.396 390.808  c
+803.282 391.006 803.896 391.250 804.240 391.542  c
+804.584 391.834 804.756 392.240 804.756 392.761  c
+804.756 393.334 804.516 393.828 804.037 394.245  c
+803.568 394.651 802.865 394.854 801.928 394.854  c
+801.084 394.854 800.412 394.683 799.912 394.339  c
+799.423 393.995 799.100 393.526 798.943 392.933  c
+h
+809.055 388.495 m
+809.055 389.808 l
+807.930 389.808 l
+807.930 392.308 l
+807.930 392.818 807.940 393.115 807.961 393.198  c
+807.982 393.282 808.029 393.354 808.102 393.417  c
+808.185 393.469 808.279 393.495 808.383 393.495  c
+808.539 393.495 808.758 393.438 809.039 393.323  c
+809.180 394.604 l
+808.805 394.771 808.372 394.854 807.883 394.854  c
+807.591 394.854 807.326 394.808 807.086 394.714  c
+806.846 394.610 806.669 394.479 806.555 394.323  c
+806.451 394.157 806.372 393.943 806.320 393.683  c
+806.289 393.485 806.273 393.094 806.273 392.511  c
+806.273 389.808 l
+805.523 389.808 l
+805.523 388.495 l
+806.273 388.495 l
+806.273 387.261 l
+807.930 386.292 l
+807.930 388.495 l
+809.055 388.495 l
+h
+810.191 387.651 m
+810.191 386.120 l
+811.848 386.120 l
+811.848 387.651 l
+810.191 387.651 l
+h
+810.191 394.714 m
+810.191 388.495 l
+811.848 388.495 l
+811.848 394.714 l
+810.191 394.714 l
+h
+818.947 390.323 m
+817.338 390.620 l
+817.275 390.297 817.145 390.058 816.947 389.901  c
+816.760 389.735 816.515 389.651 816.213 389.651  c
+815.796 389.651 815.463 389.792 815.213 390.073  c
+814.973 390.354 814.854 390.828 814.854 391.495  c
+814.854 392.235 814.979 392.756 815.229 393.058  c
+815.479 393.360 815.812 393.511 816.229 393.511  c
+816.541 393.511 816.796 393.422 816.994 393.245  c
+817.192 393.068 817.333 392.761 817.416 392.323  c
+819.041 392.604 l
+818.874 393.344 818.551 393.907 818.072 394.292  c
+817.593 394.667 816.952 394.854 816.150 394.854  c
+815.244 394.854 814.520 394.568 813.979 393.995  c
+813.437 393.422 813.166 392.625 813.166 391.604  c
+813.166 390.584 813.437 389.787 813.979 389.214  c
+814.520 388.641 815.255 388.354 816.182 388.354  c
+816.942 388.354 817.546 388.516 817.994 388.839  c
+818.442 389.162 818.760 389.657 818.947 390.323  c
+h
+823.486 388.495 m
+825.018 388.495 l
+825.018 389.401 l
+825.226 389.089 825.497 388.839 825.830 388.651  c
+826.174 388.453 826.554 388.354 826.971 388.354  c
+827.689 388.354 828.299 388.636 828.799 389.198  c
+829.309 389.761 829.564 390.552 829.564 391.573  c
+829.564 392.604 829.309 393.412 828.799 393.995  c
+828.288 394.568 827.674 394.854 826.955 394.854  c
+826.611 394.854 826.299 394.787 826.018 394.651  c
+825.736 394.516 825.445 394.282 825.143 393.948  c
+825.143 397.089 l
+823.486 397.089 l
+823.486 388.495 l
+h
+825.111 391.495 m
+825.111 392.193 825.252 392.709 825.533 393.042  c
+825.814 393.375 826.153 393.542 826.549 393.542  c
+826.934 393.542 827.252 393.391 827.502 393.089  c
+827.752 392.776 827.877 392.271 827.877 391.573  c
+827.877 390.927 827.747 390.448 827.486 390.136  c
+827.226 389.813 826.903 389.651 826.518 389.651  c
+826.111 389.651 825.773 389.808 825.502 390.120  c
+825.242 390.433 825.111 390.891 825.111 391.495  c
+h
+832.441 394.714 m
+830.801 394.714 l
+830.801 388.495 l
+832.332 388.495 l
+832.332 389.370 l
+832.592 388.953 832.827 388.683 833.035 388.558  c
+833.243 388.422 833.478 388.354 833.738 388.354  c
+834.113 388.354 834.478 388.459 834.832 388.667  c
+834.316 390.089 l
+834.035 389.912 833.780 389.823 833.551 389.823  c
+833.311 389.823 833.113 389.891 832.957 390.026  c
+832.801 390.151 832.676 390.381 832.582 390.714  c
+832.488 391.037 832.441 391.729 832.441 392.792  c
+832.441 394.714 l
+h
+835.158 391.511 m
+835.158 390.969 835.294 390.443 835.564 389.933  c
+835.835 389.412 836.215 389.021 836.705 388.761  c
+837.195 388.490 837.747 388.354 838.361 388.354  c
+839.299 388.354 840.070 388.662 840.674 389.276  c
+841.278 389.881 841.580 390.651 841.580 391.589  c
+841.580 392.526 841.273 393.308 840.658 393.933  c
+840.054 394.547 839.294 394.854 838.377 394.854  c
+837.804 394.854 837.257 394.724 836.736 394.464  c
+836.226 394.203 835.835 393.828 835.564 393.339  c
+835.294 392.839 835.158 392.229 835.158 391.511  c
+h
+836.846 391.604 m
+836.846 392.219 836.992 392.693 837.283 393.026  c
+837.575 393.349 837.934 393.511 838.361 393.511  c
+838.799 393.511 839.158 393.349 839.439 393.026  c
+839.731 392.693 839.877 392.214 839.877 391.589  c
+839.877 390.985 839.731 390.521 839.439 390.198  c
+839.158 389.865 838.799 389.698 838.361 389.698  c
+837.934 389.698 837.575 389.865 837.283 390.198  c
+836.992 390.521 836.846 390.990 836.846 391.604  c
+h
+842.801 394.714 m
+842.801 386.120 l
+844.441 386.120 l
+844.441 389.214 l
+844.952 388.641 845.556 388.354 846.254 388.354  c
+847.004 388.354 847.629 388.631 848.129 389.183  c
+848.629 389.724 848.879 390.511 848.879 391.542  c
+848.879 392.604 848.624 393.422 848.113 393.995  c
+847.603 394.568 846.988 394.854 846.270 394.854  c
+845.915 394.854 845.566 394.766 845.223 394.589  c
+844.879 394.412 844.582 394.146 844.332 393.792  c
+844.332 394.714 l
+842.801 394.714 l
+h
+844.426 391.464 m
+844.426 392.110 844.530 392.589 844.738 392.901  c
+845.020 393.339 845.400 393.558 845.879 393.558  c
+846.233 393.558 846.540 393.401 846.801 393.089  c
+847.061 392.776 847.191 392.287 847.191 391.620  c
+847.191 390.912 847.061 390.401 846.801 390.089  c
+846.540 389.766 846.207 389.604 845.801 389.604  c
+845.415 389.604 845.087 389.761 844.816 390.073  c
+844.556 390.375 844.426 390.839 844.426 391.464  c
+h
+850.193 394.714 m
+850.193 386.120 l
+851.850 386.120 l
+851.850 394.714 l
+850.193 394.714 l
+h
+857.137 392.729 m
+858.777 393.011 l
+858.569 393.615 858.236 394.073 857.777 394.386  c
+857.319 394.698 856.751 394.854 856.074 394.854  c
+854.991 394.854 854.189 394.500 853.668 393.792  c
+853.251 393.229 853.043 392.516 853.043 391.651  c
+853.043 390.620 853.314 389.813 853.855 389.229  c
+854.397 388.646 855.079 388.354 855.902 388.354  c
+856.829 388.354 857.559 388.662 858.090 389.276  c
+858.632 389.881 858.887 390.813 858.855 392.073  c
+854.730 392.073 l
+854.751 392.563 854.887 392.943 855.137 393.214  c
+855.387 393.485 855.704 393.620 856.090 393.620  c
+856.340 393.620 856.553 393.552 856.730 393.417  c
+856.908 393.271 857.043 393.042 857.137 392.729  c
+h
+857.230 391.073 m
+857.220 390.594 857.095 390.229 856.855 389.979  c
+856.626 389.729 856.340 389.604 855.996 389.604  c
+855.642 389.604 855.345 389.735 855.105 389.995  c
+854.876 390.266 854.762 390.625 854.762 391.073  c
+857.230 391.073 l
+h
+860.076 388.495 m
+861.592 388.495 l
+861.592 389.339 l
+862.144 388.683 862.795 388.354 863.545 388.354  c
+863.941 388.354 864.285 388.438 864.576 388.604  c
+864.868 388.761 865.107 389.006 865.295 389.339  c
+865.566 389.006 865.857 388.761 866.170 388.604  c
+866.493 388.438 866.837 388.354 867.201 388.354  c
+867.649 388.354 868.029 388.448 868.342 388.636  c
+868.665 388.813 868.904 389.084 869.061 389.448  c
+869.175 389.709 869.232 390.136 869.232 390.729  c
+869.232 394.714 l
+867.592 394.714 l
+867.592 391.151 l
+867.592 390.537 867.535 390.141 867.420 389.964  c
+867.264 389.724 867.029 389.604 866.717 389.604  c
+866.488 389.604 866.269 389.677 866.061 389.823  c
+865.863 389.959 865.717 390.162 865.623 390.433  c
+865.529 390.703 865.482 391.136 865.482 391.729  c
+865.482 394.714 l
+863.842 394.714 l
+863.842 391.308 l
+863.842 390.703 863.811 390.313 863.748 390.136  c
+863.696 389.959 863.607 389.828 863.482 389.745  c
+863.357 389.651 863.191 389.604 862.982 389.604  c
+862.732 389.604 862.503 389.677 862.295 389.823  c
+862.097 389.959 861.951 390.157 861.857 390.417  c
+861.774 390.667 861.732 391.089 861.732 391.683  c
+861.732 394.714 l
+860.076 394.714 l
+860.076 388.495 l
+h
+870.293 392.933 m
+871.949 392.683 l
+872.022 393.006 872.163 393.250 872.371 393.417  c
+872.590 393.584 872.892 393.667 873.277 393.667  c
+873.704 393.667 874.022 393.589 874.230 393.433  c
+874.376 393.318 874.449 393.172 874.449 392.995  c
+874.449 392.870 874.413 392.766 874.340 392.683  c
+874.257 392.599 874.074 392.526 873.793 392.464  c
+872.460 392.172 871.616 391.907 871.262 391.667  c
+870.772 391.323 870.527 390.854 870.527 390.261  c
+870.527 389.719 870.736 389.266 871.152 388.901  c
+871.579 388.537 872.241 388.354 873.137 388.354  c
+873.991 388.354 874.626 388.495 875.043 388.776  c
+875.460 389.047 875.746 389.453 875.902 389.995  c
+874.340 390.276 l
+874.277 390.037 874.152 389.854 873.965 389.729  c
+873.777 389.594 873.512 389.526 873.168 389.526  c
+872.741 389.526 872.434 389.589 872.246 389.714  c
+872.121 389.797 872.059 389.907 872.059 390.042  c
+872.059 390.167 872.111 390.271 872.215 390.354  c
+872.361 390.459 872.871 390.610 873.746 390.808  c
+874.632 391.006 875.246 391.250 875.590 391.542  c
+875.934 391.834 876.105 392.240 876.105 392.761  c
+876.105 393.334 875.866 393.828 875.387 394.245  c
+874.918 394.651 874.215 394.854 873.277 394.854  c
+872.434 394.854 871.762 394.683 871.262 394.339  c
+870.772 393.995 870.449 393.526 870.293 392.933  c
+h
+f
+2 J
+10.0000 M
+.517647 .470588 .580392 RG
+0.00000 0.00000 0.00000 RG
+1.00000 1.00000 1.00000 RG
+0 J
+1.45000 M
+newpath
+564.752 391.917 m
+566.439 391.761 l
+566.544 392.323 566.747 392.740 567.049 393.011  c
+567.361 393.271 567.783 393.401 568.314 393.401  c
+568.867 393.401 569.283 393.287 569.564 393.058  c
+569.856 392.818 570.002 392.537 570.002 392.214  c
+570.002 392.016 569.939 391.844 569.814 391.698  c
+569.700 391.552 569.492 391.427 569.189 391.323  c
+568.992 391.250 568.533 391.125 567.814 390.948  c
+566.877 390.719 566.221 390.438 565.846 390.104  c
+565.325 389.625 565.064 389.047 565.064 388.370  c
+565.064 387.933 565.184 387.526 565.424 387.151  c
+565.674 386.766 566.033 386.474 566.502 386.276  c
+566.971 386.078 567.533 385.979 568.189 385.979  c
+569.273 385.979 570.085 386.219 570.627 386.698  c
+571.169 387.167 571.455 387.792 571.486 388.573  c
+569.752 388.651 l
+569.679 388.214 569.518 387.901 569.268 387.714  c
+569.028 387.516 568.663 387.417 568.174 387.417  c
+567.674 387.417 567.278 387.521 566.986 387.729  c
+566.809 387.854 566.721 388.032 566.721 388.261  c
+566.721 388.459 566.804 388.631 566.971 388.776  c
+567.189 388.964 567.721 389.157 568.564 389.354  c
+569.408 389.552 570.033 389.761 570.439 389.979  c
+570.846 390.188 571.163 390.479 571.393 390.854  c
+571.622 391.219 571.736 391.672 571.736 392.214  c
+571.736 392.703 571.596 393.167 571.314 393.604  c
+571.044 394.032 570.658 394.349 570.158 394.558  c
+569.658 394.766 569.038 394.870 568.299 394.870  c
+567.205 394.870 566.367 394.620 565.783 394.120  c
+565.210 393.610 564.867 392.875 564.752 391.917  c
+h
+576.787 392.729 m
+578.428 393.011 l
+578.219 393.615 577.886 394.073 577.428 394.386  c
+576.969 394.698 576.402 394.854 575.725 394.854  c
+574.641 394.854 573.839 394.500 573.318 393.792  c
+572.902 393.229 572.693 392.516 572.693 391.651  c
+572.693 390.620 572.964 389.813 573.506 389.229  c
+574.048 388.646 574.730 388.354 575.553 388.354  c
+576.480 388.354 577.209 388.662 577.740 389.276  c
+578.282 389.881 578.537 390.813 578.506 392.073  c
+574.381 392.073 l
+574.402 392.563 574.537 392.943 574.787 393.214  c
+575.037 393.485 575.355 393.620 575.740 393.620  c
+575.990 393.620 576.204 393.552 576.381 393.417  c
+576.558 393.271 576.693 393.042 576.787 392.729  c
+h
+576.881 391.073 m
+576.870 390.594 576.745 390.229 576.506 389.979  c
+576.277 389.729 575.990 389.604 575.646 389.604  c
+575.292 389.604 574.995 389.735 574.756 389.995  c
+574.527 390.266 574.412 390.625 574.412 391.073  c
+576.881 391.073 l
+h
+581.086 390.386 m
+579.586 390.120 l
+579.753 389.516 580.039 389.073 580.445 388.792  c
+580.862 388.500 581.477 388.354 582.289 388.354  c
+583.018 388.354 583.560 388.443 583.914 388.620  c
+584.279 388.787 584.534 389.006 584.680 389.276  c
+584.826 389.537 584.898 390.026 584.898 390.745  c
+584.883 392.667 l
+584.883 393.219 584.909 393.625 584.961 393.886  c
+585.013 394.136 585.112 394.412 585.258 394.714  c
+583.633 394.714 l
+583.591 394.599 583.539 394.438 583.477 394.229  c
+583.445 394.125 583.424 394.058 583.414 394.026  c
+583.133 394.308 582.831 394.516 582.508 394.651  c
+582.195 394.787 581.857 394.854 581.492 394.854  c
+580.846 394.854 580.336 394.683 579.961 394.339  c
+579.596 393.985 579.414 393.542 579.414 393.011  c
+579.414 392.657 579.497 392.344 579.664 392.073  c
+579.841 391.802 580.081 391.594 580.383 391.448  c
+580.685 391.292 581.122 391.162 581.695 391.058  c
+582.456 390.912 582.987 390.776 583.289 390.651  c
+583.289 390.495 l
+583.289 390.172 583.211 389.943 583.055 389.808  c
+582.898 389.672 582.602 389.604 582.164 389.604  c
+581.872 389.604 581.643 389.662 581.477 389.776  c
+581.320 389.891 581.190 390.094 581.086 390.386  c
+h
+583.289 391.729 m
+583.081 391.792 582.747 391.875 582.289 391.979  c
+581.831 392.073 581.529 392.167 581.383 392.261  c
+581.174 392.417 581.070 392.610 581.070 392.839  c
+581.070 393.068 581.154 393.271 581.320 393.448  c
+581.497 393.615 581.716 393.698 581.977 393.698  c
+582.279 393.698 582.565 393.599 582.836 393.401  c
+583.034 393.256 583.164 393.073 583.227 392.854  c
+583.268 392.719 583.289 392.453 583.289 392.058  c
+583.289 391.729 l
+h
+588.104 394.714 m
+586.463 394.714 l
+586.463 388.495 l
+587.994 388.495 l
+587.994 389.370 l
+588.255 388.953 588.489 388.683 588.697 388.558  c
+588.906 388.422 589.140 388.354 589.400 388.354  c
+589.775 388.354 590.140 388.459 590.494 388.667  c
+589.979 390.089 l
+589.697 389.912 589.442 389.823 589.213 389.823  c
+588.973 389.823 588.775 389.891 588.619 390.026  c
+588.463 390.151 588.338 390.381 588.244 390.714  c
+588.150 391.037 588.104 391.729 588.104 392.792  c
+588.104 394.714 l
+h
+596.617 390.323 m
+595.008 390.620 l
+594.945 390.297 594.815 390.058 594.617 389.901  c
+594.430 389.735 594.185 389.651 593.883 389.651  c
+593.466 389.651 593.133 389.792 592.883 390.073  c
+592.643 390.354 592.523 390.828 592.523 391.495  c
+592.523 392.235 592.648 392.756 592.898 393.058  c
+593.148 393.360 593.482 393.511 593.898 393.511  c
+594.211 393.511 594.466 393.422 594.664 393.245  c
+594.862 393.068 595.003 392.761 595.086 392.323  c
+596.711 392.604 l
+596.544 393.344 596.221 393.907 595.742 394.292  c
+595.263 394.667 594.622 394.854 593.820 394.854  c
+592.914 394.854 592.190 394.568 591.648 393.995  c
+591.107 393.422 590.836 392.625 590.836 391.604  c
+590.836 390.584 591.107 389.787 591.648 389.214  c
+592.190 388.641 592.924 388.354 593.852 388.354  c
+594.612 388.354 595.216 388.516 595.664 388.839  c
+596.112 389.162 596.430 389.657 596.617 390.323  c
+h
+599.510 386.120 m
+599.510 389.276 l
+600.041 388.662 600.676 388.354 601.416 388.354  c
+601.791 388.354 602.130 388.427 602.432 388.573  c
+602.744 388.709 602.979 388.886 603.135 389.104  c
+603.291 389.323 603.395 389.568 603.447 389.839  c
+603.499 390.099 603.525 390.506 603.525 391.058  c
+603.525 394.714 l
+601.885 394.714 l
+601.885 391.433 l
+601.885 390.776 601.854 390.360 601.791 390.183  c
+601.729 390.006 601.619 389.865 601.463 389.761  c
+601.307 389.657 601.109 389.604 600.869 389.604  c
+600.598 389.604 600.354 389.672 600.135 389.808  c
+599.916 389.943 599.755 390.146 599.650 390.417  c
+599.557 390.677 599.510 391.068 599.510 391.589  c
+599.510 394.714 l
+597.869 394.714 l
+597.869 386.120 l
+599.510 386.120 l
+h
+608.486 388.495 m
+610.018 388.495 l
+610.018 389.401 l
+610.226 389.089 610.497 388.839 610.830 388.651  c
+611.174 388.453 611.554 388.354 611.971 388.354  c
+612.689 388.354 613.299 388.636 613.799 389.198  c
+614.309 389.761 614.564 390.552 614.564 391.573  c
+614.564 392.604 614.309 393.412 613.799 393.995  c
+613.288 394.568 612.674 394.854 611.955 394.854  c
+611.611 394.854 611.299 394.787 611.018 394.651  c
+610.736 394.516 610.445 394.282 610.143 393.948  c
+610.143 397.089 l
+608.486 397.089 l
+608.486 388.495 l
+h
+610.111 391.495 m
+610.111 392.193 610.252 392.709 610.533 393.042  c
+610.814 393.375 611.153 393.542 611.549 393.542  c
+611.934 393.542 612.252 393.391 612.502 393.089  c
+612.752 392.776 612.877 392.271 612.877 391.573  c
+612.877 390.927 612.747 390.448 612.486 390.136  c
+612.226 389.813 611.903 389.651 611.518 389.651  c
+611.111 389.651 610.773 389.808 610.502 390.120  c
+610.242 390.433 610.111 390.891 610.111 391.495  c
+h
+617.441 394.714 m
+615.801 394.714 l
+615.801 388.495 l
+617.332 388.495 l
+617.332 389.370 l
+617.592 388.953 617.827 388.683 618.035 388.558  c
+618.243 388.422 618.478 388.354 618.738 388.354  c
+619.113 388.354 619.478 388.459 619.832 388.667  c
+619.316 390.089 l
+619.035 389.912 618.780 389.823 618.551 389.823  c
+618.311 389.823 618.113 389.891 617.957 390.026  c
+617.801 390.151 617.676 390.381 617.582 390.714  c
+617.488 391.037 617.441 391.729 617.441 392.792  c
+617.441 394.714 l
+h
+620.158 391.511 m
+620.158 390.969 620.294 390.443 620.564 389.933  c
+620.835 389.412 621.215 389.021 621.705 388.761  c
+622.195 388.490 622.747 388.354 623.361 388.354  c
+624.299 388.354 625.070 388.662 625.674 389.276  c
+626.278 389.881 626.580 390.651 626.580 391.589  c
+626.580 392.526 626.273 393.308 625.658 393.933  c
+625.054 394.547 624.294 394.854 623.377 394.854  c
+622.804 394.854 622.257 394.724 621.736 394.464  c
+621.226 394.203 620.835 393.828 620.564 393.339  c
+620.294 392.839 620.158 392.229 620.158 391.511  c
+h
+621.846 391.604 m
+621.846 392.219 621.992 392.693 622.283 393.026  c
+622.575 393.349 622.934 393.511 623.361 393.511  c
+623.799 393.511 624.158 393.349 624.439 393.026  c
+624.731 392.693 624.877 392.214 624.877 391.589  c
+624.877 390.985 624.731 390.521 624.439 390.198  c
+624.158 389.865 623.799 389.698 623.361 389.698  c
+622.934 389.698 622.575 389.865 622.283 390.198  c
+621.992 390.521 621.846 390.990 621.846 391.604  c
+h
+627.801 394.714 m
+627.801 386.120 l
+629.441 386.120 l
+629.441 389.214 l
+629.952 388.641 630.556 388.354 631.254 388.354  c
+632.004 388.354 632.629 388.631 633.129 389.183  c
+633.629 389.724 633.879 390.511 633.879 391.542  c
+633.879 392.604 633.624 393.422 633.113 393.995  c
+632.603 394.568 631.988 394.854 631.270 394.854  c
+630.915 394.854 630.566 394.766 630.223 394.589  c
+629.879 394.412 629.582 394.146 629.332 393.792  c
+629.332 394.714 l
+627.801 394.714 l
+h
+629.426 391.464 m
+629.426 392.110 629.530 392.589 629.738 392.901  c
+630.020 393.339 630.400 393.558 630.879 393.558  c
+631.233 393.558 631.540 393.401 631.801 393.089  c
+632.061 392.776 632.191 392.287 632.191 391.620  c
+632.191 390.912 632.061 390.401 631.801 390.089  c
+631.540 389.766 631.207 389.604 630.801 389.604  c
+630.415 389.604 630.087 389.761 629.816 390.073  c
+629.556 390.375 629.426 390.839 629.426 391.464  c
+h
+635.193 394.714 m
+635.193 386.120 l
+636.850 386.120 l
+636.850 394.714 l
+635.193 394.714 l
+h
+642.137 392.729 m
+643.777 393.011 l
+643.569 393.615 643.236 394.073 642.777 394.386  c
+642.319 394.698 641.751 394.854 641.074 394.854  c
+639.991 394.854 639.189 394.500 638.668 393.792  c
+638.251 393.229 638.043 392.516 638.043 391.651  c
+638.043 390.620 638.314 389.813 638.855 389.229  c
+639.397 388.646 640.079 388.354 640.902 388.354  c
+641.829 388.354 642.559 388.662 643.090 389.276  c
+643.632 389.881 643.887 390.813 643.855 392.073  c
+639.730 392.073 l
+639.751 392.563 639.887 392.943 640.137 393.214  c
+640.387 393.485 640.704 393.620 641.090 393.620  c
+641.340 393.620 641.553 393.552 641.730 393.417  c
+641.908 393.271 642.043 393.042 642.137 392.729  c
+h
+642.230 391.073 m
+642.220 390.594 642.095 390.229 641.855 389.979  c
+641.626 389.729 641.340 389.604 640.996 389.604  c
+640.642 389.604 640.345 389.735 640.105 389.995  c
+639.876 390.266 639.762 390.625 639.762 391.073  c
+642.230 391.073 l
+h
+645.076 388.495 m
+646.592 388.495 l
+646.592 389.339 l
+647.144 388.683 647.795 388.354 648.545 388.354  c
+648.941 388.354 649.285 388.438 649.576 388.604  c
+649.868 388.761 650.107 389.006 650.295 389.339  c
+650.566 389.006 650.857 388.761 651.170 388.604  c
+651.493 388.438 651.837 388.354 652.201 388.354  c
+652.649 388.354 653.029 388.448 653.342 388.636  c
+653.665 388.813 653.904 389.084 654.061 389.448  c
+654.175 389.709 654.232 390.136 654.232 390.729  c
+654.232 394.714 l
+652.592 394.714 l
+652.592 391.151 l
+652.592 390.537 652.535 390.141 652.420 389.964  c
+652.264 389.724 652.029 389.604 651.717 389.604  c
+651.488 389.604 651.269 389.677 651.061 389.823  c
+650.863 389.959 650.717 390.162 650.623 390.433  c
+650.529 390.703 650.482 391.136 650.482 391.729  c
+650.482 394.714 l
+648.842 394.714 l
+648.842 391.308 l
+648.842 390.703 648.811 390.313 648.748 390.136  c
+648.696 389.959 648.607 389.828 648.482 389.745  c
+648.357 389.651 648.191 389.604 647.982 389.604  c
+647.732 389.604 647.503 389.677 647.295 389.823  c
+647.097 389.959 646.951 390.157 646.857 390.417  c
+646.774 390.667 646.732 391.089 646.732 391.683  c
+646.732 394.714 l
+645.076 394.714 l
+645.076 388.495 l
+h
+655.293 392.933 m
+656.949 392.683 l
+657.022 393.006 657.163 393.250 657.371 393.417  c
+657.590 393.584 657.892 393.667 658.277 393.667  c
+658.704 393.667 659.022 393.589 659.230 393.433  c
+659.376 393.318 659.449 393.172 659.449 392.995  c
+659.449 392.870 659.413 392.766 659.340 392.683  c
+659.257 392.599 659.074 392.526 658.793 392.464  c
+657.460 392.172 656.616 391.907 656.262 391.667  c
+655.772 391.323 655.527 390.854 655.527 390.261  c
+655.527 389.719 655.736 389.266 656.152 388.901  c
+656.579 388.537 657.241 388.354 658.137 388.354  c
+658.991 388.354 659.626 388.495 660.043 388.776  c
+660.460 389.047 660.746 389.453 660.902 389.995  c
+659.340 390.276 l
+659.277 390.037 659.152 389.854 658.965 389.729  c
+658.777 389.594 658.512 389.526 658.168 389.526  c
+657.741 389.526 657.434 389.589 657.246 389.714  c
+657.121 389.797 657.059 389.907 657.059 390.042  c
+657.059 390.167 657.111 390.271 657.215 390.354  c
+657.361 390.459 657.871 390.610 658.746 390.808  c
+659.632 391.006 660.246 391.250 660.590 391.542  c
+660.934 391.834 661.105 392.240 661.105 392.761  c
+661.105 393.334 660.866 393.828 660.387 394.245  c
+659.918 394.651 659.215 394.854 658.277 394.854  c
+657.434 394.854 656.762 394.683 656.262 394.339  c
+655.772 393.995 655.449 393.526 655.293 392.933  c
+h
+f
+2 J
+10.0000 M
+0.00000 0.00000 0.00000 RG
+0 J
+1.45000 M
+newpath
+949.891 372.662 m
+949.891 364.068 l
+951.609 364.068 l
+953.641 370.146 l
+953.828 370.719 953.964 371.146 954.047 371.428  c
+954.141 371.115 954.292 370.657 954.500 370.053  c
+956.562 364.068 l
+958.094 364.068 l
+958.094 372.662 l
+957.000 372.662 l
+957.000 365.475 l
+954.500 372.662 l
+953.469 372.662 l
+950.984 365.350 l
+950.984 372.662 l
+949.891 372.662 l
+h
+963.855 371.896 m
+963.460 372.230 963.079 372.464 962.715 372.600  c
+962.361 372.735 961.975 372.803 961.559 372.803  c
+960.871 372.803 960.345 372.636 959.980 372.303  c
+959.616 371.969 959.434 371.542 959.434 371.021  c
+959.434 370.719 959.501 370.443 959.637 370.193  c
+959.772 369.933 959.954 369.730 960.184 369.584  c
+960.413 369.428 960.668 369.313 960.949 369.240  c
+961.147 369.178 961.460 369.120 961.887 369.068  c
+962.730 368.975 963.355 368.855 963.762 368.709  c
+963.762 368.563 963.762 368.475 963.762 368.443  c
+963.762 368.006 963.663 367.699 963.465 367.521  c
+963.194 367.292 962.793 367.178 962.262 367.178  c
+961.772 367.178 961.408 367.266 961.168 367.443  c
+960.928 367.610 960.751 367.912 960.637 368.350  c
+959.605 368.209 l
+959.699 367.771 959.855 367.417 960.074 367.146  c
+960.293 366.876 960.605 366.667 961.012 366.521  c
+961.418 366.376 961.887 366.303 962.418 366.303  c
+962.949 366.303 963.382 366.365 963.715 366.490  c
+964.048 366.615 964.293 366.771 964.449 366.959  c
+964.605 367.146 964.715 367.386 964.777 367.678  c
+964.809 367.855 964.824 368.178 964.824 368.646  c
+964.824 370.053 l
+964.824 371.032 964.845 371.652 964.887 371.912  c
+964.939 372.173 965.033 372.423 965.168 372.662  c
+964.059 372.662 l
+963.954 372.443 963.887 372.188 963.855 371.896  c
+h
+963.762 369.537 m
+963.376 369.693 962.803 369.829 962.043 369.943  c
+961.605 370.006 961.298 370.079 961.121 370.162  c
+960.944 370.235 960.803 370.344 960.699 370.490  c
+960.605 370.636 960.559 370.803 960.559 370.990  c
+960.559 371.271 960.663 371.506 960.871 371.693  c
+961.090 371.881 961.402 371.975 961.809 371.975  c
+962.215 371.975 962.574 371.886 962.887 371.709  c
+963.210 371.532 963.444 371.287 963.590 370.975  c
+963.704 370.735 963.762 370.386 963.762 369.928  c
+963.762 369.537 l
+h
+968.764 371.725 m
+968.920 372.646 l
+968.618 372.709 968.352 372.740 968.123 372.740  c
+967.738 372.740 967.441 372.683 967.232 372.568  c
+967.024 372.443 966.873 372.282 966.779 372.084  c
+966.696 371.886 966.654 371.469 966.654 370.834  c
+966.654 367.256 l
+965.889 367.256 l
+965.889 366.443 l
+966.654 366.443 l
+966.654 364.896 l
+967.701 364.271 l
+967.701 366.443 l
+968.764 366.443 l
+968.764 367.256 l
+967.701 367.256 l
+967.701 370.896 l
+967.701 371.199 967.717 371.391 967.748 371.475  c
+967.790 371.558 967.852 371.626 967.936 371.678  c
+968.019 371.730 968.139 371.756 968.295 371.756  c
+968.420 371.756 968.576 371.745 968.764 371.725  c
+h
+969.801 372.662 m
+969.801 364.068 l
+970.848 364.068 l
+970.848 367.146 l
+971.337 366.584 971.957 366.303 972.707 366.303  c
+973.176 366.303 973.577 366.396 973.910 366.584  c
+974.254 366.761 974.499 367.011 974.645 367.334  c
+974.790 367.646 974.863 368.110 974.863 368.725  c
+974.863 372.662 l
+973.816 372.662 l
+973.816 368.725 l
+973.816 368.193 973.702 367.808 973.473 367.568  c
+973.243 367.329 972.921 367.209 972.504 367.209  c
+972.191 367.209 971.895 367.292 971.613 367.459  c
+971.342 367.615 971.145 367.834 971.020 368.115  c
+970.905 368.386 970.848 368.766 970.848 369.256  c
+970.848 372.662 l
+969.801 372.662 l
+h
+980.725 370.662 m
+981.818 370.787 l
+981.652 371.423 981.334 371.917 980.865 372.271  c
+980.396 372.626 979.803 372.803 979.084 372.803  c
+978.178 372.803 977.454 372.521 976.912 371.959  c
+976.381 371.396 976.115 370.610 976.115 369.600  c
+976.115 368.558 976.386 367.751 976.928 367.178  c
+977.469 366.594 978.167 366.303 979.021 366.303  c
+979.855 366.303 980.532 366.584 981.053 367.146  c
+981.584 367.709 981.850 368.506 981.850 369.537  c
+981.850 369.600 981.850 369.693 981.850 369.818  c
+977.209 369.818 l
+977.251 370.506 977.443 371.032 977.787 371.396  c
+978.131 371.751 978.563 371.928 979.084 371.928  c
+979.469 371.928 979.798 371.829 980.068 371.631  c
+980.350 371.423 980.568 371.100 980.725 370.662  c
+h
+977.271 368.959 m
+980.740 368.959 l
+980.699 368.428 980.568 368.032 980.350 367.771  c
+980.006 367.365 979.568 367.162 979.037 367.162  c
+978.548 367.162 978.136 367.324 977.803 367.646  c
+977.480 367.969 977.303 368.407 977.271 368.959  c
+h
+983.148 372.662 m
+983.148 366.443 l
+984.086 366.443 l
+984.086 367.318 l
+984.284 367.006 984.544 366.761 984.867 366.584  c
+985.190 366.396 985.560 366.303 985.977 366.303  c
+986.435 366.303 986.810 366.396 987.102 366.584  c
+987.404 366.771 987.612 367.037 987.727 367.381  c
+988.227 366.662 988.867 366.303 989.648 366.303  c
+990.273 366.303 990.747 366.475 991.070 366.818  c
+991.404 367.152 991.570 367.678 991.570 368.396  c
+991.570 372.662 l
+990.523 372.662 l
+990.523 368.740 l
+990.523 368.324 990.487 368.021 990.414 367.834  c
+990.352 367.646 990.232 367.495 990.055 367.381  c
+989.878 367.266 989.664 367.209 989.414 367.209  c
+988.977 367.209 988.612 367.355 988.320 367.646  c
+988.039 367.938 987.898 368.407 987.898 369.053  c
+987.898 372.662 l
+986.836 372.662 l
+986.836 368.615 l
+986.836 368.146 986.747 367.798 986.570 367.568  c
+986.404 367.329 986.128 367.209 985.742 367.209  c
+985.440 367.209 985.164 367.287 984.914 367.443  c
+984.664 367.600 984.482 367.829 984.367 368.131  c
+984.253 368.433 984.195 368.865 984.195 369.428  c
+984.195 372.662 l
+983.148 372.662 l
+h
+997.207 371.896 m
+996.811 372.230 996.431 372.464 996.066 372.600  c
+995.712 372.735 995.327 372.803 994.910 372.803  c
+994.223 372.803 993.697 372.636 993.332 372.303  c
+992.967 371.969 992.785 371.542 992.785 371.021  c
+992.785 370.719 992.853 370.443 992.988 370.193  c
+993.124 369.933 993.306 369.730 993.535 369.584  c
+993.764 369.428 994.020 369.313 994.301 369.240  c
+994.499 369.178 994.811 369.120 995.238 369.068  c
+996.082 368.975 996.707 368.855 997.113 368.709  c
+997.113 368.563 997.113 368.475 997.113 368.443  c
+997.113 368.006 997.014 367.699 996.816 367.521  c
+996.546 367.292 996.145 367.178 995.613 367.178  c
+995.124 367.178 994.759 367.266 994.520 367.443  c
+994.280 367.610 994.103 367.912 993.988 368.350  c
+992.957 368.209 l
+993.051 367.771 993.207 367.417 993.426 367.146  c
+993.645 366.876 993.957 366.667 994.363 366.521  c
+994.770 366.376 995.238 366.303 995.770 366.303  c
+996.301 366.303 996.733 366.365 997.066 366.490  c
+997.400 366.615 997.645 366.771 997.801 366.959  c
+997.957 367.146 998.066 367.386 998.129 367.678  c
+998.160 367.855 998.176 368.178 998.176 368.646  c
+998.176 370.053 l
+998.176 371.032 998.197 371.652 998.238 371.912  c
+998.290 372.173 998.384 372.423 998.520 372.662  c
+997.410 372.662 l
+997.306 372.443 997.238 372.188 997.207 371.896  c
+h
+997.113 369.537 m
+996.728 369.693 996.155 369.829 995.395 369.943  c
+994.957 370.006 994.650 370.079 994.473 370.162  c
+994.296 370.235 994.155 370.344 994.051 370.490  c
+993.957 370.636 993.910 370.803 993.910 370.990  c
+993.910 371.271 994.014 371.506 994.223 371.693  c
+994.441 371.881 994.754 371.975 995.160 371.975  c
+995.566 371.975 995.926 371.886 996.238 371.709  c
+996.561 371.532 996.796 371.287 996.941 370.975  c
+997.056 370.735 997.113 370.386 997.113 369.928  c
+997.113 369.537 l
+h
+1002.12 371.725 m
+1002.27 372.646 l
+1001.97 372.709 1001.70 372.740 1001.47 372.740  c
+1001.09 372.740 1000.79 372.683 1000.58 372.568  c
+1000.38 372.443 1000.22 372.282 1000.13 372.084  c
+1000.05 371.886 1000.01 371.469 1000.01 370.834  c
+1000.01 367.256 l
+999.240 367.256 l
+999.240 366.443 l
+1000.01 366.443 l
+1000.01 364.896 l
+1001.05 364.271 l
+1001.05 366.443 l
+1002.12 366.443 l
+1002.12 367.256 l
+1001.05 367.256 l
+1001.05 370.896 l
+1001.05 371.199 1001.07 371.391 1001.10 371.475  c
+1001.14 371.558 1001.20 371.626 1001.29 371.678  c
+1001.37 371.730 1001.49 371.756 1001.65 371.756  c
+1001.77 371.756 1001.93 371.745 1002.12 371.725  c
+h
+1003.15 365.287 m
+1003.15 364.068 l
+1004.21 364.068 l
+1004.21 365.287 l
+1003.15 365.287 l
+h
+1003.15 372.662 m
+1003.15 366.443 l
+1004.21 366.443 l
+1004.21 372.662 l
+1003.15 372.662 l
+h
+1009.88 370.381 m
+1010.91 370.521 l
+1010.80 371.230 1010.51 371.787 1010.04 372.193  c
+1009.57 372.600 1009.00 372.803 1008.32 372.803  c
+1007.46 372.803 1006.78 372.527 1006.26 371.975  c
+1005.75 371.412 1005.49 370.610 1005.49 369.568  c
+1005.49 368.902 1005.60 368.318 1005.82 367.818  c
+1006.05 367.308 1006.39 366.928 1006.83 366.678  c
+1007.29 366.428 1007.79 366.303 1008.33 366.303  c
+1009.00 366.303 1009.55 366.475 1009.97 366.818  c
+1010.41 367.152 1010.69 367.636 1010.82 368.271  c
+1009.79 368.428 l
+1009.69 368.011 1009.52 367.699 1009.27 367.490  c
+1009.02 367.271 1008.72 367.162 1008.37 367.162  c
+1007.83 367.162 1007.40 367.355 1007.07 367.740  c
+1006.74 368.115 1006.57 368.714 1006.57 369.537  c
+1006.57 370.381 1006.73 370.990 1007.05 371.365  c
+1007.38 371.740 1007.79 371.928 1008.30 371.928  c
+1008.72 371.928 1009.06 371.803 1009.33 371.553  c
+1009.62 371.303 1009.80 370.912 1009.88 370.381  c
+h
+1015.88 371.896 m
+1015.49 372.230 1015.10 372.464 1014.74 372.600  c
+1014.39 372.735 1014.00 372.803 1013.58 372.803  c
+1012.90 372.803 1012.37 372.636 1012.01 372.303  c
+1011.64 371.969 1011.46 371.542 1011.46 371.021  c
+1011.46 370.719 1011.53 370.443 1011.66 370.193  c
+1011.80 369.933 1011.98 369.730 1012.21 369.584  c
+1012.44 369.428 1012.69 369.313 1012.97 369.240  c
+1013.17 369.178 1013.49 369.120 1013.91 369.068  c
+1014.76 368.975 1015.38 368.855 1015.79 368.709  c
+1015.79 368.563 1015.79 368.475 1015.79 368.443  c
+1015.79 368.006 1015.69 367.699 1015.49 367.521  c
+1015.22 367.292 1014.82 367.178 1014.29 367.178  c
+1013.80 367.178 1013.43 367.266 1013.19 367.443  c
+1012.95 367.610 1012.78 367.912 1012.66 368.350  c
+1011.63 368.209 l
+1011.72 367.771 1011.88 367.417 1012.10 367.146  c
+1012.32 366.876 1012.63 366.667 1013.04 366.521  c
+1013.44 366.376 1013.91 366.303 1014.44 366.303  c
+1014.97 366.303 1015.41 366.365 1015.74 366.490  c
+1016.07 366.615 1016.32 366.771 1016.47 366.959  c
+1016.63 367.146 1016.74 367.386 1016.80 367.678  c
+1016.83 367.855 1016.85 368.178 1016.85 368.646  c
+1016.85 370.053 l
+1016.85 371.032 1016.87 371.652 1016.91 371.912  c
+1016.96 372.173 1017.06 372.423 1017.19 372.662  c
+1016.08 372.662 l
+1015.98 372.443 1015.91 372.188 1015.88 371.896  c
+h
+1015.79 369.537 m
+1015.40 369.693 1014.83 369.829 1014.07 369.943  c
+1013.63 370.006 1013.32 370.079 1013.15 370.162  c
+1012.97 370.235 1012.83 370.344 1012.72 370.490  c
+1012.63 370.636 1012.58 370.803 1012.58 370.990  c
+1012.58 371.271 1012.69 371.506 1012.90 371.693  c
+1013.12 371.881 1013.43 371.975 1013.83 371.975  c
+1014.24 371.975 1014.60 371.886 1014.91 371.709  c
+1015.24 371.532 1015.47 371.287 1015.62 370.975  c
+1015.73 370.735 1015.79 370.386 1015.79 369.928  c
+1015.79 369.537 l
+h
+1018.46 372.662 m
+1018.46 364.068 l
+1019.52 364.068 l
+1019.52 372.662 l
+1018.46 372.662 l
+h
+1024.49 375.053 m
+1024.49 366.443 l
+1025.45 366.443 l
+1025.45 367.240 l
+1025.67 366.928 1025.93 366.693 1026.21 366.537  c
+1026.50 366.381 1026.85 366.303 1027.26 366.303  c
+1027.79 366.303 1028.26 366.438 1028.66 366.709  c
+1029.07 366.980 1029.37 367.365 1029.57 367.865  c
+1029.78 368.365 1029.88 368.912 1029.88 369.506  c
+1029.88 370.141 1029.77 370.714 1029.54 371.225  c
+1029.32 371.735 1028.99 372.126 1028.55 372.396  c
+1028.12 372.667 1027.66 372.803 1027.18 372.803  c
+1026.83 372.803 1026.51 372.730 1026.23 372.584  c
+1025.95 372.428 1025.72 372.240 1025.54 372.021  c
+1025.54 375.053 l
+1024.49 375.053 l
+h
+1025.45 369.584 m
+1025.45 370.386 1025.61 370.980 1025.93 371.365  c
+1026.25 371.740 1026.64 371.928 1027.10 371.928  c
+1027.57 371.928 1027.97 371.730 1028.30 371.334  c
+1028.64 370.938 1028.80 370.324 1028.80 369.490  c
+1028.80 368.699 1028.64 368.110 1028.32 367.725  c
+1028.00 367.329 1027.61 367.131 1027.15 367.131  c
+1026.70 367.131 1026.30 367.339 1025.96 367.756  c
+1025.62 368.173 1025.45 368.782 1025.45 369.584  c
+h
+1031.15 372.662 m
+1031.15 366.443 l
+1032.10 366.443 l
+1032.10 367.381 l
+1032.34 366.943 1032.56 366.657 1032.76 366.521  c
+1032.97 366.376 1033.20 366.303 1033.45 366.303  c
+1033.80 366.303 1034.16 366.412 1034.53 366.631  c
+1034.17 367.615 l
+1033.91 367.459 1033.65 367.381 1033.40 367.381  c
+1033.16 367.381 1032.95 367.454 1032.76 367.600  c
+1032.58 367.735 1032.46 367.928 1032.38 368.178  c
+1032.26 368.553 1032.20 368.959 1032.20 369.396  c
+1032.20 372.662 l
+1031.15 372.662 l
+h
+1034.77 369.553 m
+1034.77 368.396 1035.09 367.542 1035.72 366.990  c
+1036.26 366.532 1036.91 366.303 1037.68 366.303  c
+1038.53 366.303 1039.23 366.584 1039.77 367.146  c
+1040.32 367.699 1040.60 368.469 1040.60 369.459  c
+1040.60 370.261 1040.48 370.891 1040.24 371.350  c
+1040.00 371.808 1039.65 372.167 1039.18 372.428  c
+1038.72 372.678 1038.22 372.803 1037.68 372.803  c
+1036.81 372.803 1036.11 372.527 1035.57 371.975  c
+1035.04 371.412 1034.77 370.605 1034.77 369.553  c
+h
+1035.85 369.553 m
+1035.85 370.344 1036.02 370.938 1036.37 371.334  c
+1036.72 371.730 1037.16 371.928 1037.68 371.928  c
+1038.21 371.928 1038.65 371.730 1038.99 371.334  c
+1039.33 370.938 1039.51 370.334 1039.51 369.521  c
+1039.51 368.751 1039.33 368.167 1038.97 367.771  c
+1038.63 367.376 1038.20 367.178 1037.68 367.178  c
+1037.16 367.178 1036.72 367.376 1036.37 367.771  c
+1036.02 368.157 1035.85 368.751 1035.85 369.553  c
+h
+1042.80 372.662 m
+1041.82 372.662 l
+1041.82 364.068 l
+1042.88 364.068 l
+1042.88 367.131 l
+1043.33 366.579 1043.90 366.303 1044.59 366.303  c
+1044.97 366.303 1045.33 366.381 1045.66 366.537  c
+1046.01 366.683 1046.29 366.896 1046.51 367.178  c
+1046.74 367.459 1046.91 367.798 1047.04 368.193  c
+1047.16 368.589 1047.23 369.011 1047.23 369.459  c
+1047.23 370.521 1046.96 371.344 1046.43 371.928  c
+1045.90 372.511 1045.27 372.803 1044.54 372.803  c
+1043.80 372.803 1043.22 372.495 1042.80 371.881  c
+1042.80 372.662 l
+h
+1042.79 369.506 m
+1042.79 370.245 1042.89 370.782 1043.10 371.115  c
+1043.43 371.657 1043.88 371.928 1044.45 371.928  c
+1044.90 371.928 1045.30 371.730 1045.63 371.334  c
+1045.98 370.938 1046.15 370.339 1046.15 369.537  c
+1046.15 368.725 1045.99 368.126 1045.66 367.740  c
+1045.34 367.355 1044.95 367.162 1044.49 367.162  c
+1044.03 367.162 1043.63 367.365 1043.29 367.771  c
+1042.96 368.167 1042.79 368.745 1042.79 369.506  c
+h
+1048.48 372.662 m
+1048.48 364.068 l
+1049.54 364.068 l
+1049.54 372.662 l
+1048.48 372.662 l
+h
+1055.43 370.662 m
+1056.52 370.787 l
+1056.35 371.423 1056.04 371.917 1055.57 372.271  c
+1055.10 372.626 1054.50 372.803 1053.79 372.803  c
+1052.88 372.803 1052.15 372.521 1051.61 371.959  c
+1051.08 371.396 1050.82 370.610 1050.82 369.600  c
+1050.82 368.558 1051.09 367.751 1051.63 367.178  c
+1052.17 366.594 1052.87 366.303 1053.72 366.303  c
+1054.56 366.303 1055.23 366.584 1055.75 367.146  c
+1056.29 367.709 1056.55 368.506 1056.55 369.537  c
+1056.55 369.600 1056.55 369.693 1056.55 369.818  c
+1051.91 369.818 l
+1051.95 370.506 1052.14 371.032 1052.49 371.396  c
+1052.83 371.751 1053.26 371.928 1053.79 371.928  c
+1054.17 371.928 1054.50 371.829 1054.77 371.631  c
+1055.05 371.423 1055.27 371.100 1055.43 370.662  c
+h
+1051.97 368.959 m
+1055.44 368.959 l
+1055.40 368.428 1055.27 368.032 1055.05 367.771  c
+1054.71 367.365 1054.27 367.162 1053.74 367.162  c
+1053.25 367.162 1052.84 367.324 1052.50 367.646  c
+1052.18 367.969 1052.00 368.407 1051.97 368.959  c
+h
+1057.85 372.662 m
+1057.85 366.443 l
+1058.79 366.443 l
+1058.79 367.318 l
+1058.99 367.006 1059.25 366.761 1059.57 366.584  c
+1059.89 366.396 1060.26 366.303 1060.68 366.303  c
+1061.14 366.303 1061.51 366.396 1061.80 366.584  c
+1062.10 366.771 1062.31 367.037 1062.43 367.381  c
+1062.93 366.662 1063.57 366.303 1064.35 366.303  c
+1064.97 366.303 1065.45 366.475 1065.77 366.818  c
+1066.10 367.152 1066.27 367.678 1066.27 368.396  c
+1066.27 372.662 l
+1065.22 372.662 l
+1065.22 368.740 l
+1065.22 368.324 1065.19 368.021 1065.12 367.834  c
+1065.05 367.646 1064.93 367.495 1064.76 367.381  c
+1064.58 367.266 1064.37 367.209 1064.12 367.209  c
+1063.68 367.209 1063.31 367.355 1063.02 367.646  c
+1062.74 367.938 1062.60 368.407 1062.60 369.053  c
+1062.60 372.662 l
+1061.54 372.662 l
+1061.54 368.615 l
+1061.54 368.146 1061.45 367.798 1061.27 367.568  c
+1061.10 367.329 1060.83 367.209 1060.44 367.209  c
+1060.14 367.209 1059.87 367.287 1059.62 367.443  c
+1059.37 367.600 1059.18 367.829 1059.07 368.131  c
+1058.95 368.433 1058.90 368.865 1058.90 369.428  c
+1058.90 372.662 l
+1057.85 372.662 l
+h
+1067.42 370.803 m
+1068.46 370.646 l
+1068.52 371.063 1068.68 371.381 1068.94 371.600  c
+1069.21 371.818 1069.59 371.928 1070.08 371.928  c
+1070.56 371.928 1070.91 371.834 1071.14 371.646  c
+1071.38 371.449 1071.50 371.214 1071.50 370.943  c
+1071.50 370.704 1071.40 370.516 1071.19 370.381  c
+1071.04 370.287 1070.68 370.167 1070.11 370.021  c
+1069.34 369.824 1068.80 369.657 1068.50 369.521  c
+1068.21 369.376 1067.99 369.178 1067.83 368.928  c
+1067.67 368.678 1067.60 368.396 1067.60 368.084  c
+1067.60 367.813 1067.66 367.558 1067.78 367.318  c
+1067.91 367.079 1068.08 366.881 1068.30 366.725  c
+1068.47 366.610 1068.69 366.511 1068.97 366.428  c
+1069.25 366.344 1069.56 366.303 1069.89 366.303  c
+1070.37 366.303 1070.79 366.376 1071.16 366.521  c
+1071.53 366.657 1071.81 366.844 1071.99 367.084  c
+1072.16 367.324 1072.28 367.641 1072.35 368.037  c
+1071.31 368.178 l
+1071.27 367.865 1071.14 367.620 1070.91 367.443  c
+1070.69 367.256 1070.37 367.162 1069.96 367.162  c
+1069.48 367.162 1069.13 367.245 1068.92 367.412  c
+1068.72 367.568 1068.61 367.756 1068.61 367.975  c
+1068.61 368.110 1068.65 368.230 1068.74 368.334  c
+1068.83 368.449 1068.97 368.542 1069.14 368.615  c
+1069.25 368.657 1069.56 368.745 1070.08 368.881  c
+1070.83 369.089 1071.35 369.256 1071.64 369.381  c
+1071.93 369.506 1072.16 369.688 1072.33 369.928  c
+1072.50 370.167 1072.58 370.469 1072.58 370.834  c
+1072.58 371.188 1072.48 371.521 1072.27 371.834  c
+1072.07 372.136 1071.78 372.376 1071.39 372.553  c
+1071.01 372.719 1070.57 372.803 1070.08 372.803  c
+1069.27 372.803 1068.65 372.636 1068.22 372.303  c
+1067.80 371.959 1067.54 371.459 1067.42 370.803  c
+h
+f
+newpath
+949.375 384.785 m
+949.375 383.723 l
+952.625 383.723 l
+952.625 384.785 l
+949.375 384.785 l
+h
+963.393 384.348 m
+964.518 384.645 l
+964.278 385.572 963.851 386.280 963.236 386.770  c
+962.622 387.259 961.867 387.504 960.971 387.504  c
+960.044 387.504 959.288 387.316 958.705 386.941  c
+958.122 386.566 957.679 386.025 957.377 385.316  c
+957.075 384.598 956.924 383.827 956.924 383.004  c
+956.924 382.108 957.096 381.327 957.439 380.660  c
+957.783 379.993 958.268 379.488 958.893 379.145  c
+959.528 378.801 960.226 378.629 960.986 378.629  c
+961.840 378.629 962.559 378.848 963.143 379.285  c
+963.736 379.723 964.148 380.337 964.377 381.129  c
+963.252 381.395 l
+963.054 380.770 962.762 380.316 962.377 380.035  c
+962.002 379.743 961.528 379.598 960.955 379.598  c
+960.299 379.598 959.747 379.759 959.299 380.082  c
+958.861 380.395 958.549 380.816 958.361 381.348  c
+958.184 381.879 958.096 382.431 958.096 383.004  c
+958.096 383.733 958.200 384.368 958.408 384.910  c
+958.627 385.452 958.960 385.858 959.408 386.129  c
+959.856 386.400 960.346 386.535 960.877 386.535  c
+961.512 386.535 962.049 386.353 962.486 385.988  c
+962.934 385.624 963.236 385.077 963.393 384.348  c
+h
+965.402 384.254 m
+965.402 383.098 965.720 382.243 966.355 381.691  c
+966.887 381.233 967.538 381.004 968.309 381.004  c
+969.163 381.004 969.861 381.285 970.402 381.848  c
+970.954 382.400 971.230 383.171 971.230 384.160  c
+971.230 384.962 971.111 385.592 970.871 386.051  c
+970.632 386.509 970.277 386.868 969.809 387.129  c
+969.350 387.379 968.850 387.504 968.309 387.504  c
+967.444 387.504 966.741 387.228 966.199 386.676  c
+965.668 386.113 965.402 385.306 965.402 384.254  c
+h
+966.480 384.254 m
+966.480 385.046 966.652 385.639 966.996 386.035  c
+967.350 386.431 967.788 386.629 968.309 386.629  c
+968.840 386.629 969.277 386.431 969.621 386.035  c
+969.965 385.639 970.137 385.035 970.137 384.223  c
+970.137 383.452 969.960 382.868 969.605 382.473  c
+969.262 382.077 968.829 381.879 968.309 381.879  c
+967.788 381.879 967.350 382.077 966.996 382.473  c
+966.652 382.858 966.480 383.452 966.480 384.254  c
+h
+972.467 387.363 m
+972.467 381.145 l
+973.404 381.145 l
+973.404 382.020 l
+973.602 381.707 973.863 381.462 974.186 381.285  c
+974.508 381.098 974.878 381.004 975.295 381.004  c
+975.753 381.004 976.128 381.098 976.420 381.285  c
+976.722 381.473 976.930 381.738 977.045 382.082  c
+977.545 381.363 978.186 381.004 978.967 381.004  c
+979.592 381.004 980.066 381.176 980.389 381.520  c
+980.722 381.853 980.889 382.379 980.889 383.098  c
+980.889 387.363 l
+979.842 387.363 l
+979.842 383.441 l
+979.842 383.025 979.805 382.723 979.732 382.535  c
+979.670 382.348 979.550 382.197 979.373 382.082  c
+979.196 381.967 978.982 381.910 978.732 381.910  c
+978.295 381.910 977.930 382.056 977.639 382.348  c
+977.357 382.639 977.217 383.108 977.217 383.754  c
+977.217 387.363 l
+976.154 387.363 l
+976.154 383.316 l
+976.154 382.848 976.066 382.499 975.889 382.270  c
+975.722 382.030 975.446 381.910 975.061 381.910  c
+974.758 381.910 974.482 381.988 974.232 382.145  c
+973.982 382.301 973.800 382.530 973.686 382.832  c
+973.571 383.134 973.514 383.566 973.514 384.129  c
+973.514 387.363 l
+972.467 387.363 l
+h
+982.463 389.754 m
+982.463 381.145 l
+983.416 381.145 l
+983.416 381.941 l
+983.645 381.629 983.900 381.395 984.182 381.238  c
+984.473 381.082 984.822 381.004 985.229 381.004  c
+985.760 381.004 986.229 381.139 986.635 381.410  c
+987.041 381.681 987.343 382.066 987.541 382.566  c
+987.749 383.066 987.854 383.613 987.854 384.207  c
+987.854 384.842 987.739 385.415 987.510 385.926  c
+987.291 386.436 986.963 386.827 986.525 387.098  c
+986.088 387.368 985.630 387.504 985.150 387.504  c
+984.796 387.504 984.479 387.431 984.197 387.285  c
+983.916 387.129 983.687 386.941 983.510 386.723  c
+983.510 389.754 l
+982.463 389.754 l
+h
+983.416 384.285 m
+983.416 385.087 983.577 385.681 983.900 386.066  c
+984.223 386.441 984.614 386.629 985.072 386.629  c
+985.541 386.629 985.942 386.431 986.275 386.035  c
+986.609 385.639 986.775 385.025 986.775 384.191  c
+986.775 383.400 986.614 382.811 986.291 382.426  c
+985.968 382.030 985.577 381.832 985.119 381.832  c
+984.671 381.832 984.275 382.040 983.932 382.457  c
+983.588 382.874 983.416 383.483 983.416 384.285  c
+h
+993.215 387.363 m
+993.215 386.441 l
+992.725 387.150 992.064 387.504 991.230 387.504  c
+990.866 387.504 990.522 387.436 990.199 387.301  c
+989.887 387.155 989.652 386.978 989.496 386.770  c
+989.340 386.551 989.230 386.285 989.168 385.973  c
+989.126 385.775 989.105 385.447 989.105 384.988  c
+989.105 381.145 l
+990.168 381.145 l
+990.168 384.598 l
+990.168 385.139 990.189 385.509 990.230 385.707  c
+990.293 385.978 990.428 386.197 990.637 386.363  c
+990.855 386.520 991.126 386.598 991.449 386.598  c
+991.762 386.598 992.053 386.520 992.324 386.363  c
+992.605 386.197 992.803 385.973 992.918 385.691  c
+993.043 385.410 993.105 385.004 993.105 384.473  c
+993.105 381.145 l
+994.152 381.145 l
+994.152 387.363 l
+993.215 387.363 l
+h
+998.107 386.426 m
+998.264 387.348 l
+997.962 387.410 997.696 387.441 997.467 387.441  c
+997.081 387.441 996.785 387.384 996.576 387.270  c
+996.368 387.145 996.217 386.983 996.123 386.785  c
+996.040 386.587 995.998 386.171 995.998 385.535  c
+995.998 381.957 l
+995.232 381.957 l
+995.232 381.145 l
+995.998 381.145 l
+995.998 379.598 l
+997.045 378.973 l
+997.045 381.145 l
+998.107 381.145 l
+998.107 381.957 l
+997.045 381.957 l
+997.045 385.598 l
+997.045 385.900 997.061 386.092 997.092 386.176  c
+997.133 386.259 997.196 386.327 997.279 386.379  c
+997.363 386.431 997.482 386.457 997.639 386.457  c
+997.764 386.457 997.920 386.447 998.107 386.426  c
+h
+1003.39 385.363 m
+1004.49 385.488 l
+1004.32 386.124 1004.00 386.618 1003.54 386.973  c
+1003.07 387.327 1002.47 387.504 1001.75 387.504  c
+1000.85 387.504 1000.12 387.223 999.582 386.660  c
+999.051 386.098 998.785 385.311 998.785 384.301  c
+998.785 383.259 999.056 382.452 999.598 381.879  c
+1000.14 381.296 1000.84 381.004 1001.69 381.004  c
+1002.52 381.004 1003.20 381.285 1003.72 381.848  c
+1004.25 382.410 1004.52 383.207 1004.52 384.238  c
+1004.52 384.301 1004.52 384.395 1004.52 384.520  c
+999.879 384.520 l
+999.921 385.207 1000.11 385.733 1000.46 386.098  c
+1000.80 386.452 1001.23 386.629 1001.75 386.629  c
+1002.14 386.629 1002.47 386.530 1002.74 386.332  c
+1003.02 386.124 1003.24 385.801 1003.39 385.363  c
+h
+999.941 383.660 m
+1003.41 383.660 l
+1003.37 383.129 1003.24 382.733 1003.02 382.473  c
+1002.68 382.066 1002.24 381.863 1001.71 381.863  c
+1001.22 381.863 1000.81 382.025 1000.47 382.348  c
+1000.15 382.671 999.973 383.108 999.941 383.660  c
+h
+1013.21 386.598 m
+1012.82 386.931 1012.44 387.165 1012.07 387.301  c
+1011.72 387.436 1011.33 387.504 1010.92 387.504  c
+1010.23 387.504 1009.70 387.337 1009.34 387.004  c
+1008.98 386.671 1008.79 386.243 1008.79 385.723  c
+1008.79 385.421 1008.86 385.145 1009.00 384.895  c
+1009.13 384.634 1009.31 384.431 1009.54 384.285  c
+1009.77 384.129 1010.03 384.014 1010.31 383.941  c
+1010.51 383.879 1010.82 383.822 1011.25 383.770  c
+1012.09 383.676 1012.71 383.556 1013.12 383.410  c
+1013.12 383.264 1013.12 383.176 1013.12 383.145  c
+1013.12 382.707 1013.02 382.400 1012.82 382.223  c
+1012.55 381.993 1012.15 381.879 1011.62 381.879  c
+1011.13 381.879 1010.77 381.967 1010.53 382.145  c
+1010.29 382.311 1010.11 382.613 1010.00 383.051  c
+1008.96 382.910 l
+1009.06 382.473 1009.21 382.118 1009.43 381.848  c
+1009.65 381.577 1009.96 381.368 1010.37 381.223  c
+1010.78 381.077 1011.25 381.004 1011.78 381.004  c
+1012.31 381.004 1012.74 381.066 1013.07 381.191  c
+1013.41 381.316 1013.65 381.473 1013.81 381.660  c
+1013.96 381.848 1014.07 382.087 1014.14 382.379  c
+1014.17 382.556 1014.18 382.879 1014.18 383.348  c
+1014.18 384.754 l
+1014.18 385.733 1014.20 386.353 1014.25 386.613  c
+1014.30 386.874 1014.39 387.124 1014.53 387.363  c
+1013.42 387.363 l
+1013.31 387.145 1013.25 386.889 1013.21 386.598  c
+h
+1013.12 384.238 m
+1012.74 384.395 1012.16 384.530 1011.40 384.645  c
+1010.96 384.707 1010.66 384.780 1010.48 384.863  c
+1010.30 384.936 1010.16 385.046 1010.06 385.191  c
+1009.96 385.337 1009.92 385.504 1009.92 385.691  c
+1009.92 385.973 1010.02 386.207 1010.23 386.395  c
+1010.45 386.582 1010.76 386.676 1011.17 386.676  c
+1011.57 386.676 1011.93 386.587 1012.25 386.410  c
+1012.57 386.233 1012.80 385.988 1012.95 385.676  c
+1013.06 385.436 1013.12 385.087 1013.12 384.629  c
+1013.12 384.238 l
+h
+1015.83 387.363 m
+1015.83 381.145 l
+1016.76 381.145 l
+1016.76 382.020 l
+1017.22 381.342 1017.88 381.004 1018.75 381.004  c
+1019.12 381.004 1019.47 381.072 1019.78 381.207  c
+1020.10 381.342 1020.34 381.520 1020.50 381.738  c
+1020.65 381.957 1020.76 382.212 1020.83 382.504  c
+1020.86 382.702 1020.87 383.046 1020.87 383.535  c
+1020.87 387.363 l
+1019.83 387.363 l
+1019.83 383.582 l
+1019.83 383.145 1019.78 382.822 1019.70 382.613  c
+1019.62 382.405 1019.47 382.238 1019.26 382.113  c
+1019.06 381.978 1018.81 381.910 1018.53 381.910  c
+1018.08 381.910 1017.69 382.056 1017.36 382.348  c
+1017.03 382.629 1016.87 383.165 1016.87 383.957  c
+1016.87 387.363 l
+1015.83 387.363 l
+h
+1029.90 386.598 m
+1029.50 386.931 1029.12 387.165 1028.76 387.301  c
+1028.40 387.436 1028.02 387.504 1027.60 387.504  c
+1026.91 387.504 1026.39 387.337 1026.02 387.004  c
+1025.66 386.671 1025.47 386.243 1025.47 385.723  c
+1025.47 385.421 1025.54 385.145 1025.68 384.895  c
+1025.81 384.634 1026.00 384.431 1026.22 384.285  c
+1026.45 384.129 1026.71 384.014 1026.99 383.941  c
+1027.19 383.879 1027.50 383.822 1027.93 383.770  c
+1028.77 383.676 1029.40 383.556 1029.80 383.410  c
+1029.80 383.264 1029.80 383.176 1029.80 383.145  c
+1029.80 382.707 1029.70 382.400 1029.51 382.223  c
+1029.24 381.993 1028.83 381.879 1028.30 381.879  c
+1027.81 381.879 1027.45 381.967 1027.21 382.145  c
+1026.97 382.311 1026.79 382.613 1026.68 383.051  c
+1025.65 382.910 l
+1025.74 382.473 1025.90 382.118 1026.12 381.848  c
+1026.33 381.577 1026.65 381.368 1027.05 381.223  c
+1027.46 381.077 1027.93 381.004 1028.46 381.004  c
+1028.99 381.004 1029.42 381.066 1029.76 381.191  c
+1030.09 381.316 1030.33 381.473 1030.49 381.660  c
+1030.65 381.848 1030.76 382.087 1030.82 382.379  c
+1030.85 382.556 1030.87 382.879 1030.87 383.348  c
+1030.87 384.754 l
+1030.87 385.733 1030.89 386.353 1030.93 386.613  c
+1030.98 386.874 1031.07 387.124 1031.21 387.363  c
+1030.10 387.363 l
+1030.00 387.145 1029.93 386.889 1029.90 386.598  c
+h
+1029.80 384.238 m
+1029.42 384.395 1028.84 384.530 1028.08 384.645  c
+1027.65 384.707 1027.34 384.780 1027.16 384.863  c
+1026.99 384.936 1026.84 385.046 1026.74 385.191  c
+1026.65 385.337 1026.60 385.504 1026.60 385.691  c
+1026.60 385.973 1026.70 386.207 1026.91 386.395  c
+1027.13 386.582 1027.44 386.676 1027.85 386.676  c
+1028.26 386.676 1028.62 386.587 1028.93 386.410  c
+1029.25 386.233 1029.49 385.988 1029.63 385.676  c
+1029.75 385.436 1029.80 385.087 1029.80 384.629  c
+1029.80 384.238 l
+h
+1034.23 387.363 m
+1031.87 381.145 l
+1032.98 381.145 l
+1034.32 384.863 l
+1034.46 385.270 1034.59 385.686 1034.71 386.113  c
+1034.80 385.790 1034.93 385.400 1035.10 384.941  c
+1036.49 381.145 l
+1037.57 381.145 l
+1035.21 387.363 l
+1034.23 387.363 l
+h
+1042.76 385.363 m
+1043.85 385.488 l
+1043.68 386.124 1043.37 386.618 1042.90 386.973  c
+1042.43 387.327 1041.84 387.504 1041.12 387.504  c
+1040.21 387.504 1039.49 387.223 1038.95 386.660  c
+1038.41 386.098 1038.15 385.311 1038.15 384.301  c
+1038.15 383.259 1038.42 382.452 1038.96 381.879  c
+1039.50 381.296 1040.20 381.004 1041.05 381.004  c
+1041.89 381.004 1042.57 381.285 1043.09 381.848  c
+1043.62 382.410 1043.88 383.207 1043.88 384.238  c
+1043.88 384.301 1043.88 384.395 1043.88 384.520  c
+1039.24 384.520 l
+1039.28 385.207 1039.48 385.733 1039.82 386.098  c
+1040.16 386.452 1040.60 386.629 1041.12 386.629  c
+1041.50 386.629 1041.83 386.530 1042.10 386.332  c
+1042.38 386.124 1042.60 385.801 1042.76 385.363  c
+h
+1039.30 383.660 m
+1042.77 383.660 l
+1042.73 383.129 1042.60 382.733 1042.38 382.473  c
+1042.04 382.066 1041.60 381.863 1041.07 381.863  c
+1040.58 381.863 1040.17 382.025 1039.84 382.348  c
+1039.51 382.671 1039.34 383.108 1039.30 383.660  c
+h
+1045.17 387.363 m
+1045.17 381.145 l
+1046.12 381.145 l
+1046.12 382.082 l
+1046.36 381.645 1046.58 381.358 1046.78 381.223  c
+1046.98 381.077 1047.21 381.004 1047.46 381.004  c
+1047.82 381.004 1048.18 381.113 1048.54 381.332  c
+1048.18 382.316 l
+1047.92 382.160 1047.67 382.082 1047.42 382.082  c
+1047.18 382.082 1046.96 382.155 1046.78 382.301  c
+1046.60 382.436 1046.47 382.629 1046.40 382.879  c
+1046.28 383.254 1046.21 383.660 1046.21 384.098  c
+1046.21 387.363 l
+1045.17 387.363 l
+h
+1053.24 386.598 m
+1052.84 386.931 1052.46 387.165 1052.10 387.301  c
+1051.75 387.436 1051.36 387.504 1050.94 387.504  c
+1050.26 387.504 1049.73 387.337 1049.37 387.004  c
+1049.00 386.671 1048.82 386.243 1048.82 385.723  c
+1048.82 385.421 1048.89 385.145 1049.02 384.895  c
+1049.16 384.634 1049.34 384.431 1049.57 384.285  c
+1049.80 384.129 1050.05 384.014 1050.33 383.941  c
+1050.53 383.879 1050.84 383.822 1051.27 383.770  c
+1052.12 383.676 1052.74 383.556 1053.15 383.410  c
+1053.15 383.264 1053.15 383.176 1053.15 383.145  c
+1053.15 382.707 1053.05 382.400 1052.85 382.223  c
+1052.58 381.993 1052.18 381.879 1051.65 381.879  c
+1051.16 381.879 1050.79 381.967 1050.55 382.145  c
+1050.31 382.311 1050.14 382.613 1050.02 383.051  c
+1048.99 382.910 l
+1049.08 382.473 1049.24 382.118 1049.46 381.848  c
+1049.68 381.577 1049.99 381.368 1050.40 381.223  c
+1050.80 381.077 1051.27 381.004 1051.80 381.004  c
+1052.33 381.004 1052.77 381.066 1053.10 381.191  c
+1053.43 381.316 1053.68 381.473 1053.83 381.660  c
+1053.99 381.848 1054.10 382.087 1054.16 382.379  c
+1054.19 382.556 1054.21 382.879 1054.21 383.348  c
+1054.21 384.754 l
+1054.21 385.733 1054.23 386.353 1054.27 386.613  c
+1054.32 386.874 1054.42 387.124 1054.55 387.363  c
+1053.44 387.363 l
+1053.34 387.145 1053.27 386.889 1053.24 386.598  c
+h
+1053.15 384.238 m
+1052.76 384.395 1052.19 384.530 1051.43 384.645  c
+1050.99 384.707 1050.68 384.780 1050.51 384.863  c
+1050.33 384.936 1050.19 385.046 1050.08 385.191  c
+1049.99 385.337 1049.94 385.504 1049.94 385.691  c
+1049.94 385.973 1050.05 386.207 1050.26 386.395  c
+1050.47 386.582 1050.79 386.676 1051.19 386.676  c
+1051.60 386.676 1051.96 386.587 1052.27 386.410  c
+1052.59 386.233 1052.83 385.988 1052.97 385.676  c
+1053.09 385.436 1053.15 385.087 1053.15 384.629  c
+1053.15 384.238 l
+h
+1055.65 387.879 m
+1056.68 388.035 l
+1056.72 388.348 1056.84 388.577 1057.04 388.723  c
+1057.30 388.921 1057.65 389.020 1058.10 389.020  c
+1058.59 389.020 1058.97 388.921 1059.23 388.723  c
+1059.50 388.525 1059.68 388.254 1059.77 387.910  c
+1059.84 387.691 1059.86 387.238 1059.85 386.551  c
+1059.39 387.092 1058.82 387.363 1058.13 387.363  c
+1057.28 387.363 1056.62 387.056 1056.15 386.441  c
+1055.68 385.816 1055.45 385.077 1055.45 384.223  c
+1055.45 383.629 1055.55 383.082 1055.76 382.582  c
+1055.98 382.072 1056.29 381.681 1056.70 381.410  c
+1057.10 381.139 1057.58 381.004 1058.13 381.004  c
+1058.87 381.004 1059.48 381.301 1059.96 381.895  c
+1059.96 381.145 l
+1060.93 381.145 l
+1060.93 386.520 l
+1060.93 387.488 1060.83 388.176 1060.63 388.582  c
+1060.43 388.988 1060.12 389.306 1059.70 389.535  c
+1059.27 389.775 1058.74 389.895 1058.12 389.895  c
+1057.38 389.895 1056.78 389.728 1056.32 389.395  c
+1055.86 389.061 1055.64 388.556 1055.65 387.879  c
+h
+1056.52 384.145 m
+1056.52 384.957 1056.68 385.551 1057.01 385.926  c
+1057.33 386.301 1057.74 386.488 1058.23 386.488  c
+1058.72 386.488 1059.12 386.301 1059.45 385.926  c
+1059.78 385.551 1059.95 384.967 1059.95 384.176  c
+1059.95 383.415 1059.77 382.842 1059.43 382.457  c
+1059.10 382.072 1058.69 381.879 1058.21 381.879  c
+1057.74 381.879 1057.34 382.072 1057.01 382.457  c
+1056.68 382.832 1056.52 383.395 1056.52 384.145  c
+h
+1066.78 385.363 m
+1067.87 385.488 l
+1067.70 386.124 1067.38 386.618 1066.92 386.973  c
+1066.45 387.327 1065.85 387.504 1065.13 387.504  c
+1064.23 387.504 1063.50 387.223 1062.96 386.660  c
+1062.43 386.098 1062.17 385.311 1062.17 384.301  c
+1062.17 383.259 1062.44 382.452 1062.98 381.879  c
+1063.52 381.296 1064.22 381.004 1065.07 381.004  c
+1065.91 381.004 1066.58 381.285 1067.10 381.848  c
+1067.63 382.410 1067.90 383.207 1067.90 384.238  c
+1067.90 384.301 1067.90 384.395 1067.90 384.520  c
+1063.26 384.520 l
+1063.30 385.207 1063.49 385.733 1063.84 386.098  c
+1064.18 386.452 1064.61 386.629 1065.13 386.629  c
+1065.52 386.629 1065.85 386.530 1066.12 386.332  c
+1066.40 386.124 1066.62 385.801 1066.78 385.363  c
+h
+1063.32 383.660 m
+1066.79 383.660 l
+1066.75 383.129 1066.62 382.733 1066.40 382.473  c
+1066.06 382.066 1065.62 381.863 1065.09 381.863  c
+1064.60 381.863 1064.19 382.025 1063.85 382.348  c
+1063.53 382.671 1063.35 383.108 1063.32 383.660  c
+h
+f
+newpath
+949.375 399.486 m
+949.375 398.424 l
+952.625 398.424 l
+952.625 399.486 l
+949.375 399.486 l
+h
+963.393 399.049 m
+964.518 399.346 l
+964.278 400.273 963.851 400.981 963.236 401.471  c
+962.622 401.960 961.867 402.205 960.971 402.205  c
+960.044 402.205 959.288 402.018 958.705 401.643  c
+958.122 401.268 957.679 400.726 957.377 400.018  c
+957.075 399.299 956.924 398.528 956.924 397.705  c
+956.924 396.809 957.096 396.028 957.439 395.361  c
+957.783 394.695 958.268 394.189 958.893 393.846  c
+959.528 393.502 960.226 393.330 960.986 393.330  c
+961.840 393.330 962.559 393.549 963.143 393.986  c
+963.736 394.424 964.148 395.038 964.377 395.830  c
+963.252 396.096 l
+963.054 395.471 962.762 395.018 962.377 394.736  c
+962.002 394.445 961.528 394.299 960.955 394.299  c
+960.299 394.299 959.747 394.460 959.299 394.783  c
+958.861 395.096 958.549 395.518 958.361 396.049  c
+958.184 396.580 958.096 397.132 958.096 397.705  c
+958.096 398.434 958.200 399.070 958.408 399.611  c
+958.627 400.153 958.960 400.559 959.408 400.830  c
+959.856 401.101 960.346 401.236 960.877 401.236  c
+961.512 401.236 962.049 401.054 962.486 400.689  c
+962.934 400.325 963.236 399.778 963.393 399.049  c
+h
+965.402 398.955 m
+965.402 397.799 965.720 396.945 966.355 396.393  c
+966.887 395.934 967.538 395.705 968.309 395.705  c
+969.163 395.705 969.861 395.986 970.402 396.549  c
+970.954 397.101 971.230 397.872 971.230 398.861  c
+971.230 399.663 971.111 400.294 970.871 400.752  c
+970.632 401.210 970.277 401.570 969.809 401.830  c
+969.350 402.080 968.850 402.205 968.309 402.205  c
+967.444 402.205 966.741 401.929 966.199 401.377  c
+965.668 400.814 965.402 400.007 965.402 398.955  c
+h
+966.480 398.955 m
+966.480 399.747 966.652 400.340 966.996 400.736  c
+967.350 401.132 967.788 401.330 968.309 401.330  c
+968.840 401.330 969.277 401.132 969.621 400.736  c
+969.965 400.340 970.137 399.736 970.137 398.924  c
+970.137 398.153 969.960 397.570 969.605 397.174  c
+969.262 396.778 968.829 396.580 968.309 396.580  c
+967.788 396.580 967.350 396.778 966.996 397.174  c
+966.652 397.559 966.480 398.153 966.480 398.955  c
+h
+972.467 402.064 m
+972.467 395.846 l
+973.404 395.846 l
+973.404 396.721 l
+973.602 396.408 973.863 396.163 974.186 395.986  c
+974.508 395.799 974.878 395.705 975.295 395.705  c
+975.753 395.705 976.128 395.799 976.420 395.986  c
+976.722 396.174 976.930 396.439 977.045 396.783  c
+977.545 396.064 978.186 395.705 978.967 395.705  c
+979.592 395.705 980.066 395.877 980.389 396.221  c
+980.722 396.554 980.889 397.080 980.889 397.799  c
+980.889 402.064 l
+979.842 402.064 l
+979.842 398.143 l
+979.842 397.726 979.805 397.424 979.732 397.236  c
+979.670 397.049 979.550 396.898 979.373 396.783  c
+979.196 396.669 978.982 396.611 978.732 396.611  c
+978.295 396.611 977.930 396.757 977.639 397.049  c
+977.357 397.340 977.217 397.809 977.217 398.455  c
+977.217 402.064 l
+976.154 402.064 l
+976.154 398.018 l
+976.154 397.549 976.066 397.200 975.889 396.971  c
+975.722 396.731 975.446 396.611 975.061 396.611  c
+974.758 396.611 974.482 396.689 974.232 396.846  c
+973.982 397.002 973.800 397.231 973.686 397.533  c
+973.571 397.835 973.514 398.268 973.514 398.830  c
+973.514 402.064 l
+972.467 402.064 l
+h
+982.463 404.455 m
+982.463 395.846 l
+983.416 395.846 l
+983.416 396.643 l
+983.645 396.330 983.900 396.096 984.182 395.939  c
+984.473 395.783 984.822 395.705 985.229 395.705  c
+985.760 395.705 986.229 395.840 986.635 396.111  c
+987.041 396.382 987.343 396.768 987.541 397.268  c
+987.749 397.768 987.854 398.314 987.854 398.908  c
+987.854 399.544 987.739 400.117 987.510 400.627  c
+987.291 401.137 986.963 401.528 986.525 401.799  c
+986.088 402.070 985.630 402.205 985.150 402.205  c
+984.796 402.205 984.479 402.132 984.197 401.986  c
+983.916 401.830 983.687 401.643 983.510 401.424  c
+983.510 404.455 l
+982.463 404.455 l
+h
+983.416 398.986 m
+983.416 399.788 983.577 400.382 983.900 400.768  c
+984.223 401.143 984.614 401.330 985.072 401.330  c
+985.541 401.330 985.942 401.132 986.275 400.736  c
+986.609 400.340 986.775 399.726 986.775 398.893  c
+986.775 398.101 986.614 397.512 986.291 397.127  c
+985.968 396.731 985.577 396.533 985.119 396.533  c
+984.671 396.533 984.275 396.742 983.932 397.158  c
+983.588 397.575 983.416 398.184 983.416 398.986  c
+h
+993.215 402.064 m
+993.215 401.143 l
+992.725 401.851 992.064 402.205 991.230 402.205  c
+990.866 402.205 990.522 402.137 990.199 402.002  c
+989.887 401.856 989.652 401.679 989.496 401.471  c
+989.340 401.252 989.230 400.986 989.168 400.674  c
+989.126 400.476 989.105 400.148 989.105 399.689  c
+989.105 395.846 l
+990.168 395.846 l
+990.168 399.299 l
+990.168 399.840 990.189 400.210 990.230 400.408  c
+990.293 400.679 990.428 400.898 990.637 401.064  c
+990.855 401.221 991.126 401.299 991.449 401.299  c
+991.762 401.299 992.053 401.221 992.324 401.064  c
+992.605 400.898 992.803 400.674 992.918 400.393  c
+993.043 400.111 993.105 399.705 993.105 399.174  c
+993.105 395.846 l
+994.152 395.846 l
+994.152 402.064 l
+993.215 402.064 l
+h
+998.107 401.127 m
+998.264 402.049 l
+997.962 402.111 997.696 402.143 997.467 402.143  c
+997.081 402.143 996.785 402.085 996.576 401.971  c
+996.368 401.846 996.217 401.684 996.123 401.486  c
+996.040 401.288 995.998 400.872 995.998 400.236  c
+995.998 396.658 l
+995.232 396.658 l
+995.232 395.846 l
+995.998 395.846 l
+995.998 394.299 l
+997.045 393.674 l
+997.045 395.846 l
+998.107 395.846 l
+998.107 396.658 l
+997.045 396.658 l
+997.045 400.299 l
+997.045 400.601 997.061 400.794 997.092 400.877  c
+997.133 400.960 997.196 401.028 997.279 401.080  c
+997.363 401.132 997.482 401.158 997.639 401.158  c
+997.764 401.158 997.920 401.148 998.107 401.127  c
+h
+1003.39 400.064 m
+1004.49 400.189 l
+1004.32 400.825 1004.00 401.320 1003.54 401.674  c
+1003.07 402.028 1002.47 402.205 1001.75 402.205  c
+1000.85 402.205 1000.12 401.924 999.582 401.361  c
+999.051 400.799 998.785 400.012 998.785 399.002  c
+998.785 397.960 999.056 397.153 999.598 396.580  c
+1000.14 395.997 1000.84 395.705 1001.69 395.705  c
+1002.52 395.705 1003.20 395.986 1003.72 396.549  c
+1004.25 397.111 1004.52 397.908 1004.52 398.939  c
+1004.52 399.002 1004.52 399.096 1004.52 399.221  c
+999.879 399.221 l
+999.921 399.908 1000.11 400.434 1000.46 400.799  c
+1000.80 401.153 1001.23 401.330 1001.75 401.330  c
+1002.14 401.330 1002.47 401.231 1002.74 401.033  c
+1003.02 400.825 1003.24 400.502 1003.39 400.064  c
+h
+999.941 398.361 m
+1003.41 398.361 l
+1003.37 397.830 1003.24 397.434 1003.02 397.174  c
+1002.68 396.768 1002.24 396.564 1001.71 396.564  c
+1001.22 396.564 1000.81 396.726 1000.47 397.049  c
+1000.15 397.372 999.973 397.809 999.941 398.361  c
+h
+1011.45 401.127 m
+1011.61 402.049 l
+1011.30 402.111 1011.04 402.143 1010.81 402.143  c
+1010.42 402.143 1010.13 402.085 1009.92 401.971  c
+1009.71 401.846 1009.56 401.684 1009.46 401.486  c
+1009.38 401.288 1009.34 400.872 1009.34 400.236  c
+1009.34 396.658 l
+1008.57 396.658 l
+1008.57 395.846 l
+1009.34 395.846 l
+1009.34 394.299 l
+1010.39 393.674 l
+1010.39 395.846 l
+1011.45 395.846 l
+1011.45 396.658 l
+1010.39 396.658 l
+1010.39 400.299 l
+1010.39 400.601 1010.40 400.794 1010.43 400.877  c
+1010.48 400.960 1010.54 401.028 1010.62 401.080  c
+1010.70 401.132 1010.82 401.158 1010.98 401.158  c
+1011.11 401.158 1011.26 401.148 1011.45 401.127  c
+h
+1012.49 402.064 m
+1012.49 393.471 l
+1013.53 393.471 l
+1013.53 396.549 l
+1014.02 395.986 1014.64 395.705 1015.39 395.705  c
+1015.86 395.705 1016.26 395.799 1016.60 395.986  c
+1016.94 396.163 1017.18 396.413 1017.33 396.736  c
+1017.48 397.049 1017.55 397.512 1017.55 398.127  c
+1017.55 402.064 l
+1016.50 402.064 l
+1016.50 398.127 l
+1016.50 397.596 1016.39 397.210 1016.16 396.971  c
+1015.93 396.731 1015.61 396.611 1015.19 396.611  c
+1014.88 396.611 1014.58 396.695 1014.30 396.861  c
+1014.03 397.018 1013.83 397.236 1013.71 397.518  c
+1013.59 397.788 1013.53 398.169 1013.53 398.658  c
+1013.53 402.064 l
+1012.49 402.064 l
+h
+1023.41 400.064 m
+1024.50 400.189 l
+1024.34 400.825 1024.02 401.320 1023.55 401.674  c
+1023.08 402.028 1022.49 402.205 1021.77 402.205  c
+1020.86 402.205 1020.14 401.924 1019.60 401.361  c
+1019.07 400.799 1018.80 400.012 1018.80 399.002  c
+1018.80 397.960 1019.07 397.153 1019.61 396.580  c
+1020.15 395.997 1020.85 395.705 1021.71 395.705  c
+1022.54 395.705 1023.22 395.986 1023.74 396.549  c
+1024.27 397.111 1024.54 397.908 1024.54 398.939  c
+1024.54 399.002 1024.54 399.096 1024.54 399.221  c
+1019.89 399.221 l
+1019.94 399.908 1020.13 400.434 1020.47 400.799  c
+1020.82 401.153 1021.25 401.330 1021.77 401.330  c
+1022.15 401.330 1022.48 401.231 1022.75 401.033  c
+1023.04 400.825 1023.25 400.502 1023.41 400.064  c
+h
+1019.96 398.361 m
+1023.43 398.361 l
+1023.38 397.830 1023.25 397.434 1023.04 397.174  c
+1022.69 396.768 1022.25 396.564 1021.72 396.564  c
+1021.23 396.564 1020.82 396.726 1020.49 397.049  c
+1020.17 397.372 1019.99 397.809 1019.96 398.361  c
+h
+1028.75 400.205 m
+1029.78 400.049 l
+1029.84 400.465 1030.00 400.783 1030.26 401.002  c
+1030.53 401.221 1030.91 401.330 1031.40 401.330  c
+1031.88 401.330 1032.24 401.236 1032.46 401.049  c
+1032.70 400.851 1032.82 400.617 1032.82 400.346  c
+1032.82 400.106 1032.72 399.919 1032.51 399.783  c
+1032.37 399.689 1032.01 399.570 1031.43 399.424  c
+1030.66 399.226 1030.13 399.059 1029.82 398.924  c
+1029.53 398.778 1029.31 398.580 1029.15 398.330  c
+1029.00 398.080 1028.92 397.799 1028.92 397.486  c
+1028.92 397.215 1028.98 396.960 1029.11 396.721  c
+1029.23 396.481 1029.40 396.283 1029.62 396.127  c
+1029.79 396.012 1030.01 395.913 1030.29 395.830  c
+1030.57 395.747 1030.88 395.705 1031.21 395.705  c
+1031.69 395.705 1032.12 395.778 1032.48 395.924  c
+1032.86 396.059 1033.13 396.247 1033.31 396.486  c
+1033.49 396.726 1033.61 397.044 1033.67 397.439  c
+1032.64 397.580 l
+1032.60 397.268 1032.46 397.023 1032.23 396.846  c
+1032.01 396.658 1031.69 396.564 1031.28 396.564  c
+1030.80 396.564 1030.45 396.648 1030.25 396.814  c
+1030.04 396.971 1029.93 397.158 1029.93 397.377  c
+1029.93 397.512 1029.98 397.632 1030.06 397.736  c
+1030.15 397.851 1030.29 397.945 1030.46 398.018  c
+1030.57 398.059 1030.88 398.148 1031.40 398.283  c
+1032.15 398.492 1032.67 398.658 1032.96 398.783  c
+1033.26 398.908 1033.49 399.090 1033.65 399.330  c
+1033.82 399.570 1033.90 399.872 1033.90 400.236  c
+1033.90 400.590 1033.80 400.924 1033.59 401.236  c
+1033.39 401.538 1033.10 401.778 1032.71 401.955  c
+1032.33 402.122 1031.89 402.205 1031.40 402.205  c
+1030.59 402.205 1029.97 402.038 1029.54 401.705  c
+1029.13 401.361 1028.86 400.861 1028.75 400.205  c
+h
+1039.14 404.455 m
+1039.14 401.408 l
+1038.97 401.637 1038.74 401.830 1038.43 401.986  c
+1038.14 402.132 1037.83 402.205 1037.50 402.205  c
+1036.76 402.205 1036.12 401.913 1035.59 401.330  c
+1035.06 400.736 1034.79 399.924 1034.79 398.893  c
+1034.79 398.268 1034.90 397.710 1035.12 397.221  c
+1035.34 396.721 1035.65 396.346 1036.06 396.096  c
+1036.48 395.835 1036.93 395.705 1037.42 395.705  c
+1038.19 395.705 1038.79 396.028 1039.23 396.674  c
+1039.23 395.846 l
+1040.18 395.846 l
+1040.18 404.455 l
+1039.14 404.455 l
+h
+1035.87 398.939 m
+1035.87 399.742 1036.04 400.340 1036.37 400.736  c
+1036.71 401.132 1037.12 401.330 1037.59 401.330  c
+1038.04 401.330 1038.42 401.143 1038.75 400.768  c
+1039.07 400.382 1039.23 399.804 1039.23 399.033  c
+1039.23 398.200 1039.06 397.575 1038.71 397.158  c
+1038.38 396.742 1037.98 396.533 1037.51 396.533  c
+1037.06 396.533 1036.68 396.731 1036.36 397.127  c
+1036.03 397.512 1035.87 398.117 1035.87 398.939  c
+h
+1045.92 402.064 m
+1045.92 401.143 l
+1045.43 401.851 1044.77 402.205 1043.94 402.205  c
+1043.57 402.205 1043.23 402.137 1042.90 402.002  c
+1042.59 401.856 1042.36 401.679 1042.20 401.471  c
+1042.04 401.252 1041.94 400.986 1041.87 400.674  c
+1041.83 400.476 1041.81 400.148 1041.81 399.689  c
+1041.81 395.846 l
+1042.87 395.846 l
+1042.87 399.299 l
+1042.87 399.840 1042.89 400.210 1042.94 400.408  c
+1043.00 400.679 1043.13 400.898 1043.34 401.064  c
+1043.56 401.221 1043.83 401.299 1044.15 401.299  c
+1044.47 401.299 1044.76 401.221 1045.03 401.064  c
+1045.31 400.898 1045.51 400.674 1045.62 400.393  c
+1045.75 400.111 1045.81 399.705 1045.81 399.174  c
+1045.81 395.846 l
+1046.86 395.846 l
+1046.86 402.064 l
+1045.92 402.064 l
+h
+1052.58 401.299 m
+1052.18 401.632 1051.80 401.867 1051.44 402.002  c
+1051.08 402.137 1050.70 402.205 1050.28 402.205  c
+1049.59 402.205 1049.07 402.038 1048.70 401.705  c
+1048.34 401.372 1048.16 400.945 1048.16 400.424  c
+1048.16 400.122 1048.22 399.846 1048.36 399.596  c
+1048.49 399.335 1048.68 399.132 1048.91 398.986  c
+1049.14 398.830 1049.39 398.715 1049.67 398.643  c
+1049.87 398.580 1050.18 398.523 1050.61 398.471  c
+1051.45 398.377 1052.08 398.257 1052.48 398.111  c
+1052.48 397.965 1052.48 397.877 1052.48 397.846  c
+1052.48 397.408 1052.39 397.101 1052.19 396.924  c
+1051.92 396.695 1051.52 396.580 1050.98 396.580  c
+1050.49 396.580 1050.13 396.669 1049.89 396.846  c
+1049.65 397.012 1049.47 397.314 1049.36 397.752  c
+1048.33 397.611 l
+1048.42 397.174 1048.58 396.820 1048.80 396.549  c
+1049.02 396.278 1049.33 396.070 1049.73 395.924  c
+1050.14 395.778 1050.61 395.705 1051.14 395.705  c
+1051.67 395.705 1052.10 395.768 1052.44 395.893  c
+1052.77 396.018 1053.02 396.174 1053.17 396.361  c
+1053.33 396.549 1053.44 396.788 1053.50 397.080  c
+1053.53 397.257 1053.55 397.580 1053.55 398.049  c
+1053.55 399.455 l
+1053.55 400.434 1053.57 401.054 1053.61 401.314  c
+1053.66 401.575 1053.76 401.825 1053.89 402.064  c
+1052.78 402.064 l
+1052.68 401.846 1052.61 401.590 1052.58 401.299  c
+h
+1052.48 398.939 m
+1052.10 399.096 1051.53 399.231 1050.77 399.346  c
+1050.33 399.408 1050.02 399.481 1049.84 399.564  c
+1049.67 399.637 1049.53 399.747 1049.42 399.893  c
+1049.33 400.038 1049.28 400.205 1049.28 400.393  c
+1049.28 400.674 1049.39 400.908 1049.59 401.096  c
+1049.81 401.283 1050.12 401.377 1050.53 401.377  c
+1050.94 401.377 1051.30 401.288 1051.61 401.111  c
+1051.93 400.934 1052.17 400.689 1052.31 400.377  c
+1052.43 400.137 1052.48 399.788 1052.48 399.330  c
+1052.48 398.939 l
+h
+1055.17 402.064 m
+1055.17 395.846 l
+1056.13 395.846 l
+1056.13 396.783 l
+1056.37 396.346 1056.59 396.059 1056.78 395.924  c
+1056.99 395.778 1057.22 395.705 1057.47 395.705  c
+1057.82 395.705 1058.18 395.814 1058.55 396.033  c
+1058.19 397.018 l
+1057.93 396.861 1057.67 396.783 1057.42 396.783  c
+1057.18 396.783 1056.97 396.856 1056.78 397.002  c
+1056.61 397.137 1056.48 397.330 1056.41 397.580  c
+1056.28 397.955 1056.22 398.361 1056.22 398.799  c
+1056.22 402.064 l
+1055.17 402.064 l
+h
+1063.44 400.064 m
+1064.53 400.189 l
+1064.36 400.825 1064.04 401.320 1063.58 401.674  c
+1063.11 402.028 1062.51 402.205 1061.79 402.205  c
+1060.89 402.205 1060.16 401.924 1059.62 401.361  c
+1059.09 400.799 1058.83 400.012 1058.83 399.002  c
+1058.83 397.960 1059.10 397.153 1059.64 396.580  c
+1060.18 395.997 1060.88 395.705 1061.73 395.705  c
+1062.57 395.705 1063.24 395.986 1063.76 396.549  c
+1064.29 397.111 1064.56 397.908 1064.56 398.939  c
+1064.56 399.002 1064.56 399.096 1064.56 399.221  c
+1059.92 399.221 l
+1059.96 399.908 1060.15 400.434 1060.50 400.799  c
+1060.84 401.153 1061.27 401.330 1061.79 401.330  c
+1062.18 401.330 1062.51 401.231 1062.78 401.033  c
+1063.06 400.825 1063.28 400.502 1063.44 400.064  c
+h
+1059.98 398.361 m
+1063.45 398.361 l
+1063.41 397.830 1063.28 397.434 1063.06 397.174  c
+1062.72 396.768 1062.28 396.564 1061.75 396.564  c
+1061.26 396.564 1060.85 396.726 1060.51 397.049  c
+1060.19 397.372 1060.01 397.809 1059.98 398.361  c
+h
+1068.80 398.955 m
+1068.80 397.799 1069.12 396.945 1069.76 396.393  c
+1070.29 395.934 1070.94 395.705 1071.71 395.705  c
+1072.56 395.705 1073.26 395.986 1073.80 396.549  c
+1074.35 397.101 1074.63 397.872 1074.63 398.861  c
+1074.63 399.663 1074.51 400.294 1074.27 400.752  c
+1074.03 401.210 1073.68 401.570 1073.21 401.830  c
+1072.75 402.080 1072.25 402.205 1071.71 402.205  c
+1070.84 402.205 1070.14 401.929 1069.60 401.377  c
+1069.07 400.814 1068.80 400.007 1068.80 398.955  c
+h
+1069.88 398.955 m
+1069.88 399.747 1070.05 400.340 1070.40 400.736  c
+1070.75 401.132 1071.19 401.330 1071.71 401.330  c
+1072.24 401.330 1072.68 401.132 1073.02 400.736  c
+1073.37 400.340 1073.54 399.736 1073.54 398.924  c
+1073.54 398.153 1073.36 397.570 1073.01 397.174  c
+1072.66 396.778 1072.23 396.580 1071.71 396.580  c
+1071.19 396.580 1070.75 396.778 1070.40 397.174  c
+1070.05 397.559 1069.88 398.153 1069.88 398.955  c
+h
+1076.12 402.064 m
+1076.12 396.658 l
+1075.18 396.658 l
+1075.18 395.846 l
+1076.12 395.846 l
+1076.12 395.174 l
+1076.12 394.757 1076.15 394.450 1076.23 394.252  c
+1076.33 393.971 1076.51 393.747 1076.76 393.580  c
+1077.02 393.413 1077.38 393.330 1077.84 393.330  c
+1078.14 393.330 1078.47 393.367 1078.82 393.439  c
+1078.66 394.346 l
+1078.45 394.314 1078.24 394.299 1078.04 394.299  c
+1077.72 394.299 1077.49 394.367 1077.35 394.502  c
+1077.23 394.637 1077.16 394.893 1077.16 395.268  c
+1077.16 395.846 l
+1078.38 395.846 l
+1078.38 396.658 l
+1077.16 396.658 l
+1077.16 402.064 l
+1076.12 402.064 l
+h
+1086.60 401.299 m
+1086.20 401.632 1085.82 401.867 1085.46 402.002  c
+1085.10 402.137 1084.72 402.205 1084.30 402.205  c
+1083.61 402.205 1083.09 402.038 1082.72 401.705  c
+1082.36 401.372 1082.18 400.945 1082.18 400.424  c
+1082.18 400.122 1082.24 399.846 1082.38 399.596  c
+1082.51 399.335 1082.70 399.132 1082.93 398.986  c
+1083.15 398.830 1083.41 398.715 1083.69 398.643  c
+1083.89 398.580 1084.20 398.523 1084.63 398.471  c
+1085.47 398.377 1086.10 398.257 1086.50 398.111  c
+1086.50 397.965 1086.50 397.877 1086.50 397.846  c
+1086.50 397.408 1086.40 397.101 1086.21 396.924  c
+1085.94 396.695 1085.54 396.580 1085.00 396.580  c
+1084.51 396.580 1084.15 396.669 1083.91 396.846  c
+1083.67 397.012 1083.49 397.314 1083.38 397.752  c
+1082.35 397.611 l
+1082.44 397.174 1082.60 396.820 1082.82 396.549  c
+1083.04 396.278 1083.35 396.070 1083.75 395.924  c
+1084.16 395.778 1084.63 395.705 1085.16 395.705  c
+1085.69 395.705 1086.12 395.768 1086.46 395.893  c
+1086.79 396.018 1087.04 396.174 1087.19 396.361  c
+1087.35 396.549 1087.46 396.788 1087.52 397.080  c
+1087.55 397.257 1087.57 397.580 1087.57 398.049  c
+1087.57 399.455 l
+1087.57 400.434 1087.59 401.054 1087.63 401.314  c
+1087.68 401.575 1087.77 401.825 1087.91 402.064  c
+1086.80 402.064 l
+1086.70 401.846 1086.63 401.590 1086.60 401.299  c
+h
+1086.50 398.939 m
+1086.12 399.096 1085.55 399.231 1084.79 399.346  c
+1084.35 399.408 1084.04 399.481 1083.86 399.564  c
+1083.69 399.637 1083.55 399.747 1083.44 399.893  c
+1083.35 400.038 1083.30 400.205 1083.30 400.393  c
+1083.30 400.674 1083.40 400.908 1083.61 401.096  c
+1083.83 401.283 1084.14 401.377 1084.55 401.377  c
+1084.96 401.377 1085.32 401.288 1085.63 401.111  c
+1085.95 400.934 1086.19 400.689 1086.33 400.377  c
+1086.45 400.137 1086.50 399.788 1086.50 399.330  c
+1086.50 398.939 l
+h
+1092.54 402.064 m
+1092.54 395.846 l
+1093.48 395.846 l
+1093.48 396.721 l
+1093.94 396.044 1094.60 395.705 1095.46 395.705  c
+1095.84 395.705 1096.18 395.773 1096.50 395.908  c
+1096.82 396.044 1097.06 396.221 1097.21 396.439  c
+1097.37 396.658 1097.48 396.913 1097.54 397.205  c
+1097.57 397.403 1097.59 397.747 1097.59 398.236  c
+1097.59 402.064 l
+1096.54 402.064 l
+1096.54 398.283 l
+1096.54 397.846 1096.50 397.523 1096.42 397.314  c
+1096.33 397.106 1096.19 396.939 1095.98 396.814  c
+1095.77 396.679 1095.53 396.611 1095.25 396.611  c
+1094.80 396.611 1094.41 396.757 1094.07 397.049  c
+1093.75 397.330 1093.59 397.867 1093.59 398.658  c
+1093.59 402.064 l
+1092.54 402.064 l
+h
+1103.29 402.064 m
+1103.29 401.143 l
+1102.81 401.851 1102.14 402.205 1101.31 402.205  c
+1100.95 402.205 1100.60 402.137 1100.28 402.002  c
+1099.97 401.856 1099.73 401.679 1099.58 401.471  c
+1099.42 401.252 1099.31 400.986 1099.25 400.674  c
+1099.21 400.476 1099.19 400.148 1099.19 399.689  c
+1099.19 395.846 l
+1100.25 395.846 l
+1100.25 399.299 l
+1100.25 399.840 1100.27 400.210 1100.31 400.408  c
+1100.37 400.679 1100.51 400.898 1100.72 401.064  c
+1100.94 401.221 1101.21 401.299 1101.53 401.299  c
+1101.84 401.299 1102.13 401.221 1102.40 401.064  c
+1102.69 400.898 1102.88 400.674 1103.00 400.393  c
+1103.12 400.111 1103.19 399.705 1103.19 399.174  c
+1103.19 395.846 l
+1104.23 395.846 l
+1104.23 402.064 l
+1103.29 402.064 l
+h
+1105.89 402.064 m
+1105.89 395.846 l
+1106.83 395.846 l
+1106.83 396.721 l
+1107.03 396.408 1107.29 396.163 1107.61 395.986  c
+1107.93 395.799 1108.30 395.705 1108.72 395.705  c
+1109.18 395.705 1109.55 395.799 1109.84 395.986  c
+1110.15 396.174 1110.35 396.439 1110.47 396.783  c
+1110.97 396.064 1111.61 395.705 1112.39 395.705  c
+1113.02 395.705 1113.49 395.877 1113.81 396.221  c
+1114.15 396.554 1114.31 397.080 1114.31 397.799  c
+1114.31 402.064 l
+1113.27 402.064 l
+1113.27 398.143 l
+1113.27 397.726 1113.23 397.424 1113.16 397.236  c
+1113.09 397.049 1112.97 396.898 1112.80 396.783  c
+1112.62 396.669 1112.41 396.611 1112.16 396.611  c
+1111.72 396.611 1111.35 396.757 1111.06 397.049  c
+1110.78 397.340 1110.64 397.809 1110.64 398.455  c
+1110.64 402.064 l
+1109.58 402.064 l
+1109.58 398.018 l
+1109.58 397.549 1109.49 397.200 1109.31 396.971  c
+1109.15 396.731 1108.87 396.611 1108.48 396.611  c
+1108.18 396.611 1107.91 396.689 1107.66 396.846  c
+1107.41 397.002 1107.22 397.231 1107.11 397.533  c
+1106.99 397.835 1106.94 398.268 1106.94 398.830  c
+1106.94 402.064 l
+1105.89 402.064 l
+h
+1116.86 402.064 m
+1115.87 402.064 l
+1115.87 393.471 l
+1116.93 393.471 l
+1116.93 396.533 l
+1117.38 395.981 1117.95 395.705 1118.64 395.705  c
+1119.02 395.705 1119.38 395.783 1119.71 395.939  c
+1120.06 396.085 1120.34 396.299 1120.56 396.580  c
+1120.79 396.861 1120.96 397.200 1121.09 397.596  c
+1121.21 397.992 1121.28 398.413 1121.28 398.861  c
+1121.28 399.924 1121.01 400.747 1120.48 401.330  c
+1119.95 401.913 1119.32 402.205 1118.59 402.205  c
+1117.85 402.205 1117.27 401.898 1116.86 401.283  c
+1116.86 402.064 l
+h
+1116.84 398.908 m
+1116.84 399.648 1116.94 400.184 1117.15 400.518  c
+1117.49 401.059 1117.93 401.330 1118.50 401.330  c
+1118.95 401.330 1119.35 401.132 1119.68 400.736  c
+1120.03 400.340 1120.20 399.742 1120.20 398.939  c
+1120.20 398.127 1120.04 397.528 1119.71 397.143  c
+1119.39 396.757 1119.00 396.564 1118.54 396.564  c
+1118.08 396.564 1117.68 396.768 1117.34 397.174  c
+1117.01 397.570 1116.84 398.148 1116.84 398.908  c
+h
+1126.81 400.064 m
+1127.90 400.189 l
+1127.74 400.825 1127.42 401.320 1126.95 401.674  c
+1126.48 402.028 1125.89 402.205 1125.17 402.205  c
+1124.26 402.205 1123.54 401.924 1123.00 401.361  c
+1122.47 400.799 1122.20 400.012 1122.20 399.002  c
+1122.20 397.960 1122.47 397.153 1123.01 396.580  c
+1123.56 395.997 1124.25 395.705 1125.11 395.705  c
+1125.94 395.705 1126.62 395.986 1127.14 396.549  c
+1127.67 397.111 1127.94 397.908 1127.94 398.939  c
+1127.94 399.002 1127.94 399.096 1127.94 399.221  c
+1123.29 399.221 l
+1123.34 399.908 1123.53 400.434 1123.87 400.799  c
+1124.22 401.153 1124.65 401.330 1125.17 401.330  c
+1125.56 401.330 1125.88 401.231 1126.15 401.033  c
+1126.44 400.825 1126.65 400.502 1126.81 400.064  c
+h
+1123.36 398.361 m
+1126.83 398.361 l
+1126.78 397.830 1126.65 397.434 1126.44 397.174  c
+1126.09 396.768 1125.65 396.564 1125.12 396.564  c
+1124.63 396.564 1124.22 396.726 1123.89 397.049  c
+1123.57 397.372 1123.39 397.809 1123.36 398.361  c
+h
+1129.22 402.064 m
+1129.22 395.846 l
+1130.17 395.846 l
+1130.17 396.783 l
+1130.41 396.346 1130.63 396.059 1130.83 395.924  c
+1131.04 395.778 1131.27 395.705 1131.52 395.705  c
+1131.87 395.705 1132.23 395.814 1132.59 396.033  c
+1132.23 397.018 l
+1131.97 396.861 1131.72 396.783 1131.47 396.783  c
+1131.23 396.783 1131.02 396.856 1130.83 397.002  c
+1130.65 397.137 1130.53 397.330 1130.45 397.580  c
+1130.33 397.955 1130.27 398.361 1130.27 398.799  c
+1130.27 402.064 l
+1129.22 402.064 l
+h
+f
+newpath
+949.375 414.188 m
+949.375 413.125 l
+952.625 413.125 l
+952.625 414.188 l
+949.375 414.188 l
+h
+957.424 416.766 m
+957.424 415.562 l
+958.627 415.562 l
+958.627 416.766 l
+957.424 416.766 l
+h
+960.758 416.766 m
+960.758 415.562 l
+961.961 415.562 l
+961.961 416.766 l
+960.758 416.766 l
+h
+964.092 416.766 m
+964.092 415.562 l
+965.295 415.562 l
+965.295 416.766 l
+964.092 416.766 l
+h
+f
+2 J
+10.0000 M
+0 J
+1.45000 M
+newpath
+360.475 372.662 m
+360.475 364.068 l
+362.193 364.068 l
+364.225 370.146 l
+364.412 370.719 364.548 371.146 364.631 371.428  c
+364.725 371.115 364.876 370.657 365.084 370.053  c
+367.146 364.068 l
+368.678 364.068 l
+368.678 372.662 l
+367.584 372.662 l
+367.584 365.475 l
+365.084 372.662 l
+364.053 372.662 l
+361.568 365.350 l
+361.568 372.662 l
+360.475 372.662 l
+h
+374.439 371.896 m
+374.044 372.230 373.663 372.464 373.299 372.600  c
+372.945 372.735 372.559 372.803 372.143 372.803  c
+371.455 372.803 370.929 372.636 370.564 372.303  c
+370.200 371.969 370.018 371.542 370.018 371.021  c
+370.018 370.719 370.085 370.443 370.221 370.193  c
+370.356 369.933 370.538 369.730 370.768 369.584  c
+370.997 369.428 371.252 369.313 371.533 369.240  c
+371.731 369.178 372.044 369.120 372.471 369.068  c
+373.314 368.975 373.939 368.855 374.346 368.709  c
+374.346 368.563 374.346 368.475 374.346 368.443  c
+374.346 368.006 374.247 367.699 374.049 367.521  c
+373.778 367.292 373.377 367.178 372.846 367.178  c
+372.356 367.178 371.992 367.266 371.752 367.443  c
+371.512 367.610 371.335 367.912 371.221 368.350  c
+370.189 368.209 l
+370.283 367.771 370.439 367.417 370.658 367.146  c
+370.877 366.876 371.189 366.667 371.596 366.521  c
+372.002 366.376 372.471 366.303 373.002 366.303  c
+373.533 366.303 373.965 366.365 374.299 366.490  c
+374.632 366.615 374.877 366.771 375.033 366.959  c
+375.189 367.146 375.299 367.386 375.361 367.678  c
+375.393 367.855 375.408 368.178 375.408 368.646  c
+375.408 370.053 l
+375.408 371.032 375.429 371.652 375.471 371.912  c
+375.523 372.173 375.617 372.423 375.752 372.662  c
+374.643 372.662 l
+374.538 372.443 374.471 372.188 374.439 371.896  c
+h
+374.346 369.537 m
+373.960 369.693 373.387 369.829 372.627 369.943  c
+372.189 370.006 371.882 370.079 371.705 370.162  c
+371.528 370.235 371.387 370.344 371.283 370.490  c
+371.189 370.636 371.143 370.803 371.143 370.990  c
+371.143 371.271 371.247 371.506 371.455 371.693  c
+371.674 371.881 371.986 371.975 372.393 371.975  c
+372.799 371.975 373.158 371.886 373.471 371.709  c
+373.794 371.532 374.028 371.287 374.174 370.975  c
+374.288 370.735 374.346 370.386 374.346 369.928  c
+374.346 369.537 l
+h
+377.051 372.662 m
+377.051 366.443 l
+377.988 366.443 l
+377.988 367.318 l
+378.447 366.641 379.108 366.303 379.973 366.303  c
+380.348 366.303 380.691 366.370 381.004 366.506  c
+381.327 366.641 381.566 366.818 381.723 367.037  c
+381.879 367.256 381.988 367.511 382.051 367.803  c
+382.082 368.001 382.098 368.344 382.098 368.834  c
+382.098 372.662 l
+381.051 372.662 l
+381.051 368.881 l
+381.051 368.443 381.009 368.120 380.926 367.912  c
+380.842 367.704 380.697 367.537 380.488 367.412  c
+380.280 367.277 380.035 367.209 379.754 367.209  c
+379.306 367.209 378.915 367.355 378.582 367.646  c
+378.259 367.928 378.098 368.464 378.098 369.256  c
+378.098 372.662 l
+377.051 372.662 l
+h
+383.678 375.053 m
+383.553 374.068 l
+383.782 374.131 383.985 374.162 384.162 374.162  c
+384.391 374.162 384.574 374.120 384.709 374.037  c
+384.855 373.964 384.975 373.860 385.068 373.725  c
+385.131 373.610 385.240 373.344 385.396 372.928  c
+385.407 372.876 385.438 372.792 385.490 372.678  c
+383.115 366.443 l
+384.256 366.443 l
+385.553 370.037 l
+385.719 370.495 385.870 370.980 386.006 371.490  c
+386.131 371.001 386.277 370.527 386.443 370.068  c
+387.771 366.443 l
+388.818 366.443 l
+386.459 372.771 l
+386.199 373.449 386.001 373.917 385.865 374.178  c
+385.678 374.532 385.459 374.787 385.209 374.943  c
+384.969 375.110 384.683 375.193 384.350 375.193  c
+384.152 375.193 383.928 375.146 383.678 375.053  c
+h
+392.246 372.662 m
+395.543 364.068 l
+396.762 364.068 l
+400.277 372.662 l
+398.996 372.662 l
+397.980 370.053 l
+394.402 370.053 l
+393.449 372.662 l
+392.246 372.662 l
+h
+394.730 369.131 m
+397.637 369.131 l
+396.746 366.756 l
+396.465 366.037 396.262 365.443 396.137 364.975  c
+396.022 365.527 395.866 366.074 395.668 366.615  c
+394.730 369.131 l
+h
+401.391 372.662 m
+401.391 364.068 l
+402.516 364.068 l
+402.516 372.662 l
+401.391 372.662 l
+h
+403.975 370.084 m
+403.975 369.021 l
+407.225 369.021 l
+407.225 370.084 l
+403.975 370.084 l
+h
+409.361 372.662 m
+408.377 372.662 l
+408.377 364.068 l
+409.439 364.068 l
+409.439 367.131 l
+409.887 366.579 410.455 366.303 411.143 366.303  c
+411.528 366.303 411.887 366.381 412.221 366.537  c
+412.564 366.683 412.846 366.896 413.064 367.178  c
+413.294 367.459 413.471 367.798 413.596 368.193  c
+413.721 368.589 413.783 369.011 413.783 369.459  c
+413.783 370.521 413.518 371.344 412.986 371.928  c
+412.455 372.511 411.825 372.803 411.096 372.803  c
+410.356 372.803 409.778 372.495 409.361 371.881  c
+409.361 372.662 l
+h
+409.346 369.506 m
+409.346 370.245 409.450 370.782 409.658 371.115  c
+409.992 371.657 410.439 371.928 411.002 371.928  c
+411.460 371.928 411.856 371.730 412.189 371.334  c
+412.533 370.938 412.705 370.339 412.705 369.537  c
+412.705 368.725 412.544 368.126 412.221 367.740  c
+411.898 367.355 411.507 367.162 411.049 367.162  c
+410.590 367.162 410.189 367.365 409.846 367.771  c
+409.512 368.167 409.346 368.745 409.346 369.506  c
+h
+419.129 371.896 m
+418.733 372.230 418.353 372.464 417.988 372.600  c
+417.634 372.735 417.249 372.803 416.832 372.803  c
+416.145 372.803 415.618 372.636 415.254 372.303  c
+414.889 371.969 414.707 371.542 414.707 371.021  c
+414.707 370.719 414.775 370.443 414.910 370.193  c
+415.046 369.933 415.228 369.730 415.457 369.584  c
+415.686 369.428 415.941 369.313 416.223 369.240  c
+416.421 369.178 416.733 369.120 417.160 369.068  c
+418.004 368.975 418.629 368.855 419.035 368.709  c
+419.035 368.563 419.035 368.475 419.035 368.443  c
+419.035 368.006 418.936 367.699 418.738 367.521  c
+418.467 367.292 418.066 367.178 417.535 367.178  c
+417.046 367.178 416.681 367.266 416.441 367.443  c
+416.202 367.610 416.025 367.912 415.910 368.350  c
+414.879 368.209 l
+414.973 367.771 415.129 367.417 415.348 367.146  c
+415.566 366.876 415.879 366.667 416.285 366.521  c
+416.691 366.376 417.160 366.303 417.691 366.303  c
+418.223 366.303 418.655 366.365 418.988 366.490  c
+419.322 366.615 419.566 366.771 419.723 366.959  c
+419.879 367.146 419.988 367.386 420.051 367.678  c
+420.082 367.855 420.098 368.178 420.098 368.646  c
+420.098 370.053 l
+420.098 371.032 420.118 371.652 420.160 371.912  c
+420.212 372.173 420.306 372.423 420.441 372.662  c
+419.332 372.662 l
+419.228 372.443 419.160 372.188 419.129 371.896  c
+h
+419.035 369.537 m
+418.650 369.693 418.077 369.829 417.316 369.943  c
+416.879 370.006 416.572 370.079 416.395 370.162  c
+416.217 370.235 416.077 370.344 415.973 370.490  c
+415.879 370.636 415.832 370.803 415.832 370.990  c
+415.832 371.271 415.936 371.506 416.145 371.693  c
+416.363 371.881 416.676 371.975 417.082 371.975  c
+417.488 371.975 417.848 371.886 418.160 371.709  c
+418.483 371.532 418.717 371.287 418.863 370.975  c
+418.978 370.735 419.035 370.386 419.035 369.928  c
+419.035 369.537 l
+h
+421.318 370.803 m
+422.350 370.646 l
+422.412 371.063 422.574 371.381 422.834 371.600  c
+423.105 371.818 423.485 371.928 423.975 371.928  c
+424.454 371.928 424.808 371.834 425.037 371.646  c
+425.277 371.449 425.396 371.214 425.396 370.943  c
+425.396 370.704 425.292 370.516 425.084 370.381  c
+424.938 370.287 424.579 370.167 424.006 370.021  c
+423.235 369.824 422.699 369.657 422.396 369.521  c
+422.105 369.376 421.881 369.178 421.725 368.928  c
+421.568 368.678 421.490 368.396 421.490 368.084  c
+421.490 367.813 421.553 367.558 421.678 367.318  c
+421.803 367.079 421.975 366.881 422.193 366.725  c
+422.360 366.610 422.584 366.511 422.865 366.428  c
+423.146 366.344 423.454 366.303 423.787 366.303  c
+424.266 366.303 424.688 366.376 425.053 366.521  c
+425.428 366.657 425.704 366.844 425.881 367.084  c
+426.058 367.324 426.178 367.641 426.240 368.037  c
+425.209 368.178 l
+425.167 367.865 425.032 367.620 424.803 367.443  c
+424.584 367.256 424.266 367.162 423.850 367.162  c
+423.370 367.162 423.027 367.245 422.818 367.412  c
+422.610 367.568 422.506 367.756 422.506 367.975  c
+422.506 368.110 422.548 368.230 422.631 368.334  c
+422.725 368.449 422.860 368.542 423.037 368.615  c
+423.141 368.657 423.454 368.745 423.975 368.881  c
+424.725 369.089 425.245 369.256 425.537 369.381  c
+425.829 369.506 426.058 369.688 426.225 369.928  c
+426.391 370.167 426.475 370.469 426.475 370.834  c
+426.475 371.188 426.370 371.521 426.162 371.834  c
+425.964 372.136 425.673 372.376 425.287 372.553  c
+424.902 372.719 424.464 372.803 423.975 372.803  c
+423.162 372.803 422.542 372.636 422.115 372.303  c
+421.699 371.959 421.433 371.459 421.318 370.803  c
+h
+431.990 370.662 m
+433.084 370.787 l
+432.917 371.423 432.600 371.917 432.131 372.271  c
+431.662 372.626 431.068 372.803 430.350 372.803  c
+429.443 372.803 428.719 372.521 428.178 371.959  c
+427.646 371.396 427.381 370.610 427.381 369.600  c
+427.381 368.558 427.652 367.751 428.193 367.178  c
+428.735 366.594 429.433 366.303 430.287 366.303  c
+431.120 366.303 431.798 366.584 432.318 367.146  c
+432.850 367.709 433.115 368.506 433.115 369.537  c
+433.115 369.600 433.115 369.693 433.115 369.818  c
+428.475 369.818 l
+428.516 370.506 428.709 371.032 429.053 371.396  c
+429.396 371.751 429.829 371.928 430.350 371.928  c
+430.735 371.928 431.063 371.829 431.334 371.631  c
+431.615 371.423 431.834 371.100 431.990 370.662  c
+h
+428.537 368.959 m
+432.006 368.959 l
+431.964 368.428 431.834 368.032 431.615 367.771  c
+431.271 367.365 430.834 367.162 430.303 367.162  c
+429.813 367.162 429.402 367.324 429.068 367.646  c
+428.745 367.969 428.568 368.407 428.537 368.959  c
+h
+438.445 372.662 m
+438.445 371.881 l
+438.049 372.495 437.471 372.803 436.711 372.803  c
+436.211 372.803 435.753 372.667 435.336 372.396  c
+434.919 372.115 434.596 371.730 434.367 371.240  c
+434.138 370.751 434.023 370.188 434.023 369.553  c
+434.023 368.938 434.128 368.376 434.336 367.865  c
+434.544 367.355 434.857 366.969 435.273 366.709  c
+435.690 366.438 436.154 366.303 436.664 366.303  c
+437.039 366.303 437.372 366.381 437.664 366.537  c
+437.956 366.693 438.195 366.896 438.383 367.146  c
+438.383 364.068 l
+439.430 364.068 l
+439.430 372.662 l
+438.445 372.662 l
+h
+435.117 369.553 m
+435.117 370.355 435.284 370.954 435.617 371.350  c
+435.951 371.735 436.346 371.928 436.805 371.928  c
+437.263 371.928 437.654 371.740 437.977 371.365  c
+438.299 370.990 438.461 370.417 438.461 369.646  c
+438.461 368.792 438.294 368.167 437.961 367.771  c
+437.638 367.376 437.237 367.178 436.758 367.178  c
+436.289 367.178 435.898 367.370 435.586 367.756  c
+435.273 368.131 435.117 368.730 435.117 369.553  c
+h
+448.484 371.896 m
+448.089 372.230 447.708 372.464 447.344 372.600  c
+446.990 372.735 446.604 372.803 446.188 372.803  c
+445.500 372.803 444.974 372.636 444.609 372.303  c
+444.245 371.969 444.062 371.542 444.062 371.021  c
+444.062 370.719 444.130 370.443 444.266 370.193  c
+444.401 369.933 444.583 369.730 444.812 369.584  c
+445.042 369.428 445.297 369.313 445.578 369.240  c
+445.776 369.178 446.089 369.120 446.516 369.068  c
+447.359 368.975 447.984 368.855 448.391 368.709  c
+448.391 368.563 448.391 368.475 448.391 368.443  c
+448.391 368.006 448.292 367.699 448.094 367.521  c
+447.823 367.292 447.422 367.178 446.891 367.178  c
+446.401 367.178 446.036 367.266 445.797 367.443  c
+445.557 367.610 445.380 367.912 445.266 368.350  c
+444.234 368.209 l
+444.328 367.771 444.484 367.417 444.703 367.146  c
+444.922 366.876 445.234 366.667 445.641 366.521  c
+446.047 366.376 446.516 366.303 447.047 366.303  c
+447.578 366.303 448.010 366.365 448.344 366.490  c
+448.677 366.615 448.922 366.771 449.078 366.959  c
+449.234 367.146 449.344 367.386 449.406 367.678  c
+449.438 367.855 449.453 368.178 449.453 368.646  c
+449.453 370.053 l
+449.453 371.032 449.474 371.652 449.516 371.912  c
+449.568 372.173 449.661 372.423 449.797 372.662  c
+448.688 372.662 l
+448.583 372.443 448.516 372.188 448.484 371.896  c
+h
+448.391 369.537 m
+448.005 369.693 447.432 369.829 446.672 369.943  c
+446.234 370.006 445.927 370.079 445.750 370.162  c
+445.573 370.235 445.432 370.344 445.328 370.490  c
+445.234 370.636 445.188 370.803 445.188 370.990  c
+445.188 371.271 445.292 371.506 445.500 371.693  c
+445.719 371.881 446.031 371.975 446.438 371.975  c
+446.844 371.975 447.203 371.886 447.516 371.709  c
+447.839 371.532 448.073 371.287 448.219 370.975  c
+448.333 370.735 448.391 370.386 448.391 369.928  c
+448.391 369.537 l
+h
+451.096 375.053 m
+451.096 366.443 l
+452.049 366.443 l
+452.049 367.240 l
+452.278 366.928 452.533 366.693 452.814 366.537  c
+453.106 366.381 453.455 366.303 453.861 366.303  c
+454.393 366.303 454.861 366.438 455.268 366.709  c
+455.674 366.980 455.976 367.365 456.174 367.865  c
+456.382 368.365 456.486 368.912 456.486 369.506  c
+456.486 370.141 456.372 370.714 456.143 371.225  c
+455.924 371.735 455.596 372.126 455.158 372.396  c
+454.721 372.667 454.262 372.803 453.783 372.803  c
+453.429 372.803 453.111 372.730 452.830 372.584  c
+452.549 372.428 452.320 372.240 452.143 372.021  c
+452.143 375.053 l
+451.096 375.053 l
+h
+452.049 369.584 m
+452.049 370.386 452.210 370.980 452.533 371.365  c
+452.856 371.740 453.247 371.928 453.705 371.928  c
+454.174 371.928 454.575 371.730 454.908 371.334  c
+455.242 370.938 455.408 370.324 455.408 369.490  c
+455.408 368.699 455.247 368.110 454.924 367.725  c
+454.601 367.329 454.210 367.131 453.752 367.131  c
+453.304 367.131 452.908 367.339 452.564 367.756  c
+452.221 368.173 452.049 368.782 452.049 369.584  c
+h
+457.770 375.053 m
+457.770 366.443 l
+458.723 366.443 l
+458.723 367.240 l
+458.952 366.928 459.207 366.693 459.488 366.537  c
+459.780 366.381 460.129 366.303 460.535 366.303  c
+461.066 366.303 461.535 366.438 461.941 366.709  c
+462.348 366.980 462.650 367.365 462.848 367.865  c
+463.056 368.365 463.160 368.912 463.160 369.506  c
+463.160 370.141 463.046 370.714 462.816 371.225  c
+462.598 371.735 462.270 372.126 461.832 372.396  c
+461.395 372.667 460.936 372.803 460.457 372.803  c
+460.103 372.803 459.785 372.730 459.504 372.584  c
+459.223 372.428 458.993 372.240 458.816 372.021  c
+458.816 375.053 l
+457.770 375.053 l
+h
+458.723 369.584 m
+458.723 370.386 458.884 370.980 459.207 371.365  c
+459.530 371.740 459.921 371.928 460.379 371.928  c
+460.848 371.928 461.249 371.730 461.582 371.334  c
+461.915 370.938 462.082 370.324 462.082 369.490  c
+462.082 368.699 461.921 368.110 461.598 367.725  c
+461.275 367.329 460.884 367.131 460.426 367.131  c
+459.978 367.131 459.582 367.339 459.238 367.756  c
+458.895 368.173 458.723 368.782 458.723 369.584  c
+h
+464.412 372.662 m
+464.412 364.068 l
+465.475 364.068 l
+465.475 372.662 l
+464.412 372.662 l
+h
+467.109 365.287 m
+467.109 364.068 l
+468.172 364.068 l
+468.172 365.287 l
+467.109 365.287 l
+h
+467.109 372.662 m
+467.109 366.443 l
+468.172 366.443 l
+468.172 372.662 l
+467.109 372.662 l
+h
+473.838 370.381 m
+474.869 370.521 l
+474.755 371.230 474.463 371.787 473.994 372.193  c
+473.525 372.600 472.952 372.803 472.275 372.803  c
+471.421 372.803 470.734 372.527 470.213 371.975  c
+469.702 371.412 469.447 370.610 469.447 369.568  c
+469.447 368.902 469.557 368.318 469.775 367.818  c
+470.005 367.308 470.343 366.928 470.791 366.678  c
+471.249 366.428 471.749 366.303 472.291 366.303  c
+472.958 366.303 473.505 366.475 473.932 366.818  c
+474.369 367.152 474.650 367.636 474.775 368.271  c
+473.744 368.428 l
+473.650 368.011 473.479 367.699 473.229 367.490  c
+472.979 367.271 472.676 367.162 472.322 367.162  c
+471.791 367.162 471.359 367.355 471.025 367.740  c
+470.692 368.115 470.525 368.714 470.525 369.537  c
+470.525 370.381 470.687 370.990 471.010 371.365  c
+471.333 371.740 471.749 371.928 472.260 371.928  c
+472.676 371.928 473.020 371.803 473.291 371.553  c
+473.572 371.303 473.755 370.912 473.838 370.381  c
+h
+479.838 371.896 m
+479.442 372.230 479.062 372.464 478.697 372.600  c
+478.343 372.735 477.958 372.803 477.541 372.803  c
+476.854 372.803 476.327 372.636 475.963 372.303  c
+475.598 371.969 475.416 371.542 475.416 371.021  c
+475.416 370.719 475.484 370.443 475.619 370.193  c
+475.755 369.933 475.937 369.730 476.166 369.584  c
+476.395 369.428 476.650 369.313 476.932 369.240  c
+477.130 369.178 477.442 369.120 477.869 369.068  c
+478.713 368.975 479.338 368.855 479.744 368.709  c
+479.744 368.563 479.744 368.475 479.744 368.443  c
+479.744 368.006 479.645 367.699 479.447 367.521  c
+479.176 367.292 478.775 367.178 478.244 367.178  c
+477.755 367.178 477.390 367.266 477.150 367.443  c
+476.911 367.610 476.734 367.912 476.619 368.350  c
+475.588 368.209 l
+475.682 367.771 475.838 367.417 476.057 367.146  c
+476.275 366.876 476.588 366.667 476.994 366.521  c
+477.400 366.376 477.869 366.303 478.400 366.303  c
+478.932 366.303 479.364 366.365 479.697 366.490  c
+480.031 366.615 480.275 366.771 480.432 366.959  c
+480.588 367.146 480.697 367.386 480.760 367.678  c
+480.791 367.855 480.807 368.178 480.807 368.646  c
+480.807 370.053 l
+480.807 371.032 480.827 371.652 480.869 371.912  c
+480.921 372.173 481.015 372.423 481.150 372.662  c
+480.041 372.662 l
+479.937 372.443 479.869 372.188 479.838 371.896  c
+h
+479.744 369.537 m
+479.359 369.693 478.786 369.829 478.025 369.943  c
+477.588 370.006 477.281 370.079 477.104 370.162  c
+476.926 370.235 476.786 370.344 476.682 370.490  c
+476.588 370.636 476.541 370.803 476.541 370.990  c
+476.541 371.271 476.645 371.506 476.854 371.693  c
+477.072 371.881 477.385 371.975 477.791 371.975  c
+478.197 371.975 478.557 371.886 478.869 371.709  c
+479.192 371.532 479.426 371.287 479.572 370.975  c
+479.687 370.735 479.744 370.386 479.744 369.928  c
+479.744 369.537 l
+h
+484.746 371.725 m
+484.902 372.646 l
+484.600 372.709 484.335 372.740 484.105 372.740  c
+483.720 372.740 483.423 372.683 483.215 372.568  c
+483.007 372.443 482.855 372.282 482.762 372.084  c
+482.678 371.886 482.637 371.469 482.637 370.834  c
+482.637 367.256 l
+481.871 367.256 l
+481.871 366.443 l
+482.637 366.443 l
+482.637 364.896 l
+483.684 364.271 l
+483.684 366.443 l
+484.746 366.443 l
+484.746 367.256 l
+483.684 367.256 l
+483.684 370.896 l
+483.684 371.199 483.699 371.391 483.730 371.475  c
+483.772 371.558 483.835 371.626 483.918 371.678  c
+484.001 371.730 484.121 371.756 484.277 371.756  c
+484.402 371.756 484.559 371.745 484.746 371.725  c
+h
+485.783 365.287 m
+485.783 364.068 l
+486.846 364.068 l
+486.846 365.287 l
+485.783 365.287 l
+h
+485.783 372.662 m
+485.783 366.443 l
+486.846 366.443 l
+486.846 372.662 l
+485.783 372.662 l
+h
+488.059 369.553 m
+488.059 368.396 488.376 367.542 489.012 366.990  c
+489.543 366.532 490.194 366.303 490.965 366.303  c
+491.819 366.303 492.517 366.584 493.059 367.146  c
+493.611 367.699 493.887 368.469 493.887 369.459  c
+493.887 370.261 493.767 370.891 493.527 371.350  c
+493.288 371.808 492.934 372.167 492.465 372.428  c
+492.007 372.678 491.507 372.803 490.965 372.803  c
+490.100 372.803 489.397 372.527 488.855 371.975  c
+488.324 371.412 488.059 370.605 488.059 369.553  c
+h
+489.137 369.553 m
+489.137 370.344 489.309 370.938 489.652 371.334  c
+490.007 371.730 490.444 371.928 490.965 371.928  c
+491.496 371.928 491.934 371.730 492.277 371.334  c
+492.621 370.938 492.793 370.334 492.793 369.521  c
+492.793 368.751 492.616 368.167 492.262 367.771  c
+491.918 367.376 491.486 367.178 490.965 367.178  c
+490.444 367.178 490.007 367.376 489.652 367.771  c
+489.309 368.157 489.137 368.751 489.137 369.553  c
+h
+495.123 372.662 m
+495.123 366.443 l
+496.061 366.443 l
+496.061 367.318 l
+496.519 366.641 497.180 366.303 498.045 366.303  c
+498.420 366.303 498.764 366.370 499.076 366.506  c
+499.399 366.641 499.639 366.818 499.795 367.037  c
+499.951 367.256 500.061 367.511 500.123 367.803  c
+500.154 368.001 500.170 368.344 500.170 368.834  c
+500.170 372.662 l
+499.123 372.662 l
+499.123 368.881 l
+499.123 368.443 499.081 368.120 498.998 367.912  c
+498.915 367.704 498.769 367.537 498.561 367.412  c
+498.352 367.277 498.107 367.209 497.826 367.209  c
+497.378 367.209 496.988 367.355 496.654 367.646  c
+496.331 367.928 496.170 368.464 496.170 369.256  c
+496.170 372.662 l
+495.123 372.662 l
+h
+501.375 370.803 m
+502.406 370.646 l
+502.469 371.063 502.630 371.381 502.891 371.600  c
+503.161 371.818 503.542 371.928 504.031 371.928  c
+504.510 371.928 504.865 371.834 505.094 371.646  c
+505.333 371.449 505.453 371.214 505.453 370.943  c
+505.453 370.704 505.349 370.516 505.141 370.381  c
+504.995 370.287 504.635 370.167 504.062 370.021  c
+503.292 369.824 502.755 369.657 502.453 369.521  c
+502.161 369.376 501.938 369.178 501.781 368.928  c
+501.625 368.678 501.547 368.396 501.547 368.084  c
+501.547 367.813 501.609 367.558 501.734 367.318  c
+501.859 367.079 502.031 366.881 502.250 366.725  c
+502.417 366.610 502.641 366.511 502.922 366.428  c
+503.203 366.344 503.510 366.303 503.844 366.303  c
+504.323 366.303 504.745 366.376 505.109 366.521  c
+505.484 366.657 505.760 366.844 505.938 367.084  c
+506.115 367.324 506.234 367.641 506.297 368.037  c
+505.266 368.178 l
+505.224 367.865 505.089 367.620 504.859 367.443  c
+504.641 367.256 504.323 367.162 503.906 367.162  c
+503.427 367.162 503.083 367.245 502.875 367.412  c
+502.667 367.568 502.562 367.756 502.562 367.975  c
+502.562 368.110 502.604 368.230 502.688 368.334  c
+502.781 368.449 502.917 368.542 503.094 368.615  c
+503.198 368.657 503.510 368.745 504.031 368.881  c
+504.781 369.089 505.302 369.256 505.594 369.381  c
+505.885 369.506 506.115 369.688 506.281 369.928  c
+506.448 370.167 506.531 370.469 506.531 370.834  c
+506.531 371.188 506.427 371.521 506.219 371.834  c
+506.021 372.136 505.729 372.376 505.344 372.553  c
+504.958 372.719 504.521 372.803 504.031 372.803  c
+503.219 372.803 502.599 372.636 502.172 372.303  c
+501.755 371.959 501.490 371.459 501.375 370.803  c
+h
+f
+newpath
+359.959 384.785 m
+359.959 383.723 l
+363.209 383.723 l
+363.209 384.785 l
+359.959 384.785 l
+h
+370.289 387.363 m
+366.961 378.770 l
+368.195 378.770 l
+370.430 385.020 l
+370.607 385.520 370.758 385.988 370.883 386.426  c
+371.018 385.957 371.174 385.488 371.352 385.020  c
+373.664 378.770 l
+374.820 378.770 l
+371.461 387.363 l
+370.289 387.363 l
+h
+375.793 387.363 m
+375.793 378.770 l
+376.934 378.770 l
+376.934 386.348 l
+381.168 386.348 l
+381.168 387.363 l
+375.793 387.363 l
+h
+382.139 384.598 m
+383.201 384.504 l
+383.253 384.941 383.373 385.296 383.561 385.566  c
+383.748 385.837 384.035 386.061 384.420 386.238  c
+384.816 386.405 385.258 386.488 385.748 386.488  c
+386.175 386.488 386.555 386.426 386.889 386.301  c
+387.222 386.165 387.467 385.988 387.623 385.770  c
+387.790 385.540 387.873 385.296 387.873 385.035  c
+387.873 384.764 387.795 384.530 387.639 384.332  c
+387.482 384.124 387.227 383.952 386.873 383.816  c
+386.633 383.723 386.118 383.582 385.326 383.395  c
+384.545 383.207 383.998 383.030 383.686 382.863  c
+383.269 382.645 382.962 382.379 382.764 382.066  c
+382.566 381.743 382.467 381.384 382.467 380.988  c
+382.467 380.561 382.587 380.160 382.826 379.785  c
+383.076 379.400 383.436 379.113 383.904 378.926  c
+384.383 378.728 384.910 378.629 385.482 378.629  c
+386.118 378.629 386.680 378.733 387.170 378.941  c
+387.660 379.139 388.035 379.441 388.295 379.848  c
+388.555 380.243 388.696 380.691 388.717 381.191  c
+387.623 381.270 l
+387.561 380.728 387.357 380.322 387.014 380.051  c
+386.680 379.770 386.186 379.629 385.529 379.629  c
+384.842 379.629 384.342 379.754 384.029 380.004  c
+383.717 380.254 383.561 380.556 383.561 380.910  c
+383.561 381.223 383.670 381.478 383.889 381.676  c
+384.107 381.874 384.675 382.077 385.592 382.285  c
+386.519 382.493 387.154 382.676 387.498 382.832  c
+387.998 383.072 388.368 383.368 388.607 383.723  c
+388.847 384.066 388.967 384.473 388.967 384.941  c
+388.967 385.400 388.837 385.832 388.576 386.238  c
+388.316 386.634 387.941 386.947 387.451 387.176  c
+386.962 387.395 386.410 387.504 385.795 387.504  c
+385.014 387.504 384.357 387.395 383.826 387.176  c
+383.305 386.947 382.894 386.603 382.592 386.145  c
+382.300 385.686 382.149 385.171 382.139 384.598  c
+h
+390.721 387.363 m
+390.721 378.770 l
+391.846 378.770 l
+391.846 387.363 l
+390.721 387.363 l
+h
+397.139 387.363 m
+397.139 378.770 l
+398.279 378.770 l
+398.279 386.348 l
+402.514 386.348 l
+402.514 387.363 l
+397.139 387.363 l
+h
+407.797 386.598 m
+407.401 386.931 407.021 387.165 406.656 387.301  c
+406.302 387.436 405.917 387.504 405.500 387.504  c
+404.812 387.504 404.286 387.337 403.922 387.004  c
+403.557 386.671 403.375 386.243 403.375 385.723  c
+403.375 385.421 403.443 385.145 403.578 384.895  c
+403.714 384.634 403.896 384.431 404.125 384.285  c
+404.354 384.129 404.609 384.014 404.891 383.941  c
+405.089 383.879 405.401 383.822 405.828 383.770  c
+406.672 383.676 407.297 383.556 407.703 383.410  c
+407.703 383.264 407.703 383.176 407.703 383.145  c
+407.703 382.707 407.604 382.400 407.406 382.223  c
+407.135 381.993 406.734 381.879 406.203 381.879  c
+405.714 381.879 405.349 381.967 405.109 382.145  c
+404.870 382.311 404.693 382.613 404.578 383.051  c
+403.547 382.910 l
+403.641 382.473 403.797 382.118 404.016 381.848  c
+404.234 381.577 404.547 381.368 404.953 381.223  c
+405.359 381.077 405.828 381.004 406.359 381.004  c
+406.891 381.004 407.323 381.066 407.656 381.191  c
+407.990 381.316 408.234 381.473 408.391 381.660  c
+408.547 381.848 408.656 382.087 408.719 382.379  c
+408.750 382.556 408.766 382.879 408.766 383.348  c
+408.766 384.754 l
+408.766 385.733 408.786 386.353 408.828 386.613  c
+408.880 386.874 408.974 387.124 409.109 387.363  c
+408.000 387.363 l
+407.896 387.145 407.828 386.889 407.797 386.598  c
+h
+407.703 384.238 m
+407.318 384.395 406.745 384.530 405.984 384.645  c
+405.547 384.707 405.240 384.780 405.062 384.863  c
+404.885 384.936 404.745 385.046 404.641 385.191  c
+404.547 385.337 404.500 385.504 404.500 385.691  c
+404.500 385.973 404.604 386.207 404.812 386.395  c
+405.031 386.582 405.344 386.676 405.750 386.676  c
+406.156 386.676 406.516 386.587 406.828 386.410  c
+407.151 386.233 407.385 385.988 407.531 385.676  c
+407.646 385.436 407.703 385.087 407.703 384.629  c
+407.703 384.238 l
+h
+410.361 389.754 m
+410.236 388.770 l
+410.465 388.832 410.669 388.863 410.846 388.863  c
+411.075 388.863 411.257 388.822 411.393 388.738  c
+411.538 388.665 411.658 388.561 411.752 388.426  c
+411.814 388.311 411.924 388.046 412.080 387.629  c
+412.090 387.577 412.122 387.493 412.174 387.379  c
+409.799 381.145 l
+410.939 381.145 l
+412.236 384.738 l
+412.403 385.197 412.554 385.681 412.689 386.191  c
+412.814 385.702 412.960 385.228 413.127 384.770  c
+414.455 381.145 l
+415.502 381.145 l
+413.143 387.473 l
+412.882 388.150 412.684 388.618 412.549 388.879  c
+412.361 389.233 412.143 389.488 411.893 389.645  c
+411.653 389.811 411.367 389.895 411.033 389.895  c
+410.835 389.895 410.611 389.848 410.361 389.754  c
+h
+416.018 384.254 m
+416.018 383.098 416.335 382.243 416.971 381.691  c
+417.502 381.233 418.153 381.004 418.924 381.004  c
+419.778 381.004 420.476 381.285 421.018 381.848  c
+421.570 382.400 421.846 383.171 421.846 384.160  c
+421.846 384.962 421.726 385.592 421.486 386.051  c
+421.247 386.509 420.893 386.868 420.424 387.129  c
+419.965 387.379 419.465 387.504 418.924 387.504  c
+418.059 387.504 417.356 387.228 416.814 386.676  c
+416.283 386.113 416.018 385.306 416.018 384.254  c
+h
+417.096 384.254 m
+417.096 385.046 417.268 385.639 417.611 386.035  c
+417.965 386.431 418.403 386.629 418.924 386.629  c
+419.455 386.629 419.893 386.431 420.236 386.035  c
+420.580 385.639 420.752 385.035 420.752 384.223  c
+420.752 383.452 420.575 382.868 420.221 382.473  c
+419.877 382.077 419.445 381.879 418.924 381.879  c
+418.403 381.879 417.965 382.077 417.611 382.473  c
+417.268 382.858 417.096 383.452 417.096 384.254  c
+h
+427.160 387.363 m
+427.160 386.441 l
+426.671 387.150 426.009 387.504 425.176 387.504  c
+424.811 387.504 424.467 387.436 424.145 387.301  c
+423.832 387.155 423.598 386.978 423.441 386.770  c
+423.285 386.551 423.176 386.285 423.113 385.973  c
+423.072 385.775 423.051 385.447 423.051 384.988  c
+423.051 381.145 l
+424.113 381.145 l
+424.113 384.598 l
+424.113 385.139 424.134 385.509 424.176 385.707  c
+424.238 385.978 424.374 386.197 424.582 386.363  c
+424.801 386.520 425.072 386.598 425.395 386.598  c
+425.707 386.598 425.999 386.520 426.270 386.363  c
+426.551 386.197 426.749 385.973 426.863 385.691  c
+426.988 385.410 427.051 385.004 427.051 384.473  c
+427.051 381.145 l
+428.098 381.145 l
+428.098 387.363 l
+427.160 387.363 l
+h
+432.053 386.426 m
+432.209 387.348 l
+431.907 387.410 431.641 387.441 431.412 387.441  c
+431.027 387.441 430.730 387.384 430.521 387.270  c
+430.313 387.145 430.162 386.983 430.068 386.785  c
+429.985 386.587 429.943 386.171 429.943 385.535  c
+429.943 381.957 l
+429.178 381.957 l
+429.178 381.145 l
+429.943 381.145 l
+429.943 379.598 l
+430.990 378.973 l
+430.990 381.145 l
+432.053 381.145 l
+432.053 381.957 l
+430.990 381.957 l
+430.990 385.598 l
+430.990 385.900 431.006 386.092 431.037 386.176  c
+431.079 386.259 431.141 386.327 431.225 386.379  c
+431.308 386.431 431.428 386.457 431.584 386.457  c
+431.709 386.457 431.865 386.447 432.053 386.426  c
+h
+436.424 389.754 m
+436.424 381.145 l
+437.377 381.145 l
+437.377 381.941 l
+437.606 381.629 437.861 381.395 438.143 381.238  c
+438.434 381.082 438.783 381.004 439.189 381.004  c
+439.721 381.004 440.189 381.139 440.596 381.410  c
+441.002 381.681 441.304 382.066 441.502 382.566  c
+441.710 383.066 441.814 383.613 441.814 384.207  c
+441.814 384.842 441.700 385.415 441.471 385.926  c
+441.252 386.436 440.924 386.827 440.486 387.098  c
+440.049 387.368 439.590 387.504 439.111 387.504  c
+438.757 387.504 438.439 387.431 438.158 387.285  c
+437.877 387.129 437.648 386.941 437.471 386.723  c
+437.471 389.754 l
+436.424 389.754 l
+h
+437.377 384.285 m
+437.377 385.087 437.538 385.681 437.861 386.066  c
+438.184 386.441 438.575 386.629 439.033 386.629  c
+439.502 386.629 439.903 386.431 440.236 386.035  c
+440.570 385.639 440.736 385.025 440.736 384.191  c
+440.736 383.400 440.575 382.811 440.252 382.426  c
+439.929 382.030 439.538 381.832 439.080 381.832  c
+438.632 381.832 438.236 382.040 437.893 382.457  c
+437.549 382.874 437.377 383.483 437.377 384.285  c
+h
+443.082 387.363 m
+443.082 381.145 l
+444.035 381.145 l
+444.035 382.082 l
+444.275 381.645 444.493 381.358 444.691 381.223  c
+444.900 381.077 445.129 381.004 445.379 381.004  c
+445.733 381.004 446.092 381.113 446.457 381.332  c
+446.098 382.316 l
+445.837 382.160 445.582 382.082 445.332 382.082  c
+445.092 382.082 444.879 382.155 444.691 382.301  c
+444.514 382.436 444.389 382.629 444.316 382.879  c
+444.191 383.254 444.129 383.660 444.129 384.098  c
+444.129 387.363 l
+443.082 387.363 l
+h
+446.703 384.254 m
+446.703 383.098 447.021 382.243 447.656 381.691  c
+448.188 381.233 448.839 381.004 449.609 381.004  c
+450.464 381.004 451.161 381.285 451.703 381.848  c
+452.255 382.400 452.531 383.171 452.531 384.160  c
+452.531 384.962 452.411 385.592 452.172 386.051  c
+451.932 386.509 451.578 386.868 451.109 387.129  c
+450.651 387.379 450.151 387.504 449.609 387.504  c
+448.745 387.504 448.042 387.228 447.500 386.676  c
+446.969 386.113 446.703 385.306 446.703 384.254  c
+h
+447.781 384.254 m
+447.781 385.046 447.953 385.639 448.297 386.035  c
+448.651 386.431 449.089 386.629 449.609 386.629  c
+450.141 386.629 450.578 386.431 450.922 386.035  c
+451.266 385.639 451.438 385.035 451.438 384.223  c
+451.438 383.452 451.260 382.868 450.906 382.473  c
+450.562 382.077 450.130 381.879 449.609 381.879  c
+449.089 381.879 448.651 382.077 448.297 382.473  c
+447.953 382.858 447.781 383.452 447.781 384.254  c
+h
+454.736 387.363 m
+453.752 387.363 l
+453.752 378.770 l
+454.814 378.770 l
+454.814 381.832 l
+455.262 381.280 455.830 381.004 456.518 381.004  c
+456.903 381.004 457.262 381.082 457.596 381.238  c
+457.939 381.384 458.221 381.598 458.439 381.879  c
+458.669 382.160 458.846 382.499 458.971 382.895  c
+459.096 383.290 459.158 383.712 459.158 384.160  c
+459.158 385.223 458.893 386.046 458.361 386.629  c
+457.830 387.212 457.200 387.504 456.471 387.504  c
+455.731 387.504 455.153 387.197 454.736 386.582  c
+454.736 387.363 l
+h
+454.721 384.207 m
+454.721 384.947 454.825 385.483 455.033 385.816  c
+455.367 386.358 455.814 386.629 456.377 386.629  c
+456.835 386.629 457.231 386.431 457.564 386.035  c
+457.908 385.639 458.080 385.040 458.080 384.238  c
+458.080 383.426 457.919 382.827 457.596 382.441  c
+457.273 382.056 456.882 381.863 456.424 381.863  c
+455.965 381.863 455.564 382.066 455.221 382.473  c
+454.887 382.868 454.721 383.447 454.721 384.207  c
+h
+460.410 387.363 m
+460.410 378.770 l
+461.473 378.770 l
+461.473 387.363 l
+460.410 387.363 l
+h
+467.357 385.363 m
+468.451 385.488 l
+468.285 386.124 467.967 386.618 467.498 386.973  c
+467.029 387.327 466.436 387.504 465.717 387.504  c
+464.811 387.504 464.087 387.223 463.545 386.660  c
+463.014 386.098 462.748 385.311 462.748 384.301  c
+462.748 383.259 463.019 382.452 463.561 381.879  c
+464.102 381.296 464.800 381.004 465.654 381.004  c
+466.488 381.004 467.165 381.285 467.686 381.848  c
+468.217 382.410 468.482 383.207 468.482 384.238  c
+468.482 384.301 468.482 384.395 468.482 384.520  c
+463.842 384.520 l
+463.883 385.207 464.076 385.733 464.420 386.098  c
+464.764 386.452 465.196 386.629 465.717 386.629  c
+466.102 386.629 466.430 386.530 466.701 386.332  c
+466.982 386.124 467.201 385.801 467.357 385.363  c
+h
+463.904 383.660 m
+467.373 383.660 l
+467.331 383.129 467.201 382.733 466.982 382.473  c
+466.639 382.066 466.201 381.863 465.670 381.863  c
+465.180 381.863 464.769 382.025 464.436 382.348  c
+464.113 382.671 463.936 383.108 463.904 383.660  c
+h
+469.781 387.363 m
+469.781 381.145 l
+470.719 381.145 l
+470.719 382.020 l
+470.917 381.707 471.177 381.462 471.500 381.285  c
+471.823 381.098 472.193 381.004 472.609 381.004  c
+473.068 381.004 473.443 381.098 473.734 381.285  c
+474.036 381.473 474.245 381.738 474.359 382.082  c
+474.859 381.363 475.500 381.004 476.281 381.004  c
+476.906 381.004 477.380 381.176 477.703 381.520  c
+478.036 381.853 478.203 382.379 478.203 383.098  c
+478.203 387.363 l
+477.156 387.363 l
+477.156 383.441 l
+477.156 383.025 477.120 382.723 477.047 382.535  c
+476.984 382.348 476.865 382.197 476.688 382.082  c
+476.510 381.967 476.297 381.910 476.047 381.910  c
+475.609 381.910 475.245 382.056 474.953 382.348  c
+474.672 382.639 474.531 383.108 474.531 383.754  c
+474.531 387.363 l
+473.469 387.363 l
+473.469 383.316 l
+473.469 382.848 473.380 382.499 473.203 382.270  c
+473.036 382.030 472.760 381.910 472.375 381.910  c
+472.073 381.910 471.797 381.988 471.547 382.145  c
+471.297 382.301 471.115 382.530 471.000 382.832  c
+470.885 383.134 470.828 383.566 470.828 384.129  c
+470.828 387.363 l
+469.781 387.363 l
+h
+f
+newpath
+359.959 399.486 m
+359.959 398.424 l
+363.209 398.424 l
+363.209 399.486 l
+359.959 399.486 l
+h
+367.852 402.064 m
+367.852 393.471 l
+371.664 393.471 l
+372.435 393.471 373.018 393.549 373.414 393.705  c
+373.810 393.861 374.128 394.137 374.367 394.533  c
+374.607 394.919 374.727 395.346 374.727 395.814  c
+374.727 396.429 374.529 396.945 374.133 397.361  c
+373.737 397.778 373.128 398.044 372.305 398.158  c
+372.607 398.304 372.836 398.445 372.992 398.580  c
+373.326 398.882 373.638 399.262 373.930 399.721  c
+375.430 402.064 l
+373.992 402.064 l
+372.867 400.283 l
+372.534 399.762 372.258 399.367 372.039 399.096  c
+371.831 398.825 371.638 398.637 371.461 398.533  c
+371.294 398.419 371.122 398.335 370.945 398.283  c
+370.820 398.262 370.612 398.252 370.320 398.252  c
+368.992 398.252 l
+368.992 402.064 l
+367.852 402.064 l
+h
+368.992 397.268 m
+371.445 397.268 l
+371.956 397.268 372.357 397.215 372.648 397.111  c
+372.951 396.997 373.174 396.825 373.320 396.596  c
+373.477 396.356 373.555 396.096 373.555 395.814  c
+373.555 395.408 373.404 395.075 373.102 394.814  c
+372.810 394.554 372.346 394.424 371.711 394.424  c
+368.992 394.424 l
+368.992 397.268 l
+h
+375.986 398.955 m
+375.986 397.799 376.304 396.945 376.939 396.393  c
+377.471 395.934 378.122 395.705 378.893 395.705  c
+379.747 395.705 380.445 395.986 380.986 396.549  c
+381.538 397.101 381.814 397.872 381.814 398.861  c
+381.814 399.663 381.695 400.294 381.455 400.752  c
+381.215 401.210 380.861 401.570 380.393 401.830  c
+379.934 402.080 379.434 402.205 378.893 402.205  c
+378.028 402.205 377.325 401.929 376.783 401.377  c
+376.252 400.814 375.986 400.007 375.986 398.955  c
+h
+377.064 398.955 m
+377.064 399.747 377.236 400.340 377.580 400.736  c
+377.934 401.132 378.372 401.330 378.893 401.330  c
+379.424 401.330 379.861 401.132 380.205 400.736  c
+380.549 400.340 380.721 399.736 380.721 398.924  c
+380.721 398.153 380.544 397.570 380.189 397.174  c
+379.846 396.778 379.413 396.580 378.893 396.580  c
+378.372 396.580 377.934 396.778 377.580 397.174  c
+377.236 397.559 377.064 398.153 377.064 398.955  c
+h
+387.129 402.064 m
+387.129 401.143 l
+386.639 401.851 385.978 402.205 385.145 402.205  c
+384.780 402.205 384.436 402.137 384.113 402.002  c
+383.801 401.856 383.566 401.679 383.410 401.471  c
+383.254 401.252 383.145 400.986 383.082 400.674  c
+383.040 400.476 383.020 400.148 383.020 399.689  c
+383.020 395.846 l
+384.082 395.846 l
+384.082 399.299 l
+384.082 399.840 384.103 400.210 384.145 400.408  c
+384.207 400.679 384.342 400.898 384.551 401.064  c
+384.770 401.221 385.040 401.299 385.363 401.299  c
+385.676 401.299 385.967 401.221 386.238 401.064  c
+386.520 400.898 386.717 400.674 386.832 400.393  c
+386.957 400.111 387.020 399.705 387.020 399.174  c
+387.020 395.846 l
+388.066 395.846 l
+388.066 402.064 l
+387.129 402.064 l
+h
+392.021 401.127 m
+392.178 402.049 l
+391.876 402.111 391.610 402.143 391.381 402.143  c
+390.995 402.143 390.699 402.085 390.490 401.971  c
+390.282 401.846 390.131 401.684 390.037 401.486  c
+389.954 401.288 389.912 400.872 389.912 400.236  c
+389.912 396.658 l
+389.146 396.658 l
+389.146 395.846 l
+389.912 395.846 l
+389.912 394.299 l
+390.959 393.674 l
+390.959 395.846 l
+392.021 395.846 l
+392.021 396.658 l
+390.959 396.658 l
+390.959 400.299 l
+390.959 400.601 390.975 400.794 391.006 400.877  c
+391.048 400.960 391.110 401.028 391.193 401.080  c
+391.277 401.132 391.396 401.158 391.553 401.158  c
+391.678 401.158 391.834 401.148 392.021 401.127  c
+h
+397.309 400.064 m
+398.402 400.189 l
+398.236 400.825 397.918 401.320 397.449 401.674  c
+396.980 402.028 396.387 402.205 395.668 402.205  c
+394.762 402.205 394.038 401.924 393.496 401.361  c
+392.965 400.799 392.699 400.012 392.699 399.002  c
+392.699 397.960 392.970 397.153 393.512 396.580  c
+394.053 395.997 394.751 395.705 395.605 395.705  c
+396.439 395.705 397.116 395.986 397.637 396.549  c
+398.168 397.111 398.434 397.908 398.434 398.939  c
+398.434 399.002 398.434 399.096 398.434 399.221  c
+393.793 399.221 l
+393.835 399.908 394.027 400.434 394.371 400.799  c
+394.715 401.153 395.147 401.330 395.668 401.330  c
+396.053 401.330 396.382 401.231 396.652 401.033  c
+396.934 400.825 397.152 400.502 397.309 400.064  c
+h
+393.855 398.361 m
+397.324 398.361 l
+397.283 397.830 397.152 397.434 396.934 397.174  c
+396.590 396.768 396.152 396.564 395.621 396.564  c
+395.132 396.564 394.720 396.726 394.387 397.049  c
+394.064 397.372 393.887 397.809 393.855 398.361  c
+h
+403.316 402.064 m
+403.316 396.658 l
+402.379 396.658 l
+402.379 395.846 l
+403.316 395.846 l
+403.316 395.174 l
+403.316 394.757 403.353 394.450 403.426 394.252  c
+403.530 393.971 403.707 393.747 403.957 393.580  c
+404.217 393.413 404.577 393.330 405.035 393.330  c
+405.337 393.330 405.665 393.367 406.020 393.439  c
+405.863 394.346 l
+405.645 394.314 405.436 394.299 405.238 394.299  c
+404.915 394.299 404.686 394.367 404.551 394.502  c
+404.426 394.637 404.363 394.893 404.363 395.268  c
+404.363 395.846 l
+405.582 395.846 l
+405.582 396.658 l
+404.363 396.658 l
+404.363 402.064 l
+403.316 402.064 l
+h
+406.400 394.689 m
+406.400 393.471 l
+407.463 393.471 l
+407.463 394.689 l
+406.400 394.689 l
+h
+406.400 402.064 m
+406.400 395.846 l
+407.463 395.846 l
+407.463 402.064 l
+406.400 402.064 l
+h
+409.066 402.064 m
+409.066 395.846 l
+410.004 395.846 l
+410.004 396.721 l
+410.462 396.044 411.124 395.705 411.988 395.705  c
+412.363 395.705 412.707 395.773 413.020 395.908  c
+413.342 396.044 413.582 396.221 413.738 396.439  c
+413.895 396.658 414.004 396.913 414.066 397.205  c
+414.098 397.403 414.113 397.747 414.113 398.236  c
+414.113 402.064 l
+413.066 402.064 l
+413.066 398.283 l
+413.066 397.846 413.025 397.523 412.941 397.314  c
+412.858 397.106 412.712 396.939 412.504 396.814  c
+412.296 396.679 412.051 396.611 411.770 396.611  c
+411.322 396.611 410.931 396.757 410.598 397.049  c
+410.275 397.330 410.113 397.867 410.113 398.658  c
+410.113 402.064 l
+409.066 402.064 l
+h
+419.771 402.064 m
+419.771 401.283 l
+419.376 401.898 418.798 402.205 418.037 402.205  c
+417.537 402.205 417.079 402.070 416.662 401.799  c
+416.245 401.518 415.923 401.132 415.693 400.643  c
+415.464 400.153 415.350 399.590 415.350 398.955  c
+415.350 398.340 415.454 397.778 415.662 397.268  c
+415.870 396.757 416.183 396.372 416.600 396.111  c
+417.016 395.840 417.480 395.705 417.990 395.705  c
+418.365 395.705 418.699 395.783 418.990 395.939  c
+419.282 396.096 419.521 396.299 419.709 396.549  c
+419.709 393.471 l
+420.756 393.471 l
+420.756 402.064 l
+419.771 402.064 l
+h
+416.443 398.955 m
+416.443 399.757 416.610 400.356 416.943 400.752  c
+417.277 401.137 417.673 401.330 418.131 401.330  c
+418.589 401.330 418.980 401.143 419.303 400.768  c
+419.626 400.393 419.787 399.820 419.787 399.049  c
+419.787 398.195 419.620 397.570 419.287 397.174  c
+418.964 396.778 418.563 396.580 418.084 396.580  c
+417.615 396.580 417.225 396.773 416.912 397.158  c
+416.600 397.533 416.443 398.132 416.443 398.955  c
+h
+422.414 394.689 m
+422.414 393.471 l
+423.477 393.471 l
+423.477 394.689 l
+422.414 394.689 l
+h
+422.414 402.064 m
+422.414 395.846 l
+423.477 395.846 l
+423.477 402.064 l
+422.414 402.064 l
+h
+425.080 402.064 m
+425.080 395.846 l
+426.018 395.846 l
+426.018 396.721 l
+426.476 396.044 427.137 395.705 428.002 395.705  c
+428.377 395.705 428.721 395.773 429.033 395.908  c
+429.356 396.044 429.596 396.221 429.752 396.439  c
+429.908 396.658 430.018 396.913 430.080 397.205  c
+430.111 397.403 430.127 397.747 430.127 398.236  c
+430.127 402.064 l
+429.080 402.064 l
+429.080 398.283 l
+429.080 397.846 429.038 397.523 428.955 397.314  c
+428.872 397.106 428.726 396.939 428.518 396.814  c
+428.309 396.679 428.064 396.611 427.783 396.611  c
+427.335 396.611 426.945 396.757 426.611 397.049  c
+426.288 397.330 426.127 397.867 426.127 398.658  c
+426.127 402.064 l
+425.080 402.064 l
+h
+431.551 402.580 m
+432.582 402.736 l
+432.624 403.049 432.743 403.278 432.941 403.424  c
+433.202 403.622 433.556 403.721 434.004 403.721  c
+434.493 403.721 434.868 403.622 435.129 403.424  c
+435.400 403.226 435.582 402.955 435.676 402.611  c
+435.738 402.393 435.764 401.939 435.754 401.252  c
+435.296 401.794 434.723 402.064 434.035 402.064  c
+433.181 402.064 432.520 401.757 432.051 401.143  c
+431.582 400.518 431.348 399.778 431.348 398.924  c
+431.348 398.330 431.452 397.783 431.660 397.283  c
+431.879 396.773 432.191 396.382 432.598 396.111  c
+433.004 395.840 433.483 395.705 434.035 395.705  c
+434.775 395.705 435.384 396.002 435.863 396.596  c
+435.863 395.846 l
+436.832 395.846 l
+436.832 401.221 l
+436.832 402.189 436.733 402.877 436.535 403.283  c
+436.337 403.689 436.025 404.007 435.598 404.236  c
+435.171 404.476 434.645 404.596 434.020 404.596  c
+433.280 404.596 432.681 404.429 432.223 404.096  c
+431.764 403.762 431.540 403.257 431.551 402.580  c
+h
+432.426 398.846 m
+432.426 399.658 432.587 400.252 432.910 400.627  c
+433.233 401.002 433.639 401.189 434.129 401.189  c
+434.618 401.189 435.025 401.002 435.348 400.627  c
+435.681 400.252 435.848 399.669 435.848 398.877  c
+435.848 398.117 435.676 397.544 435.332 397.158  c
+434.999 396.773 434.592 396.580 434.113 396.580  c
+433.645 396.580 433.243 396.773 432.910 397.158  c
+432.587 397.533 432.426 398.096 432.426 398.846  c
+h
+441.762 404.455 m
+441.762 395.846 l
+442.715 395.846 l
+442.715 396.643 l
+442.944 396.330 443.199 396.096 443.480 395.939  c
+443.772 395.783 444.121 395.705 444.527 395.705  c
+445.059 395.705 445.527 395.840 445.934 396.111  c
+446.340 396.382 446.642 396.768 446.840 397.268  c
+447.048 397.768 447.152 398.314 447.152 398.908  c
+447.152 399.544 447.038 400.117 446.809 400.627  c
+446.590 401.137 446.262 401.528 445.824 401.799  c
+445.387 402.070 444.928 402.205 444.449 402.205  c
+444.095 402.205 443.777 402.132 443.496 401.986  c
+443.215 401.830 442.986 401.643 442.809 401.424  c
+442.809 404.455 l
+441.762 404.455 l
+h
+442.715 398.986 m
+442.715 399.788 442.876 400.382 443.199 400.768  c
+443.522 401.143 443.913 401.330 444.371 401.330  c
+444.840 401.330 445.241 401.132 445.574 400.736  c
+445.908 400.340 446.074 399.726 446.074 398.893  c
+446.074 398.101 445.913 397.512 445.590 397.127  c
+445.267 396.731 444.876 396.533 444.418 396.533  c
+443.970 396.533 443.574 396.742 443.230 397.158  c
+442.887 397.575 442.715 398.184 442.715 398.986  c
+h
+448.420 402.064 m
+448.420 395.846 l
+449.373 395.846 l
+449.373 396.783 l
+449.613 396.346 449.831 396.059 450.029 395.924  c
+450.238 395.778 450.467 395.705 450.717 395.705  c
+451.071 395.705 451.430 395.814 451.795 396.033  c
+451.436 397.018 l
+451.175 396.861 450.920 396.783 450.670 396.783  c
+450.430 396.783 450.217 396.856 450.029 397.002  c
+449.852 397.137 449.727 397.330 449.654 397.580  c
+449.529 397.955 449.467 398.361 449.467 398.799  c
+449.467 402.064 l
+448.420 402.064 l
+h
+452.041 398.955 m
+452.041 397.799 452.359 396.945 452.994 396.393  c
+453.525 395.934 454.176 395.705 454.947 395.705  c
+455.801 395.705 456.499 395.986 457.041 396.549  c
+457.593 397.101 457.869 397.872 457.869 398.861  c
+457.869 399.663 457.749 400.294 457.510 400.752  c
+457.270 401.210 456.916 401.570 456.447 401.830  c
+455.989 402.080 455.489 402.205 454.947 402.205  c
+454.083 402.205 453.380 401.929 452.838 401.377  c
+452.307 400.814 452.041 400.007 452.041 398.955  c
+h
+453.119 398.955 m
+453.119 399.747 453.291 400.340 453.635 400.736  c
+453.989 401.132 454.426 401.330 454.947 401.330  c
+455.479 401.330 455.916 401.132 456.260 400.736  c
+456.604 400.340 456.775 399.736 456.775 398.924  c
+456.775 398.153 456.598 397.570 456.244 397.174  c
+455.900 396.778 455.468 396.580 454.947 396.580  c
+454.426 396.580 453.989 396.778 453.635 397.174  c
+453.291 397.559 453.119 398.153 453.119 398.955  c
+h
+460.074 402.064 m
+459.090 402.064 l
+459.090 393.471 l
+460.152 393.471 l
+460.152 396.533 l
+460.600 395.981 461.168 395.705 461.855 395.705  c
+462.241 395.705 462.600 395.783 462.934 395.939  c
+463.277 396.085 463.559 396.299 463.777 396.580  c
+464.007 396.861 464.184 397.200 464.309 397.596  c
+464.434 397.992 464.496 398.413 464.496 398.861  c
+464.496 399.924 464.230 400.747 463.699 401.330  c
+463.168 401.913 462.538 402.205 461.809 402.205  c
+461.069 402.205 460.491 401.898 460.074 401.283  c
+460.074 402.064 l
+h
+460.059 398.908 m
+460.059 399.648 460.163 400.184 460.371 400.518  c
+460.704 401.059 461.152 401.330 461.715 401.330  c
+462.173 401.330 462.569 401.132 462.902 400.736  c
+463.246 400.340 463.418 399.742 463.418 398.939  c
+463.418 398.127 463.257 397.528 462.934 397.143  c
+462.611 396.757 462.220 396.564 461.762 396.564  c
+461.303 396.564 460.902 396.768 460.559 397.174  c
+460.225 397.570 460.059 398.148 460.059 398.908  c
+h
+465.748 402.064 m
+465.748 393.471 l
+466.811 393.471 l
+466.811 402.064 l
+465.748 402.064 l
+h
+472.695 400.064 m
+473.789 400.189 l
+473.622 400.825 473.305 401.320 472.836 401.674  c
+472.367 402.028 471.773 402.205 471.055 402.205  c
+470.148 402.205 469.424 401.924 468.883 401.361  c
+468.352 400.799 468.086 400.012 468.086 399.002  c
+468.086 397.960 468.357 397.153 468.898 396.580  c
+469.440 395.997 470.138 395.705 470.992 395.705  c
+471.826 395.705 472.503 395.986 473.023 396.549  c
+473.555 397.111 473.820 397.908 473.820 398.939  c
+473.820 399.002 473.820 399.096 473.820 399.221  c
+469.180 399.221 l
+469.221 399.908 469.414 400.434 469.758 400.799  c
+470.102 401.153 470.534 401.330 471.055 401.330  c
+471.440 401.330 471.768 401.231 472.039 401.033  c
+472.320 400.825 472.539 400.502 472.695 400.064  c
+h
+469.242 398.361 m
+472.711 398.361 l
+472.669 397.830 472.539 397.434 472.320 397.174  c
+471.977 396.768 471.539 396.564 471.008 396.564  c
+470.518 396.564 470.107 396.726 469.773 397.049  c
+469.451 397.372 469.273 397.809 469.242 398.361  c
+h
+475.119 402.064 m
+475.119 395.846 l
+476.057 395.846 l
+476.057 396.721 l
+476.255 396.408 476.515 396.163 476.838 395.986  c
+477.161 395.799 477.531 395.705 477.947 395.705  c
+478.406 395.705 478.781 395.799 479.072 395.986  c
+479.374 396.174 479.583 396.439 479.697 396.783  c
+480.197 396.064 480.838 395.705 481.619 395.705  c
+482.244 395.705 482.718 395.877 483.041 396.221  c
+483.374 396.554 483.541 397.080 483.541 397.799  c
+483.541 402.064 l
+482.494 402.064 l
+482.494 398.143 l
+482.494 397.726 482.458 397.424 482.385 397.236  c
+482.322 397.049 482.202 396.898 482.025 396.783  c
+481.848 396.669 481.635 396.611 481.385 396.611  c
+480.947 396.611 480.583 396.757 480.291 397.049  c
+480.010 397.340 479.869 397.809 479.869 398.455  c
+479.869 402.064 l
+478.807 402.064 l
+478.807 398.018 l
+478.807 397.549 478.718 397.200 478.541 396.971  c
+478.374 396.731 478.098 396.611 477.713 396.611  c
+477.411 396.611 477.135 396.689 476.885 396.846  c
+476.635 397.002 476.452 397.231 476.338 397.533  c
+476.223 397.835 476.166 398.268 476.166 398.830  c
+476.166 402.064 l
+475.119 402.064 l
+h
+f
+newpath
+359.959 414.188 m
+359.959 413.125 l
+363.209 413.125 l
+363.209 414.188 l
+359.959 414.188 l
+h
+368.008 416.766 m
+368.008 415.562 l
+369.211 415.562 l
+369.211 416.766 l
+368.008 416.766 l
+h
+371.342 416.766 m
+371.342 415.562 l
+372.545 415.562 l
+372.545 416.766 l
+371.342 416.766 l
+h
+374.676 416.766 m
+374.676 415.562 l
+375.879 415.562 l
+375.879 416.766 l
+374.676 416.766 l
+h
+f
+2 J
+10.0000 M
+0 J
+1.45000 M
+newpath
+945.000 390.000 m
+918.000 390.000 l
+S
+newpath
+910.000 390.000 m
+922.000 395.000 l
+919.000 390.000 l
+922.000 385.000 l
+h
+f
+2 J
+10.0000 M
+0 J
+1.45000 M
+newpath
+511.000 390.000 m
+547.000 390.000 l
+S
+newpath
+555.000 390.000 m
+543.000 385.000 l
+546.000 390.000 l
+543.000 395.000 l
+h
+f
+2 J
+10.0000 M
+Q
+[ 1.00000 0.00000 0.00000 1.00000 0.00000 0.00000 ] defaultmatrix matrix concatmatrix setmatrix
+cliprestore
+
+%%Trailer
+%%EOF

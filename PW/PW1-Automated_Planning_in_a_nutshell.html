@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title>
+        Practical Works: Automated Planning in a nutshell
+    </title>
+    <link rel="stylesheet" href="assets/css/cs.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <center>
+            <h1>Agent and Multi-Agent Systems <br/> Practical Works: Automated Planning in a nutshell</h1>
+            <div class="cs">
+                Wassila Ouerdane & Emmanuel Hermellin <br/><br/>
+                <img width="100px" src="assets/CS.png"/>
+            </div>
+        </center>
+        <div class="version">
+            Practical work from <a href="https://github.com/pellierd/pddl4j/wiki">PDDL4J</a><br/>
+            &#169; Laboratoire Informatique de Grenoble
+        </div>
+
+        <ul>
+            <li><a href="#what">What is planning?</a></li>
+            <li><a href="#example">An example: Robot dockers</a></li>
+            <li><a href="#planning">The planning model</a></li>
+            <li><a href="#model">Model Assumptions</a></li>
+            <li><a href="#tech">A set of techniques</a></li>
+			<li><a href="#next">What's next?</a></li>
+        </ul>
+		
+        <h2><a href="#what" id="what" class="section-anchor">What is planning?</a></h2>
+		
+		<div class="quotation">
+			"Planning is a discipline of Artificial Intelligence that aims at the development of generic algorithms allowing autonomous systems to choose and organize their actions to achieve a goal by anticipating their effects (Ghallab, M. and al., 2004)"
+		</div>
+		
+		<center>
+            <img  src="assets/nutshell_1.png"/>
+        </center>
+		
+        <h2><a href="#example" id="example" class="section-anchor">An example: Robot dockers</a></h2>
+		
+		<center>
+			<img width="50%" src="assets/nutshell_2.gif"/>
+        </center>
+		
+        <p>Imagine a system where robots have to transport containers and store them. In this system, every event and action could be predefined and hard-coded but this approach has many shortcomings: complexity, combinatory explosion of the possible scenarios, vulnerability to failures and unexpected events etc.</p>
+
+		<p>Another approach is to bet on autonomy technologies such as AI planning and let the robots make their own decisions according to their perceptions and the state of the world.</p>
+
+		<p>In the situation above, the goal is to stack container c2 on container c1 at location p2. Automated planning allows to compute a sequence of actions (plan) that will allow the autonomous robots r1, crane1, crane2 to achieve this task from the initial state (c1 is on c2 at p1). <strong>What is important to understand here is that if the initial state were different (due to an unexpected event or failure), the system would be able to compute another plan to fulfill the task.</strong></p>
+		
+		<h2><a href="#planning" id="planning" class="section-anchor">The planning model</a></h2>
+		
+		<center>
+			<img width="15%" src="assets/nutshell_3.png"/>
+        </center>
+		
+		<p>The conceptual model of planning is made of three components:</p>
+        <ul>
+            <li>[A state transition system] that models the evolution of the environment.</li>
+            <li>[A controller] that chooses the next action to execute and controls its execution.
+            <li>[A planner] that, from the specification of a problem in PDDL, synthesizes a plan, <i>i.e.</i>, a set of ordered actions, to achieve a goal.</li>
+        </ul>
+		
+		<h2><a href="#model" id="model" class="section-anchor">Model Assumptions</a></h2>
+		
+		<p>Often, planning models do many simplifying assumptions about the real world:</p>
+
+		<ul>
+            <li>The environment is finished.</li>
+			<li>The environment is completely observable.</li>
+			<li>The environment is deterministics.</li>
+			<li>The solution plans are sequential.</li>
+			<li>The notion of time is implicit, <i>e.g.</i>, actions have no duration.</li>
+			<li>Planning does not interleave action execution.</li>
+			<li>Planning is a centralized procedure etc.</li>
+		</ul>
+		
+		<h2><a href="#tech" id="tech" class="section-anchor">A set of techniques</a></h2>
+
+		<p>Classical representations of planning problems are based on logical representations, e.g., PDDL, OPL, etc. or state variables which are often more compact.</p>
+
+		<p>Planning algorithms can be classified in different approaches:</p>
+
+		<ul>
+            <li>State space planning.</li>
+			<li>Plan space planning.</li>
+			<li>SAT and CSP techniques.</li>
+			<li>Hierarchical planning techniques (HTN).</li>
+			<li>Planning Graph techniques.</li>
+			<li>Markov Decision Process techniques.</li>
+			<li>Model Checking techniques etc.</li>
+		</ul>
+		
+		<h2><a href="#next" id="next" class="section-anchor">What's next?</a></h2>
+		
+		<p>Now, it's time to practice by <a href="./PW2-A_tutorial_to_start_with_PDDL.html">solving a planning problem thanks to PDDL4J and the PDDL language</a>.</p>
+    </body>
+</html>

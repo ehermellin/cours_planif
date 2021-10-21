@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title>
+        Practical Works: A tutorial to start with PDDL
+    </title>
+    <link rel="stylesheet" href="assets/css/cs.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <center>
+            <h1>Agent and Multi-Agent Systems <br/> Practical Works: A tutorial to start with PDDL</h1>
+            <div class="cs">
+                Wassila Ouerdane & Emmanuel Hermellin <br/><br/>
+                <img width="100px" src="assets/CS.png"/>
+            </div>
+        </center>
+        <div class="version">
+            Practical work from <a href="https://github.com/pellierd/pddl4j/wiki">PDDL4J</a><br/>
+            &#169; Laboratoire Informatique de Grenoble
+        </div>
+
+        <ul>
+            <li><a href="#what">What is PDDL?</a></li>
+            <li><a href="#how">How to Put the Pieces Together?</a>
+				<ul>
+					<li><a href="#how1">Domain files</a></li>
+					<li><a href="#how2">Problem files</a></li>
+				</ul>
+			</li>
+            <li><a href="#logistics">First exercise: Logistics</a>
+				<ul>
+					<li><a href="#logistics1">Logistics Problem Description</a></li>
+					<li><a href="#logistics11">Creating PDDL files</a></li>
+					<li><a href="#logistics2">Domain file: The requirements</a></li>
+					<li><a href="#logistics3">Domain file: The types</a></li>
+					<li><a href="#logistics4">Domain file: The predicates</a></li>
+					<li><a href="#logistics5">Domain file: The actions / operators</a></li>
+					<li><a href="#logistics6">Problem file: The objects</a></li>
+					<li><a href="#logistics7">Problem file: The initial state</a></li>
+					<li><a href="#logistics8">Problem file: The goal specification</a></li>
+					<li><a href="#logistics9">Going further with PDDL</a></li>
+					<li><a href="#logistics10">Solve the logistics running example with PDDL4J</a></li>
+				</ul>
+			</li>
+            <li><a href="#robotic">Second exercise: Robotic Supply Chain</a>
+				<ul>
+					<li><a href="#robotic1">Logistics Problem Description</a></li>
+					<li><a href="#robotic2">Domain file: The requirements</a></li>
+				</ul>				
+			</li>
+			<li><a href="#next">What's next?</a></li>
+        </ul>
+		
+        <h2><a href="#what" id="what" class="section-anchor">What is PDDL?</a></h2>
+		
+		<p>The Planning Domain Definition Language (PDDL) is an attempt to standardize Artificial Intelligence (AI) planning languages. It was first developed by Drew McDermott and his colleagues in 1998 (inspired by STRIPS and ADL among others) mainly to make the 1998/2000 International Planning Competition (IPC) possible, and then evolved with each competition.</p>
+		
+		<div class="quotation">
+			"The adoption of a common formalism for describing planning domains fosters far greater reuse of research and allows more direct comparison of systems and approaches, and therefore supports faster progress in the field. A common formalism is a compromise between expressive power (in which development is strongly driven by potential applications) and the progress of basic research (which encourages development from well-understood foundations). The role of a common formalism as a communication medium for exchange demands that it is provided with a clear semantics".
+		</div>
+		
+		<p>The components of PDDL files are:</p>
+
+		<ul>
+			<li><strong>Requirements</strong>: Defining levels of abstraction in the language, <i>e.g.</i>, "STRIPS", temporal, probabilistic effects etc.</li>
+			<li><strong>Types</strong>: Sets of the things of interest in the world.</li>
+			<li><strong>Predicates</strong>: Facts about objects that can be true or false.</li>
+			<li><strong>Actions/Operators</strong>: Ways of changing states of the world and going from the initial state to goal states.</li>
+			<li><strong>Objects</strong>: Instances of types.</li>
+			<li><strong>Initial state of the world</strong>: before starting the planning process.</li>
+			<li><strong>Goal</strong>: Properties of the world true in goal states and achieved after the planning process.</li>
+		</ul>
+		
+		<h2><a href="#how" id="how" class="section-anchor">How to Put the Pieces Together?</a></h2>
+		
+		<p>A planning task in PDDL is specified in two text files:</p>
+		
+		<ol>
+			<li>A <strong>domain file</strong> for requirements, types, predicates and actions.</li>
+			<li>A <strong>problem file</strong> for objects, initial state and goal specification.</li>
+		</ol>
+		
+		<h3><a href="#how1" id="how1" class="section-anchor">Domain Files</a></h3>
+
+        <pre><code>(define (domain domain_name) 
+    #PDDL code for requirements
+    #PDDL code for types
+    #PDDL code for predicates
+    #PDDL code for first action
+    [...]
+    #PDDL code for last action
+)</code></pre>
+
+		<h3><a href="#how2" id="how2" class="section-anchor">Problem Files</a></h3>
+
+        <pre><code>(define (problem problem_name) 
+  (:domain domain_name)
+  #PDDL code for objects
+  #PDDL code for initial state
+  #PDDL code for goal specification
+)</code></pre>
+				
+		<h2><a href="#logistics" id="logistics" class="section-anchor">First exercise: Logistics</a></h2>
+		
+		<h3><a href="#logistics1" id="logistics1" class="section-anchor">Logistics Problem Description</a></h3>
+		
+		<p>We will use a logistic context to illustrate how to represent a planning task in PDDL.</p>
+			
+		<p>In logistics, there are trucks and airplanes that can move packages between different airports and cities. We assume that in the initial state there is a truck in Paris airport. An airplane and two packages are in London airport. Paris has two places : south and north. The goal is to have one package in the north location and the other one in the south location.</p>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Try to enumerate the <i>types</i>, <i>objects</i>, <i>predicates</i>, <i>actions</i>, <i>initial states</i> and <i>goal</i> corresponding to the problems described above.</li>
+			</ul>
+		</blockquote>
+		
+		<div class="answer">For this logistics problem, we list 9 <i>types</i>, 3 <i>predicates</i>, 6 <i>actions</i>, 10 <i>objects</i>, 8 <i>initial states</i> and 2 <i>goal</i></div>
+		
+		<br/>
+		
+		<div class="warning">The modeling of a problem in PDDL depends on the person. If you don't find the same numbers, it doesn't mean your modeling of the problem is wrong.</div>
+		
+		<h3><a href="#logistics11" id="logistics11" class="section-anchor">Creating PDDL files</a></h3>
+
+		<p>First, remember that PDDL requires two files:</p>
+
+		<ol>
+			<li>A <strong>domain file</strong> for requirements, types, predicates and actions.</li>
+			<li>A <strong>problem file</strong> for objects, initial state and goal specification.</li>
+		</ol>
+
+		<p>The domain file is like this:</p>
+		
+		<pre><code>(define (domain domain_name) 
+    #PDDL code for requirements
+    #PDDL code for types
+    #PDDL code for predicates
+    #PDDL code for first action
+    [...]
+    #PDDL code for last action
+)</code></pre>
+
+		<p>where <i>domain_name</i> is a string that identifies the planning domain. Here is "logistics".</p>
+
+		<p>The problem is like this:</p>
+		
+		<pre><code>(define (problem problem_name) 
+  (:domain domain_name)
+  #PDDL code for objects
+  #PDDL code for initial state
+  #PDDL code for goal specification
+)</code></pre>
+
+		<p>where <i>problem_name</i> is the string that identifies the planning problem to solve, <i>e.g.</i> "logistics_p0" and <i>domain_name</i> must match the domain name in the corresponding domain file. Therefore, you must use "logistics" here.
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Create two text files respectively called <i>logistics_domain.pddl</i> and <i>logistics_problem.pddl</i> and try to write the domain and the problem corresponding to the problems described above. You can choose whatever text editor you want. The following sections will guide you in writing these two files!</li>
+			</ul>
+		</blockquote>
+		
+		<h3><a href="#logistics2" id="logistics2" class="section-anchor">Domain file: The requirements</a></h3>
+		
+		<p>The requirements for this logistics example are:</p>
+
+		<ul>
+			<li><i>strips</i>: The actions will only use positive preconditions (predicates that must be true in the current state to trigger actions) and deterministic effects (effects that necessarily follow action triggering). Nothing else is allowed.</li>
+			<li><i>typing</i>: We will use "types" like in OO programming to represent sets of objects in the world.</li>
+		</ul>
+		
+		<p>In <i>logistics.pddl</i> file, write:</p>
+		
+		<pre><code>(:requirements :strips :typing)</code></pre>
+		
+		<h3><a href="#logistics3" id="logistics3" class="section-anchor">Domain file: The types</a></h3>
+		
+		<p>We will use the following types:</p>
+
+		<ul>
+			<li>Places, cities and physical objects are considered as objects.</li>
+			<li>Packages and vehicles are physical objects.</li>
+			<li>Trucks and airplanes are vehicles.</li>
+			<li>Airports and locations are places.</li>
+		</ul>
+
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:types city place physobj - object
+  package vehicle - physobj
+  truck airplane - vehicle
+  airport location - place
+)</code></pre>
+
+		<h3><a href="#logistics4" id="logistics4" class="section-anchor">Domain file: The predicates</a></h3>
+		
+		<p>We will use the following predicates:</p>
+
+		<ul>
+			<li><i>in-city(loc, city)</i> - true if a place <i>loc</i> is in the city <i>city</i>.</li>
+			<li><i>at(obj, loc)</i> - true if a physical object <i>obj</i> is at place <i>loc</i>.</li>
+			<li><i>in(pkg, veh)</i> - true if the a package <i>pkg</i> is in a vehicle <i>veh</i>.</li>
+		</ul>
+		
+		<p>In PDDL, question marks are used for variables:</p>
+
+		<pre><code>(:predicates (in-city ?loc - place ?city - city)
+	     (at ?obj - physobj ?loc - place)
+	     (in ?pkg - package ?veh - vehicle)
+)</code></pre>
+
+		<h3><a href="#logistics5" id="logistics5" class="section-anchor">Domain file: The actions / operators</a></h3>
+		
+		<p>In this tutorial, we will use indifferently the words "action" and "operator" (though in planning community, actions are ground operators). Operators are the means to change the states of the world.</p>
+		
+		<h4><a class="section-anchor">Load truck operator</a></h4>
+		
+		<p>For instance, in the logistics domain, a truck can be loaded... And to load a truck, we need a package <i>pkg</i> and a truck <i>truck</i> at a place <i>loc</i>. To load <i>pkg</i> in <i>truck</i>, these two objects must be at the same place <i>loc</i>. The effects of loading <i>pkg</i> in truck are that <i>in(pkg, truck)</i> becomes true and <i>at(pkg, loc)</i> becomes false. Any other fact in the current state does not change:</p>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:action load-truck
+  :parameters (?pkg - package ?truck - truck ?loc - place)
+  :precondition (and (at ?truck ?loc) (at ?pkg ?loc))
+  :effect (and (not (at ?pkg ?loc)) (in ?pkg ?truck))
+)</code></pre>		
+
+		<h4><a class="section-anchor">Load airplane operator</a></h4>
+		
+		<p>Action/Operator:</p>
+		
+		<ul>
+			<li><strong>Description</strong>: Load a package <i>pkg</i> in an airplane <i>airplane</i> at a place <i>loc</i>.</li>
+			<li><strong>Precondition</strong>: <i>at(pkg, loc)</i> and <i>at(airplane, loc)</i> must be true.</li>
+			<li><strong>Effect</strong>: <i>in(pkg, airplane)</i> becomes true and <i>at(airplane, loc)</i> becomes false.</li>
+		</ul>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:action load-airplane
+  :parameters (?pkg - package ?airplane - airplane ?loc - place)
+  :precondition (and (at ?pkg ?loc) (at ?airplane ?loc))
+  :effect (and (not (at ?pkg ?loc)) (in ?pkg ?airplane))
+)</code></pre>
+
+		<h4><a class="section-anchor">Unload truck operator</a></h4>
+		
+		<p>Action/Operator:</p>
+		
+		<ul>
+			<li><strong>Description</strong>: Unload a package <i>pkg</i> in a truck <i>truck</i> at a place <i>loc</i>.</li>
+			<li><strong>Precondition</strong>: <i>in(pkg, truck)</i> and <i>at(truc, loc) </i> must be true.</li>
+			<li><strong>Effect</strong>: <i>at(pkg, loc)</i> becomes true and <i>in(pkg, truck)</i> becomes false.</li>
+		</ul>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:action unload-truck
+  :parameters (?pkg - package ?truck - truck ?loc - place)
+  :precondition (and (at ?truck ?loc) (in ?pkg ?truck))
+  :effect (and (not (in ?pkg ?truck)) (at ?pkg ?loc))
+)</code></pre>
+
+		<h4><a class="section-anchor">Unload airplane operator</a></h4>
+		
+		<p>Action/Operator:</p>
+		
+		<ul>
+			<li><strong>Description</strong>: Unload a package <i>pkg</i> in an airplane <i>airplane</i> at a place <i>loc</i>.</li>
+			<li><strong>Precondition</strong>: <i>in(pkg, airplane)</i> and <i>at(airplane, loc)</i> must be true.</li>
+			<li><strong>Effect</strong>: <i>at(pkg, loc)</i> becomes true and <i>in(pkg, airplane)</i> becomes false.</li>
+		</ul>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:action unload-airplane
+  :parameters (?pkg - package ?airplane - airplane ?loc - place)
+  :precondition (and (in ?pkg ?airplane) (at ?airplane ?loc))
+  :effect (and (not (in ?pkg ?airplane)) (at ?pkg ?loc))
+)</code></pre>
+
+		<h4><a class="section-anchor">Fly-airplane operator</a></h4>
+		
+		<p>Action/Operator:</p>
+		
+		<ul>
+			<li><strong>Description</strong>: Fly airplane <i>airplane</i> from a location <i>loc-from</i> to a location <i>loc-to</i>.</li>
+			<li><strong>Precondition</strong>: <i>at(airplane, loc-from)</i> must be true.</li>
+			<li><strong>Effect</strong>: <i>at(airplane, loc-to)</i> becomes true and <i>at(airplane, loc-from)</i> becomes false.</li>
+		</ul>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:action fly-airplane
+  :parameters (?airplane - airplane ?loc-from - airport ?loc-to - airport)
+  :precondition (at ?airplane ?loc-from)
+  :effect (and (not (at ?airplane ?loc-from)) (at ?airplane ?loc-to))
+)</code></pre>		
+
+		<h4><a class="section-anchor">Drive-truck operator</a></h4>
+		
+		<p>Action/Operator:</p>
+		
+		<ul>
+			<li><strong>Description</strong>: Drive truck <i>truck</i> from a location <i>loc-from</i> to a location <i>loc-to</i>.</li>
+			<li><strong>Precondition</strong>: <i>at(truck, loc-from)</i> must be true.</li>
+			<li><strong>Effect</strong>: <i>at(truck, loc-to)</i> becomes true and <i>at(truck, loc-from)</i> becomes false.</li>
+		</ul>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:action drive-truck
+  :parameters (?truck - truck ?loc-from - place ?loc-to - place ?city - city)
+  :precondition (and (at ?truck ?loc-from) (in-city ?loc-from ?city) (in-city ?loc-to ?city))
+  :effect (and (not (at ?truck ?loc-from)) (at ?truck ?loc-to))
+)</code></pre>	
+
+		<h3><a href="#logistics6" id="logistics6" class="section-anchor">Problem file: The objects</a></h3>
+		
+		<p>In this example, we use the following objects:</p>
+
+		<ul>
+			<li>A truck: <i>truck</i></li>
+			<li>An airplane: <i>airplane</i></li>
+			<li>Two airports: <i>cdg</i>, <i>lhr</i></li>
+			<li>Two places: <i>north</i>, <i>south</i></li>
+			<li>Two cities: <i>london</i>, <i>paris</i></li>
+			<li>Two packages: <i>p1</i>, <i>p2</i></li>
+		</ul>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:objects plane - airplane
+  truck - truck
+  cdg lhr - airport
+  south north - location
+  paris london - city
+  p1 p2 - package
+)</code></pre>		
+
+		<h3><a href="#logistics7" id="logistics7" class="section-anchor">Problem file: The initial state</a></h3>
+		
+		<p>The initial state is a set of ground predicates. A predicate is ground iff all the variables are bound to objects. The ground predicates in the initial state represent true facts in this state. Any fact that is not represented in a state is false.</p>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:init (in-city cdg paris)
+  (in-city lhr london)
+  (in-city north paris)
+  (in-city south paris)
+  (at plane lhr)
+  (at truck cdg)
+  (at p1 lhr)
+  (at p2 lhr)
+)</code></pre>
+
+		<h3><a href="#logistics8" id="logistics8" class="section-anchor">Problem file: The goal specification</a></h3>
+		
+		<p>The goal is to have <i>at(p1, north)</i> and <i>at(p2, south)</i> in the final state (no matter the truth value of the other predicates).</p>
+		
+		<p>In PDDL, we write:</p>
+
+		<pre><code>(:goal (and (at p1 north) 
+  (at p2 south))
+)</code></pre>		
+		
+		<h3><a href="#logistics9" id="logistics9" class="section-anchor">Going further with PDDL</a></h3>
+		
+		<p>Action effects can be more complicated than seen so far. They can be universally quantified:</p>
+
+		<pre><code>(forall (?v1 ... ?vn) effect)</code></pre>
+			
+		<p>They can be conditional:</p>
+
+		<pre><code>(when condition effect)</code></pre>
+
+		<p>They can have costs, duration, time constraints etc. A complete BNF syntax  definition of the PDDL 3.1 language is presented <a href="./data/BNF-PDDL-3.1.pdf" target=_blank>there</a>.</p>
+		
+		<h3><a href="#logistics10" id="logistics10" class="section-anchor">Solve the logistics running example with PDDL4J</a></h3>
+		
+		<h4><a class="section-anchor">What is PDDL4J? What is PDDL4J for?</a></h4>
+		
+		<p>PDDL4J is a software library embedding Artificial Intelligence algorithms to find solutions for planning problems, that is to say time organized actions to achieve a goal. Solutions to planning problems are "todo lists" named plan representing operational features of actions like <strong>who</strong>, <strong>how</strong>, <strong>where</strong>, <strong>when</strong> and <strong>what to do</strong>.</p>
+
+		<p>PDDL4J uses a description language (Planning Domain Description language) to represent the initial state of the problem, the goal and the list of the available actions.</p>
+		
+		<p>PDDL4J is a solver useful for decision problems that can be solved by a sequence of actions (plan). It is based on a declarative approach: the user states a decision problem in PDDL and PDDL4J generates possible solutions. No programming language and/or background is required. PDDL4J has lot of application fields like can be use in many industrial fields as smart homes/data/cities, autonomous systems and robotics, logistics, business processes etc.</p>
+		
+		<h4><a class="section-anchor">Using PDDL4J with the logistics running example</a></h4>
+		
+		<p>The domain and problem files of this logistics running example are available here: <a href="./data/PW2/logistics_domain.pddl">logistics_domain.pddl</a>, <a href="./data/PW2/logistics_problem.pddl">logistics_problem.pddl</a>.</p>
+		
+		<p>A detailed user guide for PDDL4J is available at <a href="https://github.com/pellierd/pddl4j/wiki/Getting-Started" target=_blank>this address</a>.
+		
+		<p>To solve the logistics running example with PDDL4J, follow the next instructions:</p>
+		
+		<blockquote>
+            <ol>
+                <li>You need to have Java 8 JDK installed on your computer. If not, follow this <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target=_blank>link</a>.<br/>
+				<pre><code>java -version</pre></code>
+				</li>
+				
+				<li>Create a directory and download / copy your pddl files.<br/>
+				<pre><code>mkdir logistics_example
+cd logistics_example</pre></code>
+				</li>
+				
+				<li>Get the last binary of <a href="http://pddl4j.imag.fr/repository/pddl4j/binaries/pddl4j-3.8.3.jar" target=_blank>PDDL4J</a> and save it in this new directory.
+				
+					<pre><code>wget http://pddl4j.imag.fr/repository/pddl4j/binaries/pddl4j-3.8.3.jar</code></pre>
+
+				</li>
+				
+				<li>Run PDDL4J to solve the logistics running example.<br/>
+				<pre><code>java -jar pddl4j-3.8.3.jar -o logistics_domain.pddl -f logistics_problem.pddl</pre></code><br/>
+				or<br/>
+				<pre><code>java -javaagent:pddl4j-3.8.3.jar -server -Xms2048m -Xmx2048m fr.uga.pddl4j.planners.statespace.StateSpacePlannerFactory -o logistics_domain.pddl -f logistics_problem.pddl</pre></code>
+				</li>
+				
+				<li>If you don't like CLI, you can use PDDL4GUI which is a GUI interface for the PDDL4J library. You can download it <a href="https://github.com/ehermellin/pddl4gui" target=_blank>here</a>.</li>
+			</ol>
+		</blockquote>
+		
+		<p>The result will be:</p>
+		
+		<pre><code>parsing domain file "logistics.pddl" done successfully
+parsing problem file "problem.pddl" done successfully
+
+encoding problem done successfully (28 ops, 17 facts)
+
+found plan as follows:
+
+00: (        loadd-airplane p1 plane lhr) [1]
+01: (        loadd-airplane p2 plane lhr) [1]
+02: (         fly-airplane plane lhr cdg) [1]
+03: (       unload-airplane p1 plane cdg) [1]
+04: (       unload-airplane p2 plane cdg) [1]
+05: (            load-truck p1 truck cdg) [1]
+06: (            load-truck p2 truck cdg) [1]
+07: (  drive-truck truck cdg south paris) [1]
+08: (        unload-truck p2 truck south) [1]
+09: (drive-truck truck south north paris) [1]
+10: (        unload-truck p1 truck north) [1]
+
+plan total cost: 11,00
+
+time spent:   0,09 seconds parsing 
+              0,03 seconds encoding 
+              0,01 seconds searching
+              0,13 seconds total time
+
+memory used:  0,02 MBytes for problem representation
+              0,01 MBytes for searching
+              0,03 MBytes total</pre></code>
+			  
+		<p>As you can see, the result plan contains 11 steps to solve the logistics problem !</p>
+			  
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Create a new problem file and solve it with PDDL4J. look at the impact that the number of objects can have on the resolution time and the memory used.</li>
+			</ul>
+		</blockquote>
+			  
+        <h2><a href="#robotic" id="robotic" class="section-anchor">Second exercise: Robotic Supply Chain</a></h2>
+		
+		<h3><a href="#robotic1" id="robotic1" class="section-anchor">Industrial Problem Description</a></h3>
+		
+		<p>This is a real case that we tackled for a manufacturing company. This company devises supply chains to make pieces of medical equipments. A supply chain consists of independent robotized units/cells, which realize specific operations on the pieces: cleaning, checking, marking, assembling etc. The pieces are put on trays, and mobile robots are programmed to take and to transport the trays between the different units. The image below illustrates this process:</p>
+		
+		<center>
+			<img width="50%" src="./assets/robotic_1.png"/>
+		</center>
+		
+		<p>There are different kind of pieces at the beginning of the supply chain. A tray contains only one kind of pieces, and, each piece undergoes a sequence of operations from the beginning to the end of the supply chain. At the beginning of the supply chain, a unit is used to store all the trays. The units can have several inputs named "conveyors". The conveyors and the units are specific to a set of pieces: pieces are admissible to identified conveyors and units. Initially, every processing (unit loading/unloading, robot movements etc.) was hard-coded in a database by human operators. Automated planning is now used to optimize unit/robot scheduling and to increase production efficiency.</p>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Try to write your own domain file.</li>
+				<li>Before reading the proposed solution below, write a simple problem file and test your domain. For instance, a simple problem is one type of pieces, a single tray, robot and conveyor; two units, a stocker storing this tray at the initial state and a processing unit. The goal is for the unit to perform three operations (op10 > op20 > op30) on the tray.</li>
+			</ul>
+		</blockquote>
+
+		<h3><a href="#robotic2" id="robotic2" class="section-anchor">Robotic Supply Chain Domain</a></h3>
+		
+		<div class="warning">Be aware that this section contains the correction of the exercise: Do not read it until you have tried to solve the problem on your own</div>
+		
+		<h4><a class="section-anchor">Domain file</a></h4>
+		
+		<p>We start by defining the set of objects (types) that will be used in this domain. Quite obviously, we will have the types <i>robot</i> (mobile robots), <i>conveyor</i>, <i>unit</i>, <i>piece</i>, etc.</p>
+		
+		<pre><code>(:types
+  robot - agent
+  conveyor unit - location
+  piece operation tray - object
+)</pre></code>
+		
+		<p>We also declare a dummy operation stop which will be used in one action:</p>
+		
+		<pre><code>(:constants
+      stop - operation
+)</pre></code>
+		
+		<p>Now it is time to think to a model for the domain. It is based on the following ideas:</p>
+
+		<ul>
+			<li>Producer/consumer: the trays are resources consumed by the conveyors and produced by the units. A "one-to-many" relation is created between each unit and the conveyors. A tuple conveyors/unit is like a (Petri Net) "machine" that consumes and produces trays. The conveyors are the inputs and the unit is the output. Each input/output's capacity is one.</li>
+			<li>Operation stacks: each tray is associated to a stack of operations that have to be performed on the pieces of the tray. The last operation of the stack is always stop. Each time a machine consumes a tray, the associated stack is pulled.</li>
+			<li>Goal: to empty all the stacks by connecting the machines with robots transporting trays from units (outputs) to conveyors (inputs). The capacity of the robots is one.</li>
+		</ul>
+
+		<p>Here is the vocabulary ("predicates") that will be used by the actions:</p>
+		
+		<pre><code>(:predicates
+  ;robot
+  (robot_available ?robot - robot)
+  ;; is the robot available? capacity is one
+  (robot_at ?robot - robot ?l - location)
+  ;; location of a robot. Either a conveyor or a unit
+
+  ;conveyor
+  (conveyor_accepted_piece ?piece - piece ?conv - conveyor)
+  ;; constraint on admissible pieces
+  (conveyor_available ?conv - conveyor)
+  ;; is the conveyor available? capacity is one
+  (conveyor_unit ?conv - conveyor ?unit - unit)
+  ;; "one-to-many" relation between units and conveyors
+
+  ;unit
+  (unit_accepted_piece ?piece - piece ?unit - unit)
+  ;; constraint on admissible pieces
+  (unit_available ?unit - unit)
+  ;; is the unit available? unit capacity is one
+  (unit_operation ?op - operation ?unit - unit)
+  ;; operation provided by the unit
+
+  ;tray
+  (tray_on_unit ?tray - tray ?unit - unit)
+  ;; the tray is in the unit
+  (tray_on_conv ?tray - tray ?conv - conveyor)
+  ;; the tray is input into the conveyor
+  (tray_on_robot ?tray - tray ?robot - robot)
+  ;; the robot is at the tray
+  (tray_completed ?tray - tray)
+  ;; all the scheduled operations are completed
+
+  ;piece
+  (piece_on ?piece - piece ?tray - tray)
+  ;; "one-to-one" relation: trays contain only one type of pieces
+
+  ;stack of operations
+  (start ?op - operation ?tray - tray)
+  ;; ?op is on top of the stack.
+  ;; The stack has a one-to-one relation with the tray (same id)
+  (todo ?opontop - operation ?nextop - operation ?tray - tray)
+  ;; linked list of operations: ?nextop follows ?opontop. Last operation is stop
+)</pre></code>
+
+		<p>For instance, <strong>in the problem file</strong>,</p>
+
+		<pre><code>(start op10 tray32)
+(todo op10 op20 tray32)
+(todo op20 op30 tray32)
+(todo op30 stop tray32)</pre></code>
+		
+		<p>means that the sequence <span class="code">op10</span>, <span class="code">op20</span>, <span class="code">op30</span> of operations is scheduled on <span class="code">tray32</span>.</p>
+		
+		<p>Likewise,</p>
+		
+		<pre><code>(conveyor_unit conv1 unit1)
+(conveyor_unit conv2 unit1)</pre></code>
+
+		<p>means that <span class="code">unit1</span> has two inputs <span class="code">conv1</span> and <span class="code">conv2</span>.</p>
+		
+		<p>The new step is to define all the actions. For this domain, we will need 6 actions:</p>
+		
+		<pre><code>(:action pickup_tray_on_unit
+  :parameters (?robot - robot ?unit - unit ?tray - tray)
+  :precondition (and (robot_available ?robot)
+                     (robot_at ?robot ?unit)
+                     (tray_on_unit ?tray ?unit)
+                )
+  :effect (and (not (tray_on_unit ?tray ?unit))
+               (not (robot_available ?robot))
+               (tray_on_robot ?tray ?robot)
+               (unit_available ?unit)
+          )
+)</pre></code>
+
+		<p>Action <span class="code">pickup_tray_on_unit</span> allows a robot to pickup a tray on a unit provided the robot is available and located at this unit. The effects are that the tray is no more on the unit, the tray is on the robot and the robot is not available to pickup another tray. The unit becomes available to process another tray.</p>
+		
+		<pre><code>(:action drop_tray_on_conveyor
+  :parameters (?robot - robot ?conv - conveyor ?tray - tray ?piece - piece)
+  :precondition (and (conveyor_available ?conv)
+                     (robot_at ?robot ?conv)
+                     (tray_on_robot ?tray ?robot)
+                     (conveyor_accepted_piece ?piece ?conv)
+                     (piece_on ?piece ?tray)
+                )
+  :effect (and (not (conveyor_available ?conv))
+               (not (tray_on_robot ?tray ?robot))
+               (tray_on_conv ?tray ?conv)
+               (robot_available ?robot))
+)</pre></code>
+
+		<p>Action <span class="code">drop_tray_on_conveyoris</span> the counterpart of <span class="code">pickup_tray_on_unit</span>. It allows a robot to put a tray on a conveyor. The preconditions are that the robot and the conveyor are in the same place, the conveyor is available and it accepts the same type of pieces than the tray. The effects are that the conveyor is no more available, the tray is no more on the robot (it is on the conveyor) and the robot is now available.</p>
+		
+		<pre><code>(:action robot_move
+  :parameters (?robot - robot ?from - location ?to - location)
+  :precondition (and (robot_at ?robot ?from))
+  :effect (and (robot_at ?robot ?to) (not (robot_at ?robot ?from)))
+)</pre></code>
+
+		<p>Action <span class="code">robot_move</span> is trivial: It moves a robot from location <span class="code">?from</span> to location <span class="code">?to</span>. Locations are either a conveyor or a unit (see <span class="code">:types</span> keyword).</p>
+		
+		<pre><code>(:action conveyor_load_tray_in_unit
+  :parameters (?conv - conveyor ?unit - unit ?tray - tray ?piece - piece)
+  :precondition (and (unit_available ?unit)
+                     (conveyor_unit ?conv ?unit)
+                     (unit_accepted_piece ?piece ?unit)
+                     (piece_on ?piece ?tray)
+                     (tray_on_conv ?tray ?conv)
+                )
+  :effect (and (not (tray_on_conv ?tray ?conv))
+               (not (unit_available ?unit))
+               (tray_on_unit ?tray ?unit))
+)</pre></code>
+
+		<p>Action <span class="code">conveyor_load_tray_in_unitconsumes</span> a tray that is loaded on a conveyor linked to a unit provided the pieces of the tray are accepted by this unit. As a consequence, the tray is no more one the conveyor, the unit is not available and the tray is on the unit, ready for processing.</p>
+		
+		<pre><code>(:action unit_execute_operation
+  :parameters (?unit - unit ?top - operation ?next - operation ?tray - tray)
+  :precondition (and (unit_operation ?top ?unit)
+                       (tray_on_unit ?tray ?unit)
+                       (start ?top ?tray)
+                       (todo ?top ?next ?tray)
+                )
+   :effect (and (start ?next ?tray)
+                (not (todo ?top ?next ?tray))
+                (not (start ?top ?tray))
+           )
+)</pre></code>
+
+		<p>Action <span class="code">unit_execute_operation</span> applies the operation pending on top of the tray's stack. The preconditions are that the unit is able to perform this operation, the tray is in the unit and this operation operation is on top of the stack. The effects are that the operation is pulled from the stack and the next operation becomes the top of the stack.</p>
+		
+		<pre><code>(:action tray_completed
+  :parameters (?op - operation ?tray - tray ?unit - unit)
+  :precondition (and (start stop ?tray)
+                     (tray_on_unit ?tray ?unit)
+                )
+  :effect (and (tray_completed ?tray)
+               (unit_available ?unit)
+               (not (tray_on_unit ?tray ?unit)))
+)</pre></code>
+		
+		<p>Action <span class="code">tray_completed</span> is a dummy action which purpose is to check that all the scheduled operations on a tray have been done (<span class="code">stop operation</span> on top of the tray's stack). It is used to build a goal state and to terminate the planning procedure for a given tray. Here we suppose that an operator picks up the tray once all the operations have been done and the unit becomes available to process another tray.</p>
+
+		<h4><a class="section-anchor">Problem file</a></h4>
+		
+		<p>This problem file represents a simple problem with one type of pieces, a single tray, robot and conveyor; two units, a stocker storing this tray at the initial state and a processing unit. The goal is for the unit to perform three operations (op10 > op20 > op30) on the tray.</p>
+
+		<p>Hence, the types and objects are as follows:</p>
+		
+		<pre><code>(:objects
+  unit1 stocker - unit
+  conv1 - conveyor
+  robot1 - robot
+
+  tray1 - tray
+  piece1 - piece
+
+  op10 op20 op30 - operation
+)</pre></code>
+
+		<p>This snippet of code is the initial state:</p>
+		
+		<pre><code>(:init
+  ;;Operation schedule
+
+  (start op10 tray1)
+  (todo op10 op20 tray1)
+  (todo op20 op30 tray1)
+  (todo op30 stop tray1)
+
+  ;;Initiate pieces on tray
+  (piece_on piece1 tray1)
+
+  ;;At the beginning, tray1 is on the stocker
+  (tray_on_unit tray1 stocker)
+
+  ;;Initiate robot
+  (robot_at robot1 stocker)
+  (robot_available robot1)
+
+  ;;Initiate conveyor
+  (conveyor_unit conv1 unit1)
+
+  ;;Setup unit
+  (unit_accepted_piece piece1 unit1)
+  (unit_accepted_piece piece1 stocker)
+  (unit_operation op10 unit1)
+  (unit_operation op20 unit1)
+  (unit_operation op30 unit1)
+
+  ;;Unit1 is ready
+  (unit_available unit1)
+
+  ;;Setup conveyor
+  (conveyor_accepted_piece piece1 conv1)
+  (conveyor_available conv1)
+
+  ;;Setup robot
+  (robot_available robot1)
+)</pre></code>
+
+		<p>The goal is simply the completion of <span class="code">tray1</span>:</p>
+		
+		<pre><code>(:goal (and (tray_completed tray1)))</pre></code>
+
+		<h4><a class="section-anchor">Conclusion</a></h4>
+
+		<p>Complete files can be downloaded here:</p>
+		<ul>
+			<li><a href="./data/PW2/robotic_domain.pddl">robotic_domain.pddl</a></li>
+			<li><a href="./data/PW2/robotic_problem_easy.pddl">robotic_problem_easy.pddl</a></li>
+		</ul>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Try to write another problem files.</li>
+				<li>See the impact on the performance according to the number of object instances, the goals, the initial state, etc.</li>
+				<li>Solve your problems using another planners (see the "getting started" guide <a href="https://github.com/pellierd/pddl4j/wiki/Getting-Started" target=_blank>here</a>, use <span class="code">-p 1</span> in the command line). What do you see as a difference? what are the impacts on the results? How do you explain that?</li>
+			</ul>
+		</blockquote>
+		
+		<h2><a href="#next" id="next" class="section-anchor">What's next?</a></h2>
+		
+		<p>Now, it's time to <a href="./PW3-Developp_your_own_planner.html">developp your own planner</a>.</p>
+    </body>
+</html>

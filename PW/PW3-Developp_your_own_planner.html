@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title>
+        Practical Works: A tutorial to develop your own planner
+    </title>
+    <link rel="stylesheet" href="assets/css/cs.css" type="text/css">
+	<link rel="stylesheet" href="assets/css/rainbow.css">
+	<script src="assets/js/highlight.pack.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <center>
+            <h1>Agent and Multi-Agent Systems <br/> Practical Works: A tutorial to develop your own planner</h1>
+            <div class="cs">
+                Wassila Ouerdane & Emmanuel Hermellin <br/><br/>
+                <img width="100px" src="assets/CS.png"/>
+            </div>
+        </center>
+        <div class="version">
+            Practical work from <a href="https://github.com/pellierd/pddl4j/wiki">PDDL4J</a><br/>
+            &#169; Laboratoire Informatique de Grenoble
+        </div>
+
+        <ul>
+            <li><a href="#planner1">Create a simple Java project with PDDL4J</a></li>
+            <li><a href="#planner2">Create the main class of our planner</a></li>
+			<li><a href="#planner3">Get the planner arguments from the command line</a></li>
+			<li><a href="#planner4">Create an instance of your planner</a></li>	
+            <li><a href="#planner5">Parse and encode the PDDL domain and problem files</a>
+				<ul>
+					<li><a href="#planner51">Parse the PDDL domain and the problem files</a></li>
+					<li><a href="#planner52">Instantiate and encode the planning problem</a></li>
+				</ul>
+			</li>
+			<li><a href="#planner6">Searching for a solution plan</a></li>
+			<li><a href="#planner7">Get and print the solution plan</a></li>
+			<li><a href="#planner8">Measure time and memory used</a></li>
+			<li><a href="#planner9">Write your own A* search strategy</a>
+				<ul>
+					<li><a href="#planner91">Writing your own class Node</a></li>
+					<li><a href="#planner92">Writing your own A* search</a></li>
+				</ul>
+			</li>
+			<li><a href="#next">What's next?</a></li>
+        </ul>
+		
+		<h2><a href="#planner1" id="planner1" class="section-anchor">Pre-requisite installations and documentations</a></h2>
+		
+		<p>For this tutorial you need:</p>
+		<ul>
+			<li>A Java SE Development Kit 8. If java JDK is not installed on your computer, follow this <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target=_blank>link</a>.</li>
+			<li>A text editor such as Sublime or Atom or IDE such as Eclipse, NetBean or IntelliJ.</li>
+		</ul>
+		
+		<p>To help you during the process of developping your own planner, you can consult the following documents:</p>
+		<ul>
+			<li><a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/" target=_blank>PDDL4J Javadoc / API</a></li>
+			<li><a href="https://github.com/pellierd/pddl4j/wiki/Getting-Started" target=_blank>PDDL4J Getting Started</a></li>
+			<li><a href="https://github.com/pellierd/pddl4j/wiki/Contribute" target=_blank>PDDL4J Contribute</a></li>
+		</ul>
+
+        <h2><a href="#planner1" id="planner1" class="section-anchor">Create a simple Java project with PDDL4J</a></h2>
+		
+		<p>First, create our development directory ASP (A* Planner).</p>
+		
+		<pre class="nohighlight"><code class="bash">mkdir ASP</code></pre>
+		
+		<p>Download the <a href="./data/PW3/asp.zip">starting project</a> and extract the content of the archive in this newly created directory.</p>
+		
+		<p>Then, open a terminal and build thanks to gradle the asp project (read the <i>README</i> to get the gradle command lines).</p>
+		
+		<pre class="nohighlight"><code class="bash">gradlew run #Linux & Mac
+.\gradlew run #Windows
+</code></pre>
+		
+		<p>You can also use the following command to launch your project:</p>
+		
+		<pre class="nohighlight"><code class="bash">java -jar asp-1.0.jar</code></pre>
+
+		<p>You are now ready to write your own A* planner.</p>
+		
+		<div class="quotation">
+			<strong>Note.</strong> Gradle is a build automation tool for multi-language software development. It controls the development process in the tasks of compilation and packaging to testing, deployment, and publishing.<br/>
+			The methodology of Gradle builds on the concepts of Apache Ant and Apache Maven, and introduces a Groovy-based domain-specific language, rather than using the XML form used by Maven for declaring the project configuration. Gradle uses a directed acyclic graph to determine the order in which tasks can be run, through providing dependency management.<br/>
+			To get more information on Gradle: <a href="https://en.wikipedia.org/wiki/Gradle" target=_blank>Wiki</a> and <a href="https://www.gradle.org/" target=_blank>main website</a>.
+		</div>
+		
+		<div class="quotation">
+			<strong>Note.</strong> If you are behind a proxy, you need to fill proxy information in the <i>gradle.properties</i> file.
+			<pre class="nohighlight"><code class="java">systemProp.https.proxyHost=
+systemProp.https.proxyPort=
+systemProp.http.proxyHost=
+systemProp.http.proxyPort=
+</code></pre>
+		</div>
+		
+		<h2><a href="#planner2" id="planner2" class="section-anchor">Create the main class of our planner</a></h2>
+		
+		<p>Create and/or edit a file called <i>ASP.java</i> in the directory <i>src/main/java/tutorial</i>. The skeleton of this class is given bellow:</p>
+		
+		<pre class="nohighlight"><code class="java">package tutorial;
+
+import fr.uga.pddl4j.encoding.CodedProblem;
+import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
+import fr.uga.pddl4j.util.Plan;
+
+import java.util.Properties;
+
+/**
+ * This class implements a simple forward planner based on A* algorithm.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 11.09.2020
+ */
+public final class ASP extends AbstractStateSpacePlanner {
+	
+  /*
+   * The arguments of the planner.
+   */
+  private Properties arguments;
+	
+  /**
+   * Creates a new ASP planner with the default parameters.
+   * 
+   * @param arguments the arguments of the planner.
+   */
+  public ASP(final Properties arguments) {
+    super();
+    this.arguments = arguments;
+  }
+
+  /**
+   * Solves the planning problem and returns the first solution search found.
+   *
+   * @param problem the problem to be solved.
+   * @return a solution search or null if it does not exist.
+   */
+  @Override
+  public Plan search(final CodedProblem problem) {
+    // To be completed
+    return null;
+  }
+
+ /**
+  * The main method of the ASP example. The command line syntax is as follow:
+  * OPTIONS   DESCRIPTIONS
+  * -o str   operator file name
+  * -f str   fact file name
+  * -w num   the weight used in the a star search (preset: 1)
+  * -t num   specifies the maximum CPU-time in seconds (preset: 300)
+  * -h       print this message
+  *
+  * @param args the arguments of the command line.
+  */
+  public static void main(String[] args) {
+    // To be completed
+  }
+}</code></pre>
+
+		<p>The class ASP extends the abstract class <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/planners/statespace/AbstractStateSpacePlanner.html" target=_blank>AbstractStateSpacePlanner</a> that contains the basic methods of any planners based on state space search. Two methods must be implemented:</p>
+
+		<ol>
+			<li>The method <span class="code">search()</span> is an abstract method the class <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/planners/statespace/AbstractStateSpacePlanner.html" target=_blank>AbstractStateSpacePlanner</a>. This method takes as parameter an instance of the class <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/encoding/CodedProblem.html" target=_blank>CodedProblem</a> class which contains all the information related to the problem to solve and returns a solution <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/util/Plan.html" target=_blank>Plan</a> if it exists or <span class="code">null</span> otherwise.</li>
+			<li>The method <span class="code">main()</span> is the main method of the planner. The method takes as parameter an array of strings that contains the command line arguments.</li>
+		</ol>
+		
+		<p>Before writing the search algorithm let's first look at how to get the arguments from the command line.</p>
+		
+		<h2><a href="#planner3" id="planner3" class="section-anchor">Get the planner arguments from the command line</a></h2>
+		
+		<p>Our planner takes as inputs at least a domain file that contains the description of the planning operators and a problem file that define the initial state and the goal to reach. Both files domain and problem rely on PDDL (Planning Domain Description Language). For those who are not familiar with PDDL, first have a look to the tutorial <a href="./PW2-A_tutorial_to_start_with_PDDL.html" target=_blank>Getting started with PDDL</a>. The domain file is specified with the option <span class="code">-o</span> and the problem with the option <span class="code">-f</span>.</p>
+
+		<p>Three optional inputs are also available:</p>
+
+		<ul>
+			<li><span class="code">-w</span> to specify the weight of the heuristic used in the search procedure (preset to 1.0).</li>
+			<li><span class="code">-t</span> to specify the maximum CPU-time in seconds (preset to 300s) allocated to the search.</li>
+			<li><span class="code">-h</span> to display the planner usage.</li>
+		</ul>
+
+		<p>The code of the method <span class="code">printUsage()</span> below prints the options of the planner.</p>
+		
+		<pre class="nohighlight"><code class="java">/**
+ * Print the usage of the ASP planner.
+ */
+private static void printUsage() {
+  final StringBuilder strb = new StringBuilder();
+  strb.append("\nusage of PDDL4J:\n")
+    .append("OPTIONS   DESCRIPTIONS\n")
+    .append("-o     operator file name\n")
+    .append("-f     fact file name\n")
+    .append("-w     the weight used in the a star seach (preset: 1.0)\n")
+    .append("-t     specifies the maximum CPU-time in seconds (preset: 300)\n")
+    .append("-h     print this message\n\n");
+  Planner.getLogger().trace(strb.toString());
+}</code></pre>
+
+		<div class="quotation">
+			<strong>Note.</strong> Every planner can get a logger instance. This logger is based on <a href="https://logging.apache.org/log4j/" target=_blank>Log4j</a> library developed by Apache and specialized in logging. A great benefit of <a href="https://logging.apache.org/log4j/" target=_blank>Log4j</a> is that different levels of logging can be set for your planner. The levels are hierarchical and are as follows: TRACE, DEBUG, INFO, WARN, ERROR, and FATAL. Have a look to the web site of <a href="https://logging.apache.org/log4j/" target=_blank>Log4j</a> for more details.
+		</div>
+		
+		<p>The code below parses the command line and return the planner's arguments in a Properties object or null is an invalid argument is encountered. To use it, add the method in your class ASP.</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
+
+import java.io.File;
+import java.util.Properties;
+</code></pre>		
+		
+		<pre class="nohighlight"><code class="java">/**
+ * Parse the command line and return the planner's arguments.
+ * 
+ * @param args the command line.
+ * @return the planner arguments or null if an invalid argument is encountered.
+ */
+private static Properties parseCommandLine(String[] args) {
+  
+  // Get the default arguments from the super class 
+  final Properties arguments = StateSpacePlanner.getDefaultArguments();
+  
+  // Parse the command line and update the default argument value 
+  for (int i = 0; i < args.length; i += 2) {
+    if ("-o".equalsIgnoreCase(args[i]) && ((i + 1) < args.length)) {
+      if (!new File(args[i + 1]).exists()) return null;
+      arguments.put(Planner.DOMAIN, new File(args[i + 1]));
+    } else if ("-f".equalsIgnoreCase(args[i]) && ((i + 1) < args.length)) {
+      if (!new File(args[i + 1]).exists()) return null;
+      arguments.put(Planner.PROBLEM, new File(args[i + 1]));
+    } else if ("-t".equalsIgnoreCase(args[i]) && ((i + 1) < args.length)) {
+      final int timeout = Integer.parseInt(args[i + 1]) * 1000;
+      if (timeout < 0) return null;
+      arguments.put(Planner.TIMEOUT, timeout);
+    } else if ("-w".equalsIgnoreCase(args[i]) && ((i + 1) < args.length)) {
+      final double weight = Double.parseDouble(args[i + 1]);
+      if (weight < 0) return null;
+      arguments.put(StateSpacePlanner.WEIGHT, weight);
+    } else {
+      return null;
+    }
+  }
+  // Return null if the domain or the problem was not specified 
+  return (arguments.get(Planner.DOMAIN) == null 
+      || arguments.get(Planner.PROBLEM) == null) ? null : arguments;
+}
+</code></pre>		
+		
+		<p>Now, you just have to call the methods in the main method of your class ASP. If an error occurs when parsing arguments the method <span class="code">printUsage()</span> is called and the planner exits.</p>
+		
+		<pre class="nohighlight"><code class="java">final Properties arguments = ASP.parseCommandLine(args);
+if (arguments == null) {
+  ASP.printUsage();
+  System.exit(0);
+}
+</code></pre>		
+		
+		<h2><a href="#planner4" id="planner4" class="section-anchor">Create an instance of your planner</a></h2>
+		
+		<p>All the arguments of your planner are correctly parsed and stored in a Properties object. Thus, we can create an instance of the planner with the parsed arguments. To do it add the following code in method <span class="code">main()</span> of the class ASP:</p>
+		
+		<pre class="nohighlight"><code class="java">final ASP planner = new ASP(arguments);</code></pre>
+
+		<p>The java instructions create a new instance of ASP and set the planner parameters: The search timeout, the heuristic to used to guide the search and the heuristic weight. In our case, we chose to use the classical relaxation heuristic of the FastForward planner.</p>
+		
+		<div class="quotation">
+			<strong>Note.</strong>
+			<ul>
+				<li>A heuristic is a function that estimates the remaining distance to the goal. In order to find this estimation an heuristic function tries to solve a relaxed problem.</li>
+				<li>To know the exhaustive list of the heuristics available in the library, let's have a look to the <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/heuristics/relaxation/Heuristic.html" target=_blank>Heuristics</a>. This interface defines the methods accessible from all heuristics developed in PDDL4J.</li>
+			</ul>
+		</div>
+		
+		<h2><a href="#planner5" id="planner5" class="section-anchor">Parse and encode the PDDL domain and problem files</a></h2>
+		
+		<p>All preprocessing tasks that must be performed to find a solution plan are accessible via the <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/planners/ProblemFactory.html" target=_blank>ProblemFactory</a> object. A instance of this class can be obtained with the following java instruction:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.planners.ProblemFactory;</code></pre>
+		
+		<pre class="nohighlight"><code class="java">final ProblemFactory factory = ProblemFactory.getInstance();</code></pre>
+		
+		<p>This class allows you to:</p>
+
+		<ol>
+			<li>Parse the PDDL domain ans the problem files to check the syntax.</li>
+			<li>Instantiate and encode the planning problem defines in this two file in a compact manner for the search.</li>
+		</ol>
+
+		<h3><a href="#planner51" id="planner51" class="section-anchor">Parse the PDDL domain and the problem files</a></h3>
+		
+		<p>The parsing is done by adding the code below to your method <span class="code">main()</span>:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.parser.ErrorManager;
+import java.io.IOException;
+</code></pre>		
+
+		<pre class="nohighlight"><code class="java">File domain = (File) arguments.get(Planner.DOMAIN);
+File problem = (File) arguments.get(Planner.PROBLEM);
+ErrorManager errorManager = null;
+try {
+  errorManager = factory.parse(domain, problem);
+} catch (IOException e) {
+  Planner.getLogger().trace("\nunexpected error when parsing the PDDL planning problem description.");
+  System.exit(0);
+}	
+</code></pre>	
+		
+		<p>Both files (domain and problem) are passed in parameters of the <span class="code">parse()</span>.</p>
+		
+		<div class="warning">This method can throw an IOException produced by failed or interrupted I/O operations.</div>
+		
+		<p>The PDDL parser in PDDL4J implements PDDL 3.1. It ensures the lexical, syntaxical and semantical analysis of the domain and problem files.</p>
+
+		<p>The PDDL4J parser is based on <a href="https://javacc.org/" target=_blank>JavaCC</a>, "the Java Compiler Compiler", which is a parser and lexical analyzer generator. It takes as input file a description of the PDDL language, <i>i.e.</i>, its lexical and grammar specifications (the BNF), and generates the Java parser. JavaCC is particularly adapted to PDDL4J because it allows new PDDL language extensions and the different versions of PDDL to be easily managed without any hand-coding. Moreover, JavaCC has good error reporting, which is very useful for domain debugging.</p>
+
+		<p>The semantic layer of the parser proceeds to verifications. Some of them just raise warnings:</p>
+
+		<ul>
+			<li>a constant, a quantified parameter, a predicate, a function or a type declared and never used in the domain and problem files,</li>
+			<li>a declared parameter never used in the operator,</li>
+			<li>the domain name used in the domain file does not match with the domain name defined in the problem file, etc.</li>
+		</ul>
+		
+		<p>The parser also detects different errors:</p>
+
+		<ul>
+			<li>a type, a predicate, a constant or a function used but not declared,</li>
+			<li>an inconsistent type hierarchy,</li>
+			<li>a quantified parameter without type etc.</li>
+		</ul>
+		
+		<p>You are certainly experts in PDDL, but not necessarily all users of your planner. Therefore, it can be interesting to display the errors and the warnings detected by the parser. To do this you have to use the class <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/parser/ErrorManager.html" target=_blank>ErrorManager</a>. An instance of this class is returned by the method <span class="code">parse()</span>given above.</p>
+
+		<p>Simply add the following code to your <span class="code">main()</span> method:</p>
+		
+		<pre class="nohighlight"><code class="java">if (!errorManager.isEmpty()) {
+  errorManager.printAll();
+  System.exit(0);
+} else {
+  Planner.getLogger().trace("\nparsing domain file done successfully");
+  Planner.getLogger().trace("\nparsing problem file done successfully\n");
+}
+</code></pre>
+
+		<p>If the error manager reports errors then print them all and exit, otherwise display that parsing went well.</p>
+
+		<p>To check that everything works well I propose you to compile and run your planner on the logistics example of the <a href="./PW2-A_tutorial_to_start_with_PDDL.html" target=_blank>Getting started with PDDL tutorial</a>. So first, get the logistics domain file and problem file and put them both at the root directory of your planner project.</p>
+
+		<p>Then, compile the code source of your planner using your IDE or the following command line:</p>
+
+		<pre class="nohighlight"><code class="bash">gradlew build</code></pre>
+		
+		<p>Finally, run your planner:</p>
+
+		<pre class="nohighlight"><code class="bash">gradlew run -PArgs="-o,logistics_domain.pddl,-f,logistics_problem.pddl"
+java -jar asp-1.0.jar -o logistics_domain.pddl -f logistics_problem.pddl</code></pre>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>To take the parser in hand, you can voluntarily add errors in the domain and/or the problem description to seen the errors reported.</li>
+			</ul>
+		</blockquote>
+
+		<h3><a href="#planner52" id="planner52" class="section-anchor">Instantiate and encode the planning problem</a></h3>
+		
+		<p>Most planners instantiate and encode planning problem in a compact representation before searching of a solution plan. The instantiation process consists in transforming the operators of the planning domain into ground actions. Given an operator, for example <i>drive-truck</i> of the logistics domain, the instantiation consists in replacing all the typed parameters (quantified or not) of this operator by all the corresponding typed constants declared in the planning problem. This process relies on some possible simplifications reducing the number of generated actions and consequently the planner's search space.</p>
+		
+		<div class="quotation">
+			<strong>Note.</strong> Some planners use the instantiation in order to encode planning problems into different formalisms such as <a href="https://en.wikipedia.org/wiki/Boolean_satisfiability_problem" target=_blank>SAT</a> or <a href="https://en.wikipedia.org/wiki/Constraint_satisfaction_problem" target=_blank>CPS</a>. Other planners use the instantiation to efficiently compute heuristics.
+		</div>
+		
+		<p>The encoding process consists in encoding instantiated operator or more simply actions in a compact bit set representation to speedup the search and be less greedy in memory.</p>
+		
+		<div class="quotation">
+			<strong>Note.</strong> To get technical details about both processes, refer to:
+			<ul>
+				<li>D. Pellier and H. Fiorino. <a href="https://www.tandfonline.com/doi/abs/10.1080/0952813X.2017.1409278?journalCode=teta" target=_blank>PDDL4J: a planning domain description library for java</a>. Journal Journal of Experimental & Theoretical Artificial Intelligence, volume 30, issue 1, pages 143-176, 2018.</li>
+			</ul>
+		</div>
+		
+		<p>Both processes are implemented in PDDL4J. To get a compact and instantiate representation of a planning problem, you just have to add the following Java instruction in your <span class="code">main()</span> method:</p>
+		
+		<pre class="nohighlight"><code class="java">final CodedProblem pb = factory.encode();</code></pre>
+		
+		<p>The class CodedProblem contains all the information related to the problem to solve. For instance, you can print the number of actions and relevant fluents instantiated by adding the code below:</p>
+
+		<pre class="nohighlight"><code class="java">Planner.getLogger().trace("\nencoding problem done successfully (" 
+        		    + pb.getOperators().size() + " ops, "
+        		    + pb.getRelevantFacts().size() + " facts)\n");
+</code></pre>
+
+		<p>We're almost there. We will now be able to focus on the <span class="code">search()</span> procedure.</p>
+			
+		<!--
+		<p>But before we have to check that the planning problem instantiated and simplified is always solvable. This can be tested by adding the following instruction:</p>
+
+		<pre class="nohighlight"><code class="java">if (!pb.isSolvable()) {
+  Planner.getLogger().trace(String.format("goal can be simplified to FALSE." 
+                                            +  "no search will solve it%n%n"));
+  System.exit(0);
+}
+</code></pre>
+
+		<p>The method <span class="code">isSovable()</span> does a time-polynomial test asserting whether a solution is possible after the encoding step.</p>
+		-->
+				
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>To verify that you have reached this milestone, compile and re-run your planner on the logistics domain.</li>
+				<!--<li>Remove the truck object from the PDDL problem file. What happen ?</li>-->
+				<li>To display internal information on the preprocessing done by the method <span class="code">encode()</span>, use the method <span class="code">setTraceLevel()</span> of the class <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/planners/ProblemFactory.html" target=_blank>ProblemFactory</a>.</li>
+			</ul>
+		</blockquote>
+		
+		<h2><a href="#planner6" id="planner6" class="section-anchor">Searching for a solution plan</a></h2>
+		
+		<p>You finally think we're here. How write my search procedure ? Two possibilities or the search procedure you want to use already exists in PDDL4J. In this case, it's extremely simple just call the right procedure in the <span class="code">search()</span> method. Otherwise, you have to write your own procedure. Let us first consider the first case. The second will consider in last part of this tutorial.</p>
+		
+		<p>All the search strategies for state space planning already implemented in PDDL4J are available in the package <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/parser/ErrorManager.html" target=_blank>fr.uga.pddl4j.planners.statespace.search.strategy</a>. In our case, we would like to use the <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/fr/uga/pddl4j/planners/statespace/search/strategy/AStar.html" target=_blank>AStar</a> search strategies. Thus, your <span class="code">search()</span> must look like as follow:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
+import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
+</code></pre>
+
+		<pre class="nohighlight"><code class="java">/**
+ * Solves the planning problem and returns the first solution search found.
+ *
+ * @param problem the problem to be solved.
+ * @return a solution search or null if it does not exist.
+ */
+@Override
+public Plan search(final CodedProblem problem) {
+  int timeout = (int) this.arguments.get(Planner.TIMEOUT);
+  double weight = (double) arguments.get(StateSpacePlanner.WEIGHT);         
+  StateSpaceStrategy astar = new AStar(timeout, Heuristic.Type.FAST_FORWARD, weight);
+  return astar.searchPlan(problem);
+}
+</code></pre>
+
+		<p>First, we create an instance of the search strategy for the problem to solve and then, we try to find a plan for this problem. If you need to get the solution node find by the search strategy you can also write:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
+import fr.uga.pddl4j.planners.statespace.search.strategy.AStar;
+import fr.uga.pddl4j.planners.statespace.search.strategy.Node;
+import fr.uga.pddl4j.planners.statespace.search.strategy.StateSpaceStrategy;
+</code></pre>
+
+		<pre class="nohighlight"><code class="java">/**
+ * Solves the planning problem and returns the first solution search found.
+ *
+ * @param problem the problem to be solved.
+ * @return a solution search or null if it does not exist.
+ */
+@Override
+public Plan search(final CodedProblem problem) {
+  int timeout = (int) this.arguments.get(Planner.TIMEOUT);
+  double weight = (double) arguments.get(StateSpacePlanner.WEIGHT);         
+  StateSpaceStrategy astar = new AStar(timeout, Heuristic.Type.FAST_FORWARD, weight);
+  Node goalNode = astar.searchSolutionNode(problem);
+  Planner.getLogger().trace(problem.toString(goalNode));
+  return astar.extractPlan(goalNode, problem);
+}
+</code></pre>
+
+		<h2><a href="#planner7" id="planner7" class="section-anchor">Get and print the solution plan</a></h2>
+		
+		<p>To get and print the solution plan found or the absence of a solution plan you can add the following instruction in the method <span class="code">main()</span> of your planner.</p>
+		
+		<pre class="nohighlight"><code class="java">final Plan plan = planner.search(pb);
+if (plan != null) {
+// Print plan information
+  Planner.getLogger().trace(String.format("%nfound plan as follows:%n%n" + pb.toString(plan)));
+  Planner.getLogger().trace(String.format("%nplan total cost: %4.2f%n%n", plan.cost()));
+} else {
+  Planner.getLogger().trace(String.format(String.format("%nno plan found%n%n")));
+}
+</code></pre>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>To verify that you have reached this milestone, compile and re-run your planner on the logistics domain. Your AStar is now ready to use.</li>
+			</ul>
+		</blockquote>
+		
+		<h2><a href="#planner8" id="planner8" class="section-anchor">Measure time and memory used</a></h2>
+		
+		<p>Measure time and memory used could be very useful to compare different planners and search strategies. All planners of PDDL4J have an object <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/planners/Statistics.html" target=_blank>Statistics</a> that allows you to store or get information about the execution. If you use a planner already available in PDDL4J, nothing has to be done. You have just to get of instance of the <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/planners/Statistics.html" target=_blank>Statistics</a> object and print the information you want. For instance, you can add this code at the end of the method <span class="code">main()</span> of your planner:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.planners.Statistics;</code></pre>
+		
+		<pre class="nohighlight"><code class="java">// Get the runtime information from the planner
+Statistics info = planner.getStatistics();
+    	
+// Print time information
+long time = info.getTimeToParse() +  info.getTimeToEncode() + info.getTimeToSearch();
+Planner.getLogger().trace(String.format("%ntime spent:   %8.2f seconds parsing %n", info.getTimeToParse()/1000.0));
+Planner.getLogger().trace(String.format("              %8.2f seconds encoding %n", info.getTimeToEncode()/1000.0));
+Planner.getLogger().trace(String.format("              %8.2f seconds searching%n", info.getTimeToSearch()/1000.0));
+Planner.getLogger().trace(String.format("              %8.2f seconds total time%n", time/1000.0));
+    	
+// Print memory usage information
+long memory = info.getMemoryUsedForProblemRepresentation() + info.getMemoryUsedToSearch();
+Planner.getLogger().trace(String.format("%nmemory used:  %8.2f MBytes for problem representation%n", info.getMemoryUsedForProblemRepresentation()/(1024.0*1024.0)));
+Planner.getLogger().trace(String.format("              %8.2f MBytes for searching%n", info.getMemoryUsedToSearch()/(1024.0*1024.0)));
+Planner.getLogger().trace(String.format("              %8.2f MBytes total%n%n%n", memory/(1024.0*1024.0)));		
+</code></pre>
+		
+		<p>But in our case, we have to fill in this information, because we develop our own planner. Consider the code to measure the time spent searching a plan for problem and store the information, you will write:</p>
+		
+		<pre class="nohighlight"><code class="java">long begin = System.currentTimeMillis();
+final Plan plan = planner.search(pb);
+planner.getStatistics().setTimeToSearch(System.currentTimeMillis() - begin);</code></pre>
+		
+		<p>Now, if you want to measure the memory used by a CodedProblem:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.util.MemoryAgent;</code></pre>
+		
+		<pre class="nohighlight"><code class="java">planner.getStatistics().setMemoryUsedForProblemRepresentation(MemoryAgent.getDeepSizeOf(pb));</code></pre>
+		
+		<p>The class <a href="http://pddl4j.imag.fr/repository/pddl4j/api/current/index.html?fr/uga/pddl4j/util/MemoryAgent.html" target=_blank>MemoryAgent</a> computes an approximation of the size of any java object. To use it you have to set of new argument <span class="code">-javaagent</span> to your JVM at runtime. The command line to run you planner is now:</p>
+		
+		<pre class="nohighlight"><code class="bash">java -javaagent:asp-1.0.jar -jar asp-1.0.jar -o logistics_domain.pddl -f logistics_problem.pddl</code></pre>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p><br/>
+			
+			<p>Modify the method <span class="code">main()</span> of your planner to store the following runtime information:</p>
+            <ol>
+				<li>The parsing time.</li>
+				<li>The encoding time.</li>
+				<li>The searching time.</li>
+				<li>The memory used to store the coded problem.</li>
+				<li>The memory used to store the search space.</li>
+			</ol>
+		</blockquote>
+		
+		<h2><a href="#planner9" id="planner9" class="section-anchor">Write your own A* search strategy</a></h2>
+		
+		<p>Before writing your own A* search strategy, you need to create a class Node. This class represents a node of search tree developed by A*.</p>
+		
+		<h3><a href="#planner91" id="planner91" class="section-anchor">Writing your own class Node</a></h3>
+		
+		<p>For state space planning a Node is a data structure with 5 components:</p>
+
+		<ol>
+			<li>A state, <i>i.e.</i>, the state in the state space to which the node corresponds.</li>
+			<li>A parent node, <i>i.e.</i>, the node in the search tree that generated this node.</li>
+			<li>An action, <i>i.e.</i>, the action that was applied to the parent node to produce this node.</li>
+			<li>A cost, <i>i.e.</i>, the cost of the path from the initial state to the node, as indicated by the parent pointer.</li>
+			<li>A heuristics value, <i>i.e.</i>, a estimation of the cost from this node to a solution one.</li>
+		</ol>
+		
+		<p>The easiest way to write your own node class is to inherit the BitState class that models a state in a compact way. The skeleton of the class Node is given below:</p>
+		
+		<pre class="nohighlight"><code class="java">package tutorial;
+
+import fr.uga.pddl4j.util.BitState;
+
+/**
+ * This class implements a node of the tree search.
+ *
+ * @author E. Hermellin
+ * @version 1.0 - 11.09.2020
+ */
+public final class Node extends BitState {
+
+  // To be complete with Node class attributes
+
+  /**
+   * Creates a new node from a specified state.
+   *
+   * @param state the state.
+   */
+  public Node(BitState state) {
+    super(state);
+  }
+
+  /**
+   * Creates a new node with a specified state, parent node, operator, cost and
+   * heuristic value.
+   *
+   * @param state     the logical state of the node.
+   * @param parent    the parent node of the node.
+   * @param operator  the operator applied to reached the node from its parent.
+   * @param cost      the cost to reach the node from the root node.
+   * @param heuristic the estimated distance to reach the goal from the node.
+   */
+  public Node(BitState state, Node parent, int operator, int cost, int heuristic) {
+    super(state);
+    this.parent = parent;
+    this.operator = operator;
+    this.cost = cost;
+    this.heuristic = heuristic;
+  }
+
+  // To be completed with get and set methods
+
+}</code></pre>
+
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Create a file <i>Node.java</i> in the repertory <i>src/main/java/tutorial/</i>.</li>
+				<li>Copy and paste the skeleton of the class Node above and complete the class based on the needs described in the next section (you will have to implement <i>get</i> and <i>set</i> methods as well as the attributes of the class).</li>
+			</ul>
+		</blockquote>
+		
+		<div class="quotation">
+			<strong>Note.</strong> For those who want to go faster, you can download the complete Node class <a href="./data/PW3/Node.java">here</a>.
+		</div>
+
+		<h3><a href="#planner92" id="planner92" class="section-anchor">Writing your own A* search</a></h3>
+		
+		<p><a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target=_blank>A*</a> is an informed search algorithm, or a best-first search, meaning that it solves problems by searching among all possible paths to the solution (goal) for the one that incurs the smallest cost (least distance traveled, shortest time, etc.), and among these paths it first considers the ones that appear to lead most quickly to the solution. It is formulated in terms of weighted graphs: starting from a specific node of a graph, it constructs a tree of paths starting from that node, expanding paths one step at a time, until one of its paths ends at the predetermined goal node (see the <a href="https://en.wikipedia.org/wiki/A*_search_algorithm#Pseudocode" target=_blank>pseudocode A*</a> for more details).</p>
+
+		<p>At each iteration of its main loop, A* needs to determine which of its partial paths to expand into one or more longer paths. It does so based on an estimate of the cost (total weight) still to go to the goal node. Specifically, A* selects the path that minimizes <i>f(n)=g(n)+h(n)</i> where:</p>
+		
+		<ul>
+			<li><i>n</i> is the last node on the path.</li>
+			<li><i>g(n)</i> is the cost of the path from the start node to <i>n</i>.</li>
+			<li><i>h(n)</i> is a heuristic that estimates the cost of the cheapest path from <i>n</i> to the goal.</li>
+		</ul>
+		
+		<p>For the algorithm to find the actual shortest path, the heuristic function must be admissible, meaning that it never overestimates the actual cost to get to the nearest goal node.</p>
+
+		<p>Typical implementations of A* use a priority queue to perform the repeated selection of minimum (estimated) cost nodes to expand. This priority queue is known as the open set or fringe. At each step of the algorithm, the node with the lowest <i>f(x)</i> value is removed from the queue, the <i>f</i> and <i>g</i> values of its neighbors are updated accordingly, and these neighbors are added to the queue. The algorithm continues until a goal node has a lower <i>f</i> value than any node in the queue (or until the queue is empty). The <i>f</i> value of the goal is then the length of the shortest path, since <i>h</i> at the goal is zero in an admissible heuristic.</p>
+		
+		<p>Once the solution node is reached, it is possible to extract the solution plan: The ending node will point to its predecessor, and so on, until some node's predecessor is the start node (see the <span class="code">extractPlan()</span> procedure below).</p>
+
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.util.SequentialPlan;</code></pre>
+
+		<pre class="nohighlight"><code class="java">/**
+  * Extracts a search from a specified node.
+  *
+  * @param node the node.
+  * @param problem the problem.
+  * @return the search extracted from the specified node.
+  */
+private Plan extractPlan(final Node node, final CodedProblem problem) {
+  final Plan plan = new SequentialPlan();
+  if (node != null) {
+    Node n = node;
+    while (n.getOperator() != -1) {
+      final BitOp op = problem.getOperators().get(n.getOperator());
+      plan.add(0, op);
+      n = n.getParent();
+    }
+  }
+  return plan;
+}</code></pre>
+
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>Try to implement A* by your own. You can use the A* pseudocode presented in the course.</li>
+			</ul>
+		</blockquote>
+		
+		<div class="warning">Be aware that the following contains the implementation of the solver: Do not read it until you have tried to write the A* solver on your own.</div>
+		
+		<p>Consider the implementation of A* now with PDDL4J and the new <span class="code">search()</span> procedure:</p>
+		
+		<pre class="nohighlight"><code class="java">import fr.uga.pddl4j.encoding.CodedProblem;
+import fr.uga.pddl4j.heuristics.relaxation.Heuristic;
+import fr.uga.pddl4j.heuristics.relaxation.HeuristicToolKit;
+import fr.uga.pddl4j.parser.ErrorManager;
+import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.ProblemFactory;
+import fr.uga.pddl4j.planners.Statistics;
+import fr.uga.pddl4j.planners.statespace.AbstractStateSpacePlanner;
+import fr.uga.pddl4j.planners.statespace.StateSpacePlanner;
+import fr.uga.pddl4j.util.BitOp;
+import fr.uga.pddl4j.util.BitState;
+import fr.uga.pddl4j.util.CondBitExp;
+import fr.uga.pddl4j.util.MemoryAgent;
+import fr.uga.pddl4j.util.Plan;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Properties;
+import java.util.Set;
+</code></pre>
+
+		<pre class="nohighlight"><code class="java">/**
+ * Solves the planning problem and returns the first solution search found.
+ *
+ * @param problem the problem to be solved.
+ * @return a solution search or null if it does not exist.
+ */
+@Override
+public Plan search(final CodedProblem problem) {
+  
+  // First we create an instance of the heuristic to use to guide the search
+  final Heuristic heuristic = HeuristicToolKit.createHeuristic(Heuristic.Type.FAST_FORWARD, problem);
+  
+  // We get the initial state from the planning problem
+  final BitState init = new BitState(problem.getInit());
+        
+  // We initialize the closed list of nodes (store the nodes explored)
+  final Set<Node> close = new HashSet<>();
+        
+  // We initialize the opened list to store the pending node according to function f
+  final double weight = (double) arguments.get(StateSpacePlanner.WEIGHT);
+  final PriorityQueue<Node> open = new PriorityQueue<>(100, new Comparator<Node>() {
+    public int compare(Node n1, Node n2) {
+      double f1 =  weight * n1.getHeuristic() + n1.getCost();
+      double f2 = weight * n2.getHeuristic() + n2.getCost();
+      return Double.compare(f1, f2);
+    }
+  });
+        
+  // We create the root node of the tree search
+  final Node root = new Node(init, null, -1, 0, heuristic.estimate(init, problem.getGoal()));
+   
+  // We adds the root to the list of pending nodes
+  open.add(root);
+  Node solutionNode = null;
+
+  final int timeout = ((int) this.arguments.get(Planner.TIMEOUT)) * 1000;
+  long time = 0;
+        
+  // We start the search
+  while (!open.isEmpty() && solutionNode == null && time < timeout) {
+     
+    // We pop the first node in the pending list open
+    final Node current = open.poll();
+    close.add(current);
+            
+    // If the goal is satisfy in the current node then extract the search and return it
+    if (current.satisfy(problem.getGoal())) {
+	  solutionNode = current;
+    } 
+            
+    // Else we try to apply the operators of the problem to the current node
+    else {    
+      for (int i = 0; i < problem.getOperators().size(); i++) {
+        // We get the its operator of the problem
+        BitOp a = problem.getOperators().get(i);
+        // If the operator is applicable in the current node
+        if (a.isApplicable(current)) {
+          Node next = new Node(current);
+          // We apply the effect of the operator
+          final List<CondBitExp> effects = a.getCondEffects();
+          for (CondBitExp ce : effects) {
+            if (current.satisfy(ce.getCondition())) {
+              next.apply(ce.getEffects());
+            }
+          }
+          // We set the new child node information
+          final int g = current.getCost() + 1;
+          if (!close.contains(next)) {
+            next.setCost(g);
+            next.setParent(current);
+            next.setOperator(i);
+            next.setHeuristic(heuristic.estimate(next, problem.getGoal()));
+            open.add(next);
+          }
+        }
+      }
+    }
+  }
+
+  // We compute the memory by the search
+  this.getStatistics().setMemoryUsedToSearch(MemoryAgent.sizeOf(open) + MemoryAgent.sizeOf(close));
+   
+  // Finally, we return the search computed or null if no search was found
+  return this.extractPlan(solutionNode, problem); 
+}</code></pre>		
+
+		<p>The final <i>ASP.java</i> planner code is available <a href="./data/PW3/ASP.java">here</a> and  <i>Node.java</i> code is available <a href="./data/PW3/Node.java">here</a>.</p>
+		
+		<h2><a href="#next" id="next" class="section-anchor">What's next?</a></h2>
+		
+		<p>Now, you know how to modelize and solve a classical plannification problem. You also developp your own solving algorithm (A*). It's just a small overview of automated planning !</p>
+		
+		<blockquote>
+			<p><strong>TODO</strong>: It's up to you !</p>
+            <ul>
+				<li>You can try to implement a local search planner like Hill-Climbing. You can use the Hill-Climbing pseudocode presented in the course.</li>
+			</ul>
+		</blockquote>
+		
+		<div class="quotation">
+			<strong>Going further.</strong> You can read the following books:
+			<ul>
+				<li><a href="https://www.researchgate.net/publication/220535412_Introduction_to_planning_in_multiagent_systems" target="_blank">M. De Weerdt and B. Clement, "Introduction to planning in multiagent systems"</a></li>
+				<li>M. Ghallab, D. Nau and P. Traverso, “Automated Planning”, Morgan-Kaufman, 2004.</li>
+				<li>M. Ghallab, D. Nau and P. Traverso, “Automated Planning and Acting”, Morgan-Kaufman, 2018.</li>
+				<li>S. Russell and P. Norvig, "Artificial Intelligence: A Modern Approach", chapter XI“, Prentice Hall, 2002</li>
+				<li>S. LaValle, Planning Algorithms, Cambridge University Press, 2006.</li>
+				<li>P. Régnier, and V. Vidal, “Algorithmique de la planification en IA”, Cépaduès éditions, 2004.</li>
+			</ul>
+		</div>
+
+		<script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

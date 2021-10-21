@@ -1,0 +1,44 @@
+% Name : beamerfontthemecs.sty
+
+%--------------------------------------------------------------
+% Mandatory part
+%--------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemecs}[2018/10/22 cs theme]
+
+%--------------------------------------------------------------
+% Loaded packages
+%--------------------------------------------------------------
+\RequirePackage{graphicx}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{color, colortbl}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{positioning,shapes,decorations.pathreplacing,chains,calc,backgrounds,shadows.blur,mindmap,trees,decorations.text,fadings,automata,matrix,arrows.meta}
+
+\RequirePackage{ragged2e}
+\RequirePackage{multirow}
+\RequirePackage{listings}
+
+%--------------------------------------------------------------
+% include themes
+%--------------------------------------------------------------
+\useinnertheme{cs}
+\useoutertheme{cs}
+\usecolortheme{cs}
+\usefonttheme{cs}
+
+% Remove navigation menu
+\setbeamertemplate{navigation symbols}{}
+
+%--------------------------------------------------------------
+% tools
+%--------------------------------------------------------------
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newcommand*{\TakeFourierOrnament}[1]{{%
+\fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
+\newcommand*{\danger}{\TakeFourierOrnament{66}}

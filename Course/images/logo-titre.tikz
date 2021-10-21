@@ -1,0 +1,4 @@
+\begin{tikzpicture}
+	\node[draw, white, fill=white, minimum width= 5em, minimum height=5em, rounded corners = 8pt, blur shadow={shadow blur steps=5}] at (0,0) {};
+	\node[inner sep=0pt] (russell) at (0,-0.1) {\includegraphics[scale=0.20]{images/logo.png}};
+\end{tikzpicture}
