@@ -66,10 +66,10 @@
 				<li><a href="#robotic2">Robotic Supply Chain Domain and Problem</a></li>
 			</ul>
 		</li>
-		<li><a href="#sma">Third exercise: XXX</a>
+		<li><a href="#sma">Third exercise: Self-organization of robots in a hostile environment</a>
 			<ul>
-				<li><a href="#sma1">XXX Problem Description</a></li>
-				<li><a href="#sma2">XXX Domain and Problem</a></li>
+				<li><a href="#sma1">Self-organization of robots in a hostile environment Problem Description</a></li>
+				<li><a href="#sma2">Self-organization of robots in a hostile environment Domain and Problem</a></li>
 			</ul>
 		</li>
 		<li><a href="#next">What's next?</a></li>
@@ -158,7 +158,7 @@
 		<i>objects</i>, 8 <i>initial states</i> and 2 <i>goal</i>
 	</div>
 
-	<br />
+	<br /><br />
 
 	<div class="warning">The modeling of a problem in PDDL depends on the person. If you don't find the same numbers, it
 		doesn't mean your modeling of the problem is wrong.</div>
@@ -554,7 +554,7 @@ memory used:  0,02 MBytes for problem representation
 	<blockquote>
 		<p><strong>TODO</strong>: It's up to you !</p>
 		<ul>
-			<li>Create a new problem file and solve it with PDDL4J. look at the impact that the number of objects can
+			<li>Create a new problem file and solve it with PDDL4J. Look at the impact that the number of objects can
 				have on the resolution time and the memory used.</li>
 		</ul>
 	</blockquote>
@@ -594,11 +594,7 @@ memory used:  0,02 MBytes for problem representation
 
 	<div class="answer">
 
-		<h3><a href="#robotic2" id="robotic2" class="section-anchor">Robotic Supply Chain Domain</a></h3>
-
-		<div class="warning">Be aware that this section contains the correction of the exercise: Do not read it until
-			you
-			have tried to solve the problem on your own</div>
+		<h3><a href="#robotic2" id="robotic2" class="section-anchor">Robotic Supply Chain Domain and Problem</a></h3>
 
 		<h4><a class="section-anchor">Domain file</a></h4>
 
@@ -899,28 +895,92 @@ memory used:  0,02 MBytes for problem representation
 		</blockquote>
 	</div>
 
-	<h2><a href="#sma" id="sma" class="section-anchor">Third exercise: </a></h2>
+	<h2><a href="#sma" id="sma" class="section-anchor">Third exercise: Self-organization of robots in a hostile
+			environment</a></h2>
 
-	<h3><a href="#sma1" id="sma1" class="section-anchor"></a></h3>
+	<p>We are going to take up the problem of the practical work of the previous SMA course with some changes to
+		simplify the modeling. But this time, we will solve
+		it with PPDL.</p>
 
-	<p></p>
+	<h3><a href="#sma1" id="sma1" class="section-anchor">Self-organization of robots in a hostile environment Problem
+			Description</a></h3>
+
+	<p>You are going to model, in PDDL, the mission of robots that have to collect dangerous waste, transform it and
+		then transport it to a secure area. The robots navigate in an environment broken down into several zones where
+		the level of radioactivity varies from low radioactive to highly radioactive. Not all robots have access to all
+		areas. More precisely, the environment is decomposed into three zones (from west to east):</p>
+	<ul>
+		<li>z1: area with low radioactivity;</li>
+		<li>z2: area with medium radioactivity;</li>
+		<li>z3: the last area with high radioactivity, where completely transformed wastes must be stored.</li>
+	</ul>
+
+	<p>We also have:</p>
+	<ul>
+		<li>Three different types of waste: White waste, yellow waste, and red waste.</li>
+		<li>Three different types of robots: White robots, yellow robots, and red robots.</li>
+	</ul>
+
+	<p>Here is the description of robot behavior:</p>
+	<ul>
+		<li>White Robot:
+			<ul>
+				<li>Move in zone z1.</li>
+				<li>Pick up white wastes.</li>
+				<li>Transform white waste into yellow waste.</li>
+				<li>Drop off wastes.</li>
+			</ul>
+		</li>
+		<li>Yellow Robot:
+			<ul>
+				<li>Move in zone z1 and z2.</li>
+				<li>Pick up yellow wastes.</li>
+				<li>Transform yellow waste into red waste.</li>
+				<li>Drop off wastes.</li>
+			</ul>
+		</li>
+		<li>Red Robot:
+			<ul>
+				<li>Move in zone z1, z2 and z3.</li>
+				<li>Pick up red wastes.</li>
+				<li>Drop off wastes.</li>
+			</ul>
+		</li>
+	</ul>
+
+	<p>In the initial state, three robots are in zone z1 (one white, one yellow and one red). There is also a certain
+		number of white wastes in zone 1, yellow wastes in zone 2 and red wastes in zone 3.</p>
+
+	<p>At the end of the day, we want all the wastes to be red and all to be in zone 3</p>
 
 	<center>
-		<img width="50%" src="./assets/.png" />
+		<img width="50%" src="./assets/hostile_environment.png" />
 	</center>
 
-	<p></p>
+	<p><i>(Note: The "D" zonet corresponds to the zone in which the red agent must deposit the most radioactive waste
+			(the red one). This area may not be modeled.)</i></p>
 
 	<blockquote>
 		<p><strong>TODO</strong>: It's up to you !</p>
 		<ul>
-			<li></li>
-			<li></li>
+			<li>Try to write your own domain file.</li>
+			<li>Try to write your own problem file.</li>
 		</ul>
 	</blockquote>
 
 	<div class="answer">
+		<h3><a href="#robotic2" id="robotic2" class="section-anchor">Self-organization of robots in a hostile
+				environment Domain and Problem</a></h3>
 
+		<p>You can find below the domain and problem files:</p>
+		<ul>
+			<li>
+				<a href="./data/PW2/.pddl">hostile_environment_domain.pddl</a>,
+			</li>
+			<li>
+				<a href="./data/PW2/.pddl">hostile_environment_problem.pddl</a>.
+			</li>
+		</ul>
 	</div>
 
 	<h2><a href="#next" id="next" class="section-anchor">What's next?</a></h2>
