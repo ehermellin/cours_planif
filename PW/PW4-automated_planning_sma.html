@@ -27,6 +27,15 @@
 		<li><a href="#subject">Self-organization of robots in a hostile environment</a>
 			<ul>
 				<li><a href="#subject1">Description of the problem </a></li>
+				<li><a href="#subject2">Random walk and communication </a></li>
+				<li><a href="#subject3">Download the starting project </a></li>
+			</ul>
+		</li>
+		<li><a href="#planif">Add automated planning layer in a Multi-Agent System</a>
+			<ul>
+				<li><a href="#planif1">Create the PDDL domain and problem in python</a></li>
+				<li><a href="#planif2">Solve the generated problem</a></li>
+				<li><a href="#planif3">Add planning layer in the SMA</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -34,13 +43,172 @@
 	<h2><a href="#subject" id="subject" class="section-anchor">Self-organization of robots in a hostile environment</a>
 	</h2>
 
-	<p>Previously, you create an SMA with random walk and communication to tackle the problem of radioactive wastes in a
-		hostile environment. Then, you model and solve this problem with the PDDL language and PDDL4J.
+	<p>Previously, you create an SMA with <a href="./data/RobotsMission.pdf" target="_blank">random walk and
+			communication</a> to tackle the problem of radioactive wastes in a
+		hostile environment. Then, you model and solve this problem with the <a
+			href="./PW2-A_tutorial_to_start_with_PDDL.html#sma" target="_blank">PDDL language and PDDL4J</a>.
 		Now, you will include automated planning in your SMA.</p>
 
-	<h3><a href="#sma1" id="sma1" class="section-anchor">Description of the problem </a></h3>
+	<h3><a href="#subject1" id="subject1" class="section-anchor">Description of the problem </a></h3>
 
-	<p></p>
+	<p>So, at the beginning, you have modeled a mission of robots that have to collect dangerous waste, transform it and
+		then transport it
+		to a secure area. The robots navigate in an environment broken down into several zones where the level of
+		radioactivity varies from low radioactive to highly radioactive. Not all robots have access to all areas.</p>
+
+	<p>The environment is decomposed into three zones (from west to east):</p>
+	<ul>
+		<li>z1: area with low radioactivity, containing a random number of initial (white) waste;</li>
+		<li>z2 : area with medium radioactivity;</li>
+		<li>z3: the last area with high radioactivity, where completely transformed wastes must be stored.</li>
+	</ul>
+
+	<p>We have three different types of waste: white waste, yellow waste, and red waste.</p>
+
+	<p>We have three different types of robots:</p>
+
+	<ul>
+		<li>White Robot:
+			<ul>
+				<li>walk randomly to pick up 2 initial wastes (i.e. white),</li>
+				<li>if possession of 2 white wastes then transformation into 1 yellow waste,</li>
+				<li>if possession of 1 yellow waste, transport it further east,</li>
+				<li>white robot cannot exceed zone z1.</li>
+			</ul>
+		</li>
+		<li>Yellow Robot:
+			<ul>
+				<li>walk randomly to pick up 2 initial yellow wastes,</li>
+				<li>if possession of 2 yellow wastes then transformation into 1 red waste,</li>
+				<li>if possession of 1 red waste, transport it further east,</li>
+				<li>yellow robot can move in zones z1 and z2.</li>
+			</ul>
+		</li>
+		<li>Red Robot:
+			<ul>
+				<li>walk randomly to pick up 1 red waste,</li>
+				<li>if possession of 1 red waste then transport it further east on the “waste disposal zone”, the waste
+					is then “put
+					away”,</li>
+				<li>red robot can move in zones z1, z2 and z3.</li>
+			</ul>
+		</li>
+	</ul>
+
+	<p>
+		<i>(Note: You may have several wastes on the same cell; Avoid to have several robots per cell; A robot has only
+			a local perception of the environment and his actions/perceptions are limited to the 8 surrounding
+			cells; Define different parameters to ease the control of the simulation : initial number of wastes (white,
+			yellow, red), initial number of robots (white, yellow and red).
+		</i>
+	</p>
+
+	<h3><a href="#subject2" id="subject2" class="section-anchor">Random walk and communication </a></h3>
+
+	<p>Then, the objective was to endow each Robot agent with communication capabilities. To do this, we have used the
+		communication layer integrated into Mesa. The idea is to allow each agent type to inform other agents of the
+		availability of a type of waste in a given cell.</p>
+
+	<p>For reminder:</p>
+	<ul>
+		<li>communication: the root folder of the communication layer;</li>
+		<li>agent: the folder which will contain the implementation of the communicating agent class;</li>
+		<li>mailbox: the folder which will contain the implementation of the mailbox class;</li>
+		<li>message: the folder which will contain the implementation of the message and performative class.</li>
+	</ul>
+
+	<p>Communication has been included as follows:</p>
+
+	<ul>
+		<li>White Robot:
+			<ul>
+				<li>walk randomly to pick up 2 initial wastes (i.e. white),</li>
+				<li>if possession of 2 white wastes then transformation into 1 yellow waste,</li>
+				<li>if possession of 1 yellow waste, transport it further east,</li>
+				<li>inform the yellow agent of the availability of a yellow waste (position),</li>
+				<li>white robot cannot exceed zone z1.</li>
+			</ul>
+		</li>
+		<li>Yellow Robot:
+			<ul>
+				<li>Check the mailbox:
+					<ul>
+						<li>for all messages, walk to the corresponding position to pick up the yellow wastes,</li>
+						<li>else, walk randomly to pick up 2 initial yellow wastes,</li>
+					</ul>
+				</li>
+				<li>if possession of 2 yellow wastes then transformation into 1 red waste,</li>
+				<li>if possession of 1 red waste, transport it further east,</li>
+				<li>inform the red agent of the availability of a red waste (position),</li>
+				<li>yellow robot can move in zones z1 and z2.</li>
+			</ul>
+		</li>
+		<li>Red Robot:
+			<ul>
+				<li>Check the mailbox:
+					<ul>
+						<li>for all messages, walk to the corresponding position to pick up the red waste,</li>
+						<li>else, walk randomly to pick up 1 red waste,</li>
+					</ul>
+				</li>
+				<li>walk randomly to pick up 1 red waste,</li>
+				<li>if possession of 1 red waste then transport it further east on the “waste disposal zone”, the waste
+					is then “put away”,</li>
+				<li>red robot can move in zones z1, z2 and z3.</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3><a href="#subject3" id="subject3" class="section-anchor">Download the starting project </a></h3>
+
+	<p>For this practical work, you can reuse what you did in the <a href="./data/RobotsMission.pdf"
+			target=_blank>"Implementing Agent Based Model with Mesa library" practical work</a> (CentraleSupélec -
+		SAFRAN 27-29.09.2021) or simply download the following <a href="./data/PW4/robot_mission_start.zip"
+			target=_blank>zip file</a> containing a starting project.</p>
+
+	<h2><a href="#planif" id="planif" class="section-anchor">Add automated planning layer in a Multi-Agent System</a>
+	</h2>
+
+	<p>Adding a planning layer in a multi-agent system is not an easy task. This is why there is no directly available
+		examples or libraries that would interface easily with the tools dedicated to implement MAS. We will therefore
+		try to add this capacity in our multi agent system.</p>
+
+	<ol>
+		<li>We are therefore going to need to dynamically write the planning problem: as we have seen, this problem must
+			be described in a description language such as PDDL.</li>
+		<li>Then, we will use a solver to solve the created problem and give the agents the tasks to do.</li>
+	</ol>
+
+	<div class="warning">The difficulties will come from the dynamic side because the agents will have to reschedule and
+		therefore modify the statement of the problem. But also by the fact that we will use a set of python libraries
+		because
+		there are no tools to easily make automated planning.</div>
+
+	<h3><a href="#planif1" id="planif1" class="section-anchor">Create the PDDL domain and problem in python</a></h3>
+
+	<blockquote>
+		<p><strong>TODO</strong>: It's up to you !</p>
+		<ul>
+			<li>In your project or in the downloaded project, create a new folder called <i>planning</i>.</li>
+			<li>Install the <a href="https://github.com/remykarem/py2pddl" target="_blank">py2pddl</a> python library.
+			</li>
+			<li>Follow the README to understand how this library works and then convert your PDDL files
+				<i>hostile_environment_domain.pddl</i> and <i>hostile_environment_problem.pddl</i> (<a
+					href="https://github.com/remykarem/py2pddl" target="_blank">created in PW2</a>) into <i>the py2pddl
+					formalism</i>.</li>
+			<li>Generate domain file and problem file using <i>py2pddl methods</i>.
+			<pre><code>p.generate_domain_pddl()
+p.generate_problem_pddl()</code></pre>
+			</li>
+		</ul>
+	</blockquote>
+
+	<div class="warning">As we are independent of the SMA part (for the moment), you can create a temporary "main" in
+		order to do the tests on the planning part.</div>
+	
+	<h3><a href="#planif2" id="planif2" class="section-anchor">Solve the generated problem</a></h3>
+
+	<h3><a href="#planif3" id="planif3" class="section-anchor">Add planning layer in the SMA</a></h3>
 
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>
