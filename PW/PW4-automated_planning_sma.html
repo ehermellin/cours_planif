@@ -11,12 +11,27 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
+<script>
+	let bool = false;
+	function answer() {
+		const elements = document.getElementsByClassName("answer");
+		Array.from(elements).forEach((element) => {
+			if (bool) {
+				element.style.display = "none";
+			} else {
+				element.style.display = "inline-block";
+			}
+		});
+		bool = !bool;
+	}
+</script>
+
 <body>
 	<center>
 		<h1>Agent and Multi-Agent Systems <br /> Practical Works: Using automated planning in Multi-Agent Systems</h1>
 		<div class="cs">
 			Wassila Ouerdane & Emmanuel Hermellin <br /><br />
-			<img width="100px" src="assets/CS.png" />
+			<img width="100px" src="assets/CS.png" onclick="answer()" />
 		</div>
 	</center>
 	<div class="version">
@@ -181,8 +196,7 @@
 
 	<div class="warning">The difficulties will come from the dynamic side because the agents will have to reschedule and
 		therefore modify the statement of the problem. But also by the fact that we will use a set of python libraries
-		because
-		there are no tools to easily make automated planning.</div>
+		because there are no tools to easily make automated planning.</div>
 
 	<h3><a href="#planif1" id="planif1" class="section-anchor">Create the PDDL domain and problem in python</a></h3>
 
@@ -190,14 +204,16 @@
 		<p><strong>TODO</strong>: It's up to you !</p>
 		<ul>
 			<li>In your project or in the downloaded project, create a new folder called <i>planning</i>.</li>
+			<li>Create a new file called <i>hostile_environment_planning.py</i>.</li>
 			<li>Install the <a href="https://github.com/remykarem/py2pddl" target="_blank">py2pddl</a> python library.
 			</li>
 			<li>Follow the README to understand how this library works and then convert your PDDL files
 				<i>hostile_environment_domain.pddl</i> and <i>hostile_environment_problem.pddl</i> (<a
-					href="https://github.com/remykarem/py2pddl" target="_blank">created in PW2</a>) into <i>the py2pddl
-					formalism</i>.</li>
+					href="https://github.com/remykarem/py2pddl" target="_blank">created in PW2</a>) in <i>the py2pddl
+					formalism</i> into the <i>hostile_environment_planning.py</i> file.
+			</li>
 			<li>Generate domain file and problem file using <i>py2pddl methods</i>.
-			<pre><code>p.generate_domain_pddl()
+				<pre><code>p.generate_domain_pddl()
 p.generate_problem_pddl()</code></pre>
 			</li>
 		</ul>
@@ -205,8 +221,57 @@ p.generate_problem_pddl()</code></pre>
 
 	<div class="warning">As we are independent of the SMA part (for the moment), you can create a temporary "main" in
 		order to do the tests on the planning part.</div>
-	
+
+	<div class="answer">
+		You should get two files, automatically generated, in the <i>planning</i> folder:
+		<ul>
+			<li><a href="data/PW4/planning/domain.pddl" target="_blank">domain.pddl</a> containing the PDDL domain;</li>
+			<li><a href="data/PW4/planning/problem.pddl" target="_blank">problem.pddl</a> containing the PDDL problem.
+			</li>
+		</ul>
+		You can download the <a href="data/PW4/planning/hostile_environment_planning.py"
+			target="_blank">hostile_environment_planning.py</a> file containing the PDDL domain and problem written in
+		python with the <i>py2pddl</i> library.
+	</div>
+
 	<h3><a href="#planif2" id="planif2" class="section-anchor">Solve the generated problem</a></h3>
+
+	<p>To solve the automatically generated <i>domain.pddl</i> and <i>problem.pddl</i> files (and find a solution plan),
+		we need a solver written in python. So, we will use the one called <a
+			href="https://github.com/kbvatral/pyplanning" target="_blank">Pyplanning</a>.</p>
+
+	<blockquote>
+		<p><strong>TODO</strong>: It's up to you !</p>
+		<ul>
+			<li>Install the <i>Pyplanning</i> python library:
+				<ul>
+					<li>Download the following <a href="./data/PW4/planning/pyplanning-main.zip" target="_blank">zip
+							archive</a>.</li>
+					<li>Extract the zip archive.</li>
+					<li>Go to the <i>pyplanning-main</i> folder and install the library:
+						<pre><code>pip install .</code></pre>
+					</li>
+				</ul>
+			</li>
+			<li>Using the <a href="https://github.com/kbvatral/pyplanning" target="_blank">Pyplanning</a> documentation,
+				complete your <i>hostile_environment_planning.py</i> file to solve PDDL domain and problem.</li>
+		</ul>
+	</blockquote>
+
+	<div class="answer">
+		You should get the following output:
+		<pre>Domain PDDL written to domain.pddl.
+Problem PDDL written to problem.pddl.
+A* - Goals Remaining Heuristic (Note: Non-admissable)
+Execution Time: 2.98
+Plan found:
+[pick-up-robot(w4, yrobot, z1), transform-robot(w4, yrobot, yellow, red), move-robot(yrobot, z1, z2), pick-up-robot(w5, yrobot, z2), transform-robot(w5, yrobot, yellow, red), pick-up-robot(w1, rrobot, z1), move-robot(rrobot, z1, z3), drop-off-robot(w1, rrobot, z3), move-robot(rrobot, z3, z1), pick-up-robot(w2, rrobot, z1), move-robot(rrobot, z1, z3), drop-off-robot(w2, rrobot, z3), move-robot(rrobot, z3, z1), pick-up-robot(w3, rrobot, z1), move-robot(rrobot, z1, z3), drop-off-robot(w3, rrobot, z3), drop-off-robot(w4, yrobot, z2), move-robot(rrobot, z3, z2), pick-up-robot(w4, rrobot, z2), move-robot(rrobot, z2, z3), drop-off-robot(w4, rrobot, z3), drop-off-robot(w5, yrobot, z2), move-robot(rrobot, z3, z2), pick-up-robot(w5, rrobot, z2), move-robot(rrobot, z2, z3), drop-off-robot(w5, rrobot, z3), move-robot(yrobot, z2, z1), pick-up-robot(w1, rrobot, z3), move-robot(rrobot, z3, z1), drop-off-robot(w1, rrobot, z1), pick-up-robot(w1, wrobot, z1), transform-robot(w1, wrobot, white, yellow), drop-off-robot(w1, wrobot, z1), pick-up-robot(w1, yrobot, z1), transform-robot(w1, yrobot, yellow, red), drop-off-robot(w1, yrobot, z1), pick-up-robot(w1, rrobot, z1), move-robot(rrobot, z1, z3), drop-off-robot(w1, rrobot, z3), pick-up-robot(w2, rrobot, z3), move-robot(rrobot, z3, z1), drop-off-robot(w2, rrobot, z1), pick-up-robot(w2, wrobot, z1), transform-robot(w2, wrobot, white, yellow), drop-off-robot(w2, wrobot, z1), pick-up-robot(w2, yrobot, z1), transform-robot(w2, yrobot, yellow, red), drop-off-robot(w2, yrobot, z1), pick-up-robot(w2, rrobot, z1), move-robot(rrobot, z1, z3), drop-off-robot(w2, rrobot, z3), pick-up-robot(w3, rrobot, z3), move-robot(rrobot, z3, z1), drop-off-robot(w3, rrobot, z1), pick-up-robot(w3, wrobot, z1), transform-robot(w3, wrobot, white, yellow), drop-off-robot(w3, wrobot, z1), pick-up-robot(w3, yrobot, z1), transform-robot(w3, yrobot, yellow, red), drop-off-robot(w3, yrobot, z1), pick-up-robot(w3, rrobot, z1), move-robot(rrobot, z1, z3), drop-off-robot(w3, rrobot, z3)] 
+</pre>
+
+		You can download the <a href="data/PW4/planning/hostile_environment_planning_solving.py"
+			target="_blank">hostile_environment_planning.py</a> file containing the PDDL domain and problem written in
+		python with the <i>py2pddl</i> library and the solving part with the <i>Pyplanning</i> library.
+	</div>
 
 	<h3><a href="#planif3" id="planif3" class="section-anchor">Add planning layer in the SMA</a></h3>
 
