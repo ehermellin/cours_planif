@@ -259,6 +259,11 @@ p.generate_problem_pddl()</code></pre>
 	</blockquote>
 
 	<div class="answer">
+		You need to use the following code to solve the PDDL problem and domain files to obtain the solution plan:
+		<pre><code>domain, problem = pp.load_pddl("domain.pddl", "problem.pddl")
+plan = pp.solvers.search_plan(problem, pp.solvers.heuristics.goals_remaining(problem))
+</code></pre>
+
 		You should get the following output:
 		<pre>Domain PDDL written to domain.pddl.
 Problem PDDL written to problem.pddl.
@@ -274,6 +279,63 @@ Plan found:
 	</div>
 
 	<h3><a href="#planif3" id="planif3" class="section-anchor">Add planning layer in the SMA</a></h3>
+
+	<p>In the course (slide 10), we explain that planning actions in MAS universes can be broken down into three distinct stages:
+		making plans, synchronizing/coordinating plans, and executing plans. To do this, it exists three different modes:</p>
+
+		<ul>
+			<li>Centralized Planning for multiple agents.</li>
+			<li>Centralized Coordination for partial Plans.</li>
+			<li>Distributed planning.</li>
+		</ul>
+
+	<p>Because of the difficulty to implement from scratch and without dedicated tools <i>Centralized Coordination for partial Plans</i> and <i>Distributed planning</i> we gonna start with <i>Centralized Planning for multiple agents</i>.</p>
+
+	<p>To do so, here the new description of the <i>hostile environment</i> problem:</p>
+	<ul>
+		<li>The environment and the wastes do not change and have the same behavior and characteristics.</li>
+		<li>Planner Robot:
+			<ul>
+				<li>wait for messages from all robots,</li>
+				<li>adapt the <i>hostile_environment_planning.py</i> file and generate PDDL domain and problem,</li>
+				<li>solve the problem and get the plan,</li>
+				<li>send back actions to concerned robot agents.</li>
+			</ul>
+		</li>
+		<li>White Robot:
+			<ul>
+				<li>walk to gather information about waste (i.e. white waste) in z1,</li>
+				<li>at the end of the exploration step, send a message with information to the Planner Robot,</li>
+				<li>wait for action plan,</li>
+				<li>white robot cannot exceed zone z1.</li>
+			</ul>
+		</li>
+		<li>Yellow Robot:
+			<ul>
+				<li>walk to gather information about waste (i.e. yellow waste) in z2,</li>
+				<li>at the end of the exploration step, send a message with information to the Planner Robot,</li>
+				<li>wait for action plan,</li>
+				<li>white robot cannot exceed zone z1 and z2.</li>
+			</ul>
+		</li>
+		<li>Red Robot:
+			<ul>
+				<li>walk to gather information about waste (i.e. red waste) in z3,</li>
+				<li>at the end of the exploration step, send a message with information to the Planner Robot,</li>
+				<li>wait for action plan</li>
+			</ul>
+		</li>
+	</ul>
+
+	<blockquote>
+		<p><strong>TODO</strong>: It's up to you !</p>
+		<ul>
+			<li>Create the new agent class <i>Planner Robot</i>.</li>
+			<li>Adapt the behavior of the Red, Yellow and White robots.</li>
+			<li>What are the problems that you identified with this implementation of planning?</li>
+			<li>What would be the changes to take into account?</li>
+		</ul>
+	</blockquote>
 
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>
