@@ -469,17 +469,6 @@
 
 	<h4><a class="section-anchor">Using PDDL4J with the logistics running example</a></h4>
 
-	<p>You can use you created files or you can download the domain and problem files of this logistics running example
-		here: </p>
-	<ul>
-		<li>
-			<a href="./data/PW2/logistics_domain.pddl">logistics_domain.pddl</a>,
-		</li>
-		<li>
-			<a href="./data/PW2/logistics_problem.pddl">logistics_problem.pddl</a>.
-		</li>
-	</ul>
-
 	<p>A detailed user guide for PDDL4J is available at <a
 			href="https://github.com/pellierd/pddl4j/wiki/Getting-Started" target=_blank>this address</a>.
 
@@ -553,11 +542,42 @@ memory used:  0,02 MBytes for problem representation
 
 	<blockquote>
 		<p><strong>TODO</strong>: It's up to you !</p>
+		<p>As you can see the two packages are loaded consecutively on the truck.</p>
 		<ul>
-			<li>Create a new problem file and solve it with PDDL4J. Look at the impact that the number of objects can
-				have on the resolution time and the memory used.</li>
+			<li>Why do we observe this behavior? </li>
+			<li>How to make sure that the truck can only carry one package at a time?</li>
 		</ul>
 	</blockquote>
+
+	<div class="answer">
+		<p>To limit the number of packages, it is necessary to use a new predicate:</p>
+
+		<pre><code>(available ?veh - vehicle)</code></pre>
+
+		<ul>
+			<li>
+				<a href="./data/PW2/logistics_domain.pddl">logistics_domain.pddl</a>,
+			</li>
+			<li>
+				<a href="./data/PW2/logistics_problem.pddl">logistics_problem.pddl</a>.
+			</li>
+		</ul>
+
+		<pre><code>00: (       load-airplane p1 plane lhr) [1]
+01: (       load-airplane p2 plane lhr) [1]
+02: (       fly-airplane plane lhr cdg) [1]
+03: (     unload-airplane p1 plane cdg) [1]
+04: (     unload-airplane p2 plane cdg) [1]
+05: (          load-truck p1 truck cdg) [1]
+06: (drive-truck truck cdg north paris) [1]
+07: (      unload-truck p1 truck north) [1]
+08: (drive-truck truck north cdg paris) [1]
+09: (          load-truck p2 truck cdg) [1]
+10: (drive-truck truck cdg south paris) [1]
+11: (      unload-truck p2 truck south) [1]
+
+plan total cost: 12,00</code></pre>
+	</div>
 
 	<h2><a href="#robotic" id="robotic" class="section-anchor">Second exercise: Robotic Supply Chain</a></h2>
 
