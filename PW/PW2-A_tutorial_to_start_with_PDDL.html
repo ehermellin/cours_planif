@@ -550,7 +550,8 @@ memory used:  0,02 MBytes for problem representation
 	</blockquote>
 
 	<div class="answer">
-		<p>To limit the number of packages, it is necessary to use a new predicate and adapt the load/unload actions (see the files below):</p>
+		<p>To limit the number of packages, it is necessary to use a new predicate and adapt the load/unload actions
+			(see the files below):</p>
 
 		<pre><code>(available ?veh - vehicle)</code></pre>
 
@@ -642,12 +643,10 @@ plan total cost: 12,00</code></pre>
 				(Petri Net) "machine" that consumes and produces trays. The conveyors are the inputs and the unit is the
 				output. Each input/output's capacity is one.</li>
 			<li>Operation stacks: each tray is associated to a stack of operations that have to be performed on the
-				pieces
-				of the tray. The last operation of the stack is always stop. Each time a machine consumes a tray, the
-				associated stack is pulled.</li>
+				pieces of the tray. The last operation of the stack is always stop. Each time a machine consumes a tray,
+				the associated stack is pulled.</li>
 			<li>Goal: to empty all the stacks by connecting the machines with robots transporting trays from units
-				(outputs)
-				to conveyors (inputs). The capacity of the robots is one.</li>
+				(outputs) to conveyors (inputs). The capacity of the robots is one.</li>
 		</ul>
 
 		<p>Here is the vocabulary ("predicates") that will be used by the actions:</p>
@@ -731,11 +730,9 @@ plan total cost: 12,00</code></pre>
 )</pre></code>
 
 		<p>Action <span class="code">pickup_tray_on_unit</span> allows a robot to pickup a tray on a unit provided the
-			robot
-			is available and located at this unit. The effects are that the tray is no more on the unit, the tray is on
-			the
-			robot and the robot is not available to pickup another tray. The unit becomes available to process another
-			tray.
+			robot is available and located at this unit. The effects are that the tray is no more on the unit, the tray
+			is on the robot and the robot is not available to pickup another tray. The unit becomes available to process
+			another tray.
 		</p>
 
 		<pre><code>(:action drop_tray_on_conveyor
@@ -754,11 +751,9 @@ plan total cost: 12,00</code></pre>
 
 		<p>Action <span class="code">drop_tray_on_conveyoris</span> the counterpart of <span
 				class="code">pickup_tray_on_unit</span>. It allows a robot to put a tray on a conveyor. The
-			preconditions
-			are that the robot and the conveyor are in the same place, the conveyor is available and it accepts the same
-			type of pieces than the tray. The effects are that the conveyor is no more available, the tray is no more on
-			the
-			robot (it is on the conveyor) and the robot is now available.</p>
+			preconditions are that the robot and the conveyor are in the same place, the conveyor is available and it
+			accepts the same type of pieces than the tray. The effects are that the conveyor is no more available, the
+			tray is no more on the robot (it is on the conveyor) and the robot is now available.</p>
 
 		<pre><code>(:action robot_move
   :parameters (?robot - robot ?from - location ?to - location)
@@ -785,10 +780,8 @@ plan total cost: 12,00</code></pre>
 )</pre></code>
 
 		<p>Action <span class="code">conveyor_load_tray_in_unitconsumes</span> a tray that is loaded on a conveyor
-			linked to
-			a unit provided the pieces of the tray are accepted by this unit. As a consequence, the tray is no more one
-			the
-			conveyor, the unit is not available and the tray is on the unit, ready for processing.</p>
+			linked to a unit provided the pieces of the tray are accepted by this unit. As a consequence, the tray is no
+			more one the conveyor, the unit is not available and the tray is on the unit, ready for processing.</p>
 
 		<pre><code>(:action unit_execute_operation
   :parameters (?unit - unit ?top - operation ?next - operation ?tray - tray)
@@ -804,11 +797,9 @@ plan total cost: 12,00</code></pre>
 )</pre></code>
 
 		<p>Action <span class="code">unit_execute_operation</span> applies the operation pending on top of the tray's
-			stack.
-			The preconditions are that the unit is able to perform this operation, the tray is in the unit and this
-			operation operation is on top of the stack. The effects are that the operation is pulled from the stack and
-			the
-			next operation becomes the top of the stack.</p>
+			stack. The preconditions are that the unit is able to perform this operation, the tray is in the unit and
+			this operation operation is on top of the stack. The effects are that the operation is pulled from the stack
+			and the next operation becomes the top of the stack.</p>
 
 		<pre><code>(:action tray_completed
   :parameters (?op - operation ?tray - tray ?unit - unit)
@@ -824,8 +815,7 @@ plan total cost: 12,00</code></pre>
 			scheduled operations on a tray have been done (<span class="code">stop operation</span> on top of the tray's
 			stack). It is used to build a goal state and to terminate the planning procedure for a given tray. Here we
 			suppose that an operator picks up the tray once all the operations have been done and the unit becomes
-			available
-			to process another tray.</p>
+			available to process another tray.</p>
 
 		<h4><a class="section-anchor">Problem file</a></h4>
 
@@ -904,13 +894,11 @@ plan total cost: 12,00</code></pre>
 			<ul>
 				<li>Try to write another problem files.</li>
 				<li>See the impact on the performance according to the number of object instances, the goals, the
-					initial
-					state, etc.</li>
+					initial state, etc.</li>
 				<li>Solve your problems using another planners (see the "getting started" guide <a
 						href="https://github.com/pellierd/pddl4j/wiki/Getting-Started" target=_blank>here</a>, use <span
 						class="code">-p 1</span> in the command line). What do you see as a difference? what are the
-					impacts
-					on the results? How do you explain that?</li>
+					impacts on the results? How do you explain that?</li>
 			</ul>
 		</blockquote>
 	</div>
@@ -919,8 +907,7 @@ plan total cost: 12,00</code></pre>
 			environment</a></h2>
 
 	<p>We are going to take up the problem of the practical work of the previous SMA course with some changes to
-		simplify the modeling. But this time, we will solve
-		it with PPDL.</p>
+		simplify the modeling. But this time, we will solve it with PPDL.</p>
 
 	<h3><a href="#sma1" id="sma1" class="section-anchor">Self-organization of robots in a hostile environment Problem
 			Description</a></h3>
