@@ -252,7 +252,7 @@ p.generate_problem_pddl()</code></pre>
 
 	<blockquote>
 		<p><strong>TODO</strong>: It's up to you !</p>
-		<ul>
+		<ol>
 			<li>Install the <i>Pyplanning</i> python library:
 				<ul>
 					<li>Download the following <a href="./data/PW4/planning/pyplanning-main.zip" target="_blank">zip
@@ -265,7 +265,10 @@ p.generate_problem_pddl()</code></pre>
 			</li>
 			<li>Using the <a href="https://github.com/kbvatral/pyplanning" target="_blank">Pyplanning</a> documentation,
 				complete your <i>hostile_environment_planning.py</i> file to solve PDDL domain and problem.</li>
-		</ul>
+			<li>Using the <a href="https://github.com/kbvatral/pyplanning" target="_blank">Pyplanning</a> documentation,
+				find the best algorithm and heuristic to solve your PDDL domain and problem. You can use the examples
+				provided in the git repository to help you.</li>
+		</ol>
 	</blockquote>
 
 	<div class="answer">
@@ -351,13 +354,28 @@ Plan found:
 
 	<blockquote>
 		<p><strong>TODO</strong>: It's up to you !</p>
-		<ul>
+		<ol>
 			<li>Create the new agent class <i>Planner Robot</i>.</li>
-			<li>Adapt the behavior of the Red, Yellow and White robots: send messages and wait for tasks to be
-				performed. You will certainly have to create a to-do list within the behaviors robots.</li>
-			<li>Create <i>Planner Robot</i> behaviors: reception of messages, adaptation of the python PDDL problem,
-				find a solution plan for the problem with the solver, assignment of tasks through messages.</li>
-			<br />
+			<li>Adapt the behavior of the Red, Yellow and White robots:
+				<ul>
+					<li>explore,</li>
+					<li>send messages,</li>
+					<li>wait for tasks,</li>
+					<li>perform tasks.</li>
+				</ul>
+				You will certainly have to create a to-do list within the behavior of robots to remember the tasks to
+				perform.
+			</li>
+			<li>Create <i>Planner Robot</i> behaviors:
+				<ul>
+					<li>reception of messages,</li>
+					<li>adaptation of the python PDDL problem,</li>
+					<li>find a solution plan for the problem with the solver,</li>
+					<li>assignment of tasks through messages.</li>
+				</ul>
+			</li>
+		</ol>
+		<ul>
 			<li>What are the problems that you identified with this implementation of planning?</li>
 			<li>What would be the changes to take into account?</li>
 		</ul>
